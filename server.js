@@ -1,11 +1,13 @@
 var express 		= require('express');
 const MongoClient 	= require('mongodb').MongoClient;
+const mongoose		= require('mongoose');
 const bodyParser 	= require('body-parser');
 const passport		= require('passport');
 const flash			= require('connect-flash');
 const cookieParser 	= require('cookie-parser');
 const db 			= require('./config/db');
 const morgan		= require('morgan');
+
 const app 			= express();
 
 
