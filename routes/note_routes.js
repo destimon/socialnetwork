@@ -4,17 +4,21 @@ var ObjectID = require('mongodb').ObjectID;
 module.exports = function(app, db) {
 
 
-	app.get('/home', (req, res) => {
+	app.get('/', (req, res) => {
 		res.render('index.ejs');
 	});
 
+
+	app.get('/login', (req, res) => {
+		res.render('login.ejs');
+	});
 
 
 
 
 	// READ
 
-	app.get('/notes/:id', (req, res) => {
+	app.get('/account/:id', (req, res) => {
 		const id = req.params.id;
 		const details = {'_id': new ObjectID(id) };
 
@@ -29,7 +33,7 @@ module.exports = function(app, db) {
 
 	// CREATE
 
-	app.post('/notes', (req, res) => {
+	app.post('/register', (req, res) => {
 		const note = { text: req.body.body, title: req.body.title };
 		db.collection('notes').insert(note, (err, result) => {
 			if (err) {
