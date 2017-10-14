@@ -1,9 +1,7 @@
-var express = require('express');
-var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res) {
-  res.render('index', { title: 'Goveo' });
-});
+var noteRoutes = require('./note_routes.js');
 
-module.exports = router;
+module.exports = function(app, db) {
+	noteRoutes(app, db);
+	
+}
