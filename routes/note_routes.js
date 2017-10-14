@@ -3,6 +3,15 @@ var ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
 
+
+	app.get('/home', (req, res) => {
+		res.render('index.ejs');
+	});
+
+
+
+
+
 	// READ
 
 	app.get('/notes/:id', (req, res) => {
