@@ -14,7 +14,7 @@ module.exports = function(passport) {
 		});
 	});
 
-	//
+	// SIGNUP =========================================================================
 
 	passport.use('local-signup', new LocalStrategy({
 		usernameField: 'login',
@@ -46,5 +46,29 @@ module.exports = function(passport) {
 				}
 			});
 		});
+	}));
+
+	// LOGIN =========================================================================
+
+	passport.use('local-login', new LocalStrategy({
+		usernameField: 'login',
+		passwordField: 'passw',
+		passReqToCallback: true
+	},
+	function(req, login, passw, done) {
+
+		process.nextTick( function() {
+			User.findOne( { 'local.login' : login }, function(err, user) {
+				if (err) {
+					return done(err)
+				}	
+
+				if (!user || !user.validPassword) {
+					return done(null, false, req.flash('loginMessage', 'Wrong login or password =-('));
+				}				
+
+				return done(null, user);
+			});
+		})
 	}));
 };

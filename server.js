@@ -14,7 +14,6 @@ const port = 8080;
 
 // Configuration 	================================================
 
-
 mongoose.connect(db.url);
 
 require('./config/passport')(passport);
