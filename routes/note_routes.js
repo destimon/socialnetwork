@@ -1,7 +1,7 @@
 
 var ObjectID = require('mongodb').ObjectID;
 
-module.exports = function(app, db) {
+module.exports = function(app, passport) {
 
 	// HOME =================================
 
@@ -20,6 +20,12 @@ module.exports = function(app, db) {
 	app.get('/signup', (req,res) => {
 		res.render('signup.ejs', { message: req.flash('signupMessage') });
 	});
+
+	app.post('/signup', passport.authenticate('local-signup', {
+		successRedirect : '/account',
+		failureRedirect : '/signup',
+		failureFlash	: true
+	}));
 
 	// ACCOUNT ================================
 

@@ -17,6 +17,8 @@ const port = 8080;
 
 mongoose.connect(db.url);
 
+require('./config/passport')(passport);
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
@@ -32,8 +34,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 MongoClient.connect(db.url, (err, database) => {
 	if (err) return console.log(err);
 
-
-	require('./routes')(app, database, passport);
+	require('./routes')(app, passport);
 
 	app.listen(port, () => {
 	  console.log('We are live on ' + port);
