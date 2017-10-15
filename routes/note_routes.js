@@ -3,17 +3,26 @@ var ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
 
+	// HOME =================================
 
 	app.get('/', (req, res) => {
 		res.render('index.ejs');
 	});
 
+	// LOGIN =================================
 
 	app.get('/login', (req, res) => {
-		res.render('login.ejs');
+		res.render('login.ejs', { message: req.flash('loginMessage') });
+	});
+
+	// SIGNUP =================================
+
+	app.get('/signup', (req,res) => {
+		res.render('signup.ejs', { message: req.flash('signupMessage') });
 	});
 
 
+	
 
 
 	// READ
