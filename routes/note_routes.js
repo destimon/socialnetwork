@@ -21,7 +21,20 @@ module.exports = function(app, db) {
 		res.render('signup.ejs', { message: req.flash('signupMessage') });
 	});
 
+	// ACCOUNT ================================
 
+	app.get('/account', (req, res) => {
+		res.render('account.ejs', isLoggedIn, (req, res) => {
+			user: req.user;
+		});
+	});
+
+	// LOGOUT =================================
+
+	app.get('/logout', (req, res) => {
+		req.logout();
+		res.redirect('/');
+	});
 	
 
 
