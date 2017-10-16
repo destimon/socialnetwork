@@ -31,7 +31,7 @@ module.exports = function(passport) {
 				} 
 
 				if (user) {
-					return done(null, false, req.flash('signupMessage', 'Nickname already taken! Pridumay chota svoe, daun'));
+					return done(null, false, req.flash('signupMessage', 'Видимо, кто-то тебя опередил в выборе этого логина. Выбери другой!'));
 				} else {
 					var newUser	= new User();
 				
@@ -64,7 +64,7 @@ module.exports = function(passport) {
 				}	
 
 				if (!user || !user.validPassword) {
-					return done(null, false, req.flash('loginMessage', 'Wrong login or password =-('));
+					return done(null, false, req.flash('loginMessage', 'Что-то тут не так. Либо логин не правильный, либо же пароль'));
 				}				
 
 				return done(null, user);

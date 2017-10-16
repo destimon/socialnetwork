@@ -1,19 +1,50 @@
 <html>
 <head>
     <title>Моя страница</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    <style>
-        body        { padding-top:80px; }
-    </style>
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="/style/account.css">
 </head>
 <body>
+
+
+<!-- HEAD -->
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Goveogram</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Моя страница</a></li>
+          <li><a href="#">Друзья</a></li>
+          <li><a href="#">Новости</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Выйти</a></li>
+        </ul>
+      </div>
+    </nav>
+
+
+<!-- BODY -->
+
 <div class="container">
 
   <div class="thumbnail" id="middle">
-  	<image id="avatar" class="image img-circle" src="../public/img/no_avatar.jpg"></image>
-  </div>
+  	<image src="/img/no_avatar.jpg" id="avatar" class="image img-circle"></image>
+  
+  	
+  	<ul>
+  	 <li><strong>ID:</strong> <%= user._id %></li>
+  	 <li><strong>LOGIN:</strong> <%= user.local.login %></li>
+  	 <li><strong>PASSWORD:</strong> <%= user.local.passw %></li>
+  	</ul>
 
+	</div>
 </div>
+
 </body>
 </html>
