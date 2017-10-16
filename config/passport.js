@@ -19,11 +19,15 @@ module.exports = function(passport) {
 	passport.use('local-signup', new LocalStrategy({
 		usernameField: 'login',
 		passwordField: 'passw',
-		passReqToCallback: true
-	
+		passReqToCallback: true,	
+		// givenNameField:     'name',
+		// familyNameField:  'surname'
 	},
 	function(req, login, passw, done) {
+		var name = req.body.name;
+		var surname = req.body.surname;
 		
+
 		process.nextTick( function() {
 			User.findOne({'local.login': login }, function(err, user){
 				if (err) {
@@ -31,13 +35,16 @@ module.exports = function(passport) {
 				} 
 
 				if (user) {
-					return done(null, false, req.flash('signupMessage', 'Видимо, кто-то тебя опередил в выборе этого логина. Выбери другой!'));
+					return done(null, false, req.flash('signupMessage',
+					'Видимо, кто-то тебя опередил в выборе этого логина. Выбери другой!'));
 				} else {
 					var newUser	= new User();
-				
+					
 					newUser.local.login = login;
 					newUser.local.passw = newUser.generateHash(passw);
-				
+					newUser.local.name = name;
+					newUser.local.surname = surname;
+
 					newUser.save(function(err){
 						if (err) 
 							throw err;
@@ -64,7 +71,8 @@ module.exports = function(passport) {
 				}	
 
 				if (!user || !user.validPassword) {
-					return done(null, false, req.flash('loginMessage', 'Что-то тут не так. Либо логин не правильный, либо же пароль'));
+					return done(null, false, req.flash('loginMessage',
+					'Что-то тут не так. Либо логин не правильный, либо же пароль'));
 				}				
 
 				return done(null, user);

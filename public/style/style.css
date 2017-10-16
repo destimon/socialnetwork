@@ -1,7 +1,14 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #e9e9e9;
 }
 
 a {
   color: #00B7FF;
+}
+
+.thumbnail {
+	border-radius: 10px;
+
+	
 }

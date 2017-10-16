@@ -19,7 +19,7 @@
         </div>
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Моя страница</a></li>
-          <li><a href="#">Друзья</a></li>
+          <li><a href="/contacts">Контакты</a></li>
           <li><a href="#">Новости</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -34,15 +34,20 @@
 <div class="container">
 
   <div class="thumbnail" id="middle">
-  	<image src="/img/no_avatar.jpg" id="avatar" class="image img-circle"></image>
-  
-  	
-  	<ul>
-  	 <li><strong>ID:</strong> <%= user._id %></li>
-  	 <li><strong>LOGIN:</strong> <%= user.local.login %></li>
-  	 <li><strong>PASSWORD:</strong> <%= user.local.passw %></li>
-  	</ul>
 
+  		
+	  	<image src="/img/no_avatar.jpg" id="avatar" class="image img-circle"><center><strong><%= user.local.name %> <%=user.local.surname %></strong></center></image>
+	  	
+
+	  	<hr>
+
+	  	<div id="info">
+		  	<ul>
+		  	 <li><strong>ID:</strong> <%= user._id %></li>
+		  	 <li><strong>LOGIN:</strong> <%= user.local.login %></li>
+		  	 <li><strong>PASSWORD:</strong> <%= user.local.passw %></li>
+		  	</ul>
+	  	</div>	
 	</div>
 </div>
 
