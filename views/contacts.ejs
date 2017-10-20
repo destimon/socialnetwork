@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/style/style.css">
-    <link rel="stylesheet" href="/style/account.css">
+    <link rel="stylesheet" href="/style/contacts.css">
 </head>
 <body>
 
@@ -34,11 +34,28 @@
 <div class="container">
 
   <div class="thumbnail" id="middle">
-	 
-  <% users.forEach(function(user){ %>
-    <li> <a href="/go=<%=user.local.login%>"><%= user.local.login %></a></li>
-   <%})%>
+	
+    <div class="row">
 
+    <div class="col-sm-4">
+    
+     <strong>Все:</strong>
+     
+     <% users.forEach(function(user){ %>
+       <div id="user">
+        <image src="/img/no_avatar.jpg" id="avatar" class="image img-circle"><strong><%= user.local.name %> <%=user.local.surname %></strong></image>
+        <a href="/go=<%=user.local.login%>"> (<%= user.local.login %>)</a>
+
+       </div>
+
+     <%})%>
+    
+    </div>
+
+    <div class="col-sm-4">
+     <strong>Добавленные:</strong>
+
+    </div>
   </div>
 </div>
 

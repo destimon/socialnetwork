@@ -36,7 +36,7 @@ module.exports = function(app, passport, db) {
 		failureFlash	: true
 	}));
 
-	// ACCOUNT ================================
+	// USERS ================================
 
     app.get('/me', isLoggedIn, function(req, res) {
         res.render('account.ejs', {
