@@ -18,6 +18,7 @@ mongoose.connect(db.url);
 
 require('./config/passport')(passport);
 
+
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -34,7 +35,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 MongoClient.connect(db.url, (err, database) => {
 	if (err) return console.log(err);
 
-	require('./routes')(app, passport);
+	require('./routes')(app, passport, db);
 
 	app.listen(port, () => {
 	  console.log('We are live on ' + port);
