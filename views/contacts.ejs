@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Моя страница</title>
+    <title>Контакты</title>
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -15,10 +15,10 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Goveogram</a>
+          <a class="navbar-brand" href="/me">Goveogram</a>
         </div>
         <ul class="nav navbar-nav">
-          <li><a href="/account">Моя страница</a></li>
+          <li><a href="/me">Me</a></li>
           <li class="active"><a href="/contacts">Контакты</a></li>
           <li><a href="#">Новости</a></li>
         </ul>
@@ -36,7 +36,7 @@
   <div class="thumbnail" id="middle">
 	 
   <% users.forEach(function(user){ %>
-    <li> <%= user.local.login %></li>
+    <li> <a href="/go=<%=user.local.login%>"><%= user.local.login %></a></li>
    <%})%>
 
   </div>

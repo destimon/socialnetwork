@@ -19,7 +19,7 @@ module.exports = function(app, passport, db) {
 	});
 
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/account',
+		successRedirect : '/me',
 		failureRedirect : '/login',
 		failureFlash: true
 	}));
@@ -31,18 +31,29 @@ module.exports = function(app, passport, db) {
 	});
 
 	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/account',
+		successRedirect : '/me',
 		failureRedirect : '/signup',
 		failureFlash	: true
 	}));
 
 	// ACCOUNT ================================
 
-    app.get('/account', isLoggedIn, function(req, res) {
+    app.get('/me', isLoggedIn, function(req, res) {
         res.render('account.ejs', {
             user : req.user // get the user out of session and pass to template
         });
     });
+
+    app.get('/go=:login', isLoggedIn, (req, res) => {
+    	var login = req.params.login;
+
+		User.findOne( {'local.login' : login }, (err, getuser) => {
+			
+			res.render('account.ejs', {
+				user : getuser
+			});			
+		});		
+	});
 
 	// LOGOUT =================================
 
