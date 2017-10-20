@@ -40,17 +40,19 @@ module.exports = function(app, passport, db) {
 
     app.get('/me', isLoggedIn, function(req, res) {
         res.render('account.ejs', {
-            user : req.user // get the user out of session and pass to template
+            user : req.user, // get the user out of session and pass to template
+        	mydata : req.user
         });
     });
 
     app.get('/go=:login', isLoggedIn, (req, res) => {
     	var login = req.params.login;
-
+    	var current = req.user;
 		User.findOne( {'local.login' : login }, (err, getuser) => {
 			
 			res.render('account.ejs', {
-				user : getuser
+				user : getuser,
+				mydata : current
 			});			
 		});		
 	});
@@ -68,7 +70,8 @@ module.exports = function(app, passport, db) {
 	app.get('/contacts', isLoggedIn, (req, res) => {
 		User.find( { }, (err, docs) => {
 			res.render('contacts.ejs', {
-			  users : docs	
+			  users : docs,
+			  mydata: req.user	
 			});
 		});
 	});

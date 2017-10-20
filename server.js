@@ -18,7 +18,7 @@ mongoose.connect(db.url);
 
 require('./config/passport')(passport);
 
-
+																																					
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
