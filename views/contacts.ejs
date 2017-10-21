@@ -4,7 +4,8 @@
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/style/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/style/style.css">
     <link rel="stylesheet" href="/style/contacts.css">
 </head>
 <body>
@@ -34,7 +35,7 @@
 <div class="container">
 
   <div class="thumbnail" id="middle">
-	
+  
     <div class="row">
 
     <div class="col-sm-4">
@@ -42,12 +43,37 @@
      <strong>Все:</strong>
      
      <% users.forEach(function(user){ %>
-       <div id="user">
+       <div class="user" id="<%= user.local.login %>">
+        
+        <script>
+            $("#<%= user.local.login %>").click(function(){
+              $("#<%= user.local.name %>").slideToggle("fast");
+            });
+        </script>
+
         <image src="/img/no_avatar.jpg" id="avatar" class="image img-circle"><strong><%= user.local.name %> <%=user.local.surname %></strong></image>
         <a href="/go=<%=user.local.login%>"> (<%= user.local.login %>)</a>
 
        </div>
+       
+       <div class="adduser" id="<%=user.local.name %>">
+        <div class="row">
+         
+         <div id="addbutt" class="col-sm-4">
+          <center>
+            <span class="fa fa-plus-square-o"><strong> ADD USER</strong></span>
+          </center>
+         </div>
 
+         <div id="sendmsg" class="col-sm-6">
+          <center>
+            <span class="fa fa-pencil-square-o"><strong> MESSAGE</strong></span>
+          </center>
+         </div>
+
+        </div>
+       </div>
+    
      <%})%>
     
     </div>
