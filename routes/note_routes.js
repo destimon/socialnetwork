@@ -1,6 +1,6 @@
 
 var ObjectID = require('mongodb').ObjectID;
-var contacts = require('../models/contacts');
+var Contacts = require('../models/contacts');
 var User = require('../models/user');
 
 
@@ -74,6 +74,10 @@ module.exports = function(app, passport, db) {
 			  mydata: req.user	
 			});
 		});
+	});
+
+	app.post('/contacts', (req, res) => {
+		
 	});
 
 	app.get('/contacts/:login', isLoggedIn, (req, res) => {

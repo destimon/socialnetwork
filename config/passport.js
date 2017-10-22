@@ -26,7 +26,8 @@ module.exports = function(passport) {
 	function(req, login, passw, done) {
 		var name = req.body.name;
 		var surname = req.body.surname;
-		
+		var dob		= req.body.dob;
+		var gender	= req.body.gender;		
 
 		process.nextTick( function() {
 			User.findOne({'local.login': login }, function(err, user){
@@ -44,6 +45,8 @@ module.exports = function(passport) {
 					newUser.local.passw = newUser.generateHash(passw);
 					newUser.local.name = name;
 					newUser.local.surname = surname;
+					newUser.local.dob = dob;
+					newUser.local.gender = gender;
 
 					newUser.save(function(err){
 						if (err) 

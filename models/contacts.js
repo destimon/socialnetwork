@@ -4,7 +4,7 @@ var contactsSchema = mongoose.Schema({
 
 	contacts    			: {
 		maincontactid		: String,
-		anothercontactid 	: String,
+		anothercontactid 	: String
 	}  
 
 });

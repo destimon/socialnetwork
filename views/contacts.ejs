@@ -59,15 +59,21 @@
        <div class="adduser" id="<%=user.local.name %>">
         <div class="row">
          
-         <div id="addbutt" class="col-sm-4">
-          <center>
-            <span class="fa fa-plus-square-o"><strong> ADD USER</strong></span>
-          </center>
+         <div id="addbutt" class="col-sm-6">
+          <form action="/contacts" method="post">
+            <center>
+              <button class="btn" name="addusr" value="add"><span class="fa fa-plus-square-o">
+               <strong> ADD USER</strong></span>
+              </button>
+            </center>
+          </form>
          </div>
 
          <div id="sendmsg" class="col-sm-6">
           <center>
-            <span class="fa fa-pencil-square-o"><strong> MESSAGE</strong></span>
+            <button class="btn"><span class="fa fa-pencil-square-o">
+             <strong> MESSAGE</strong></span>
+            </button>
           </center>
          </div>
 

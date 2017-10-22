@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/style/style.css">
+	  <link rel="stylesheet" href="/style/style.css">
     <link rel="stylesheet" href="/style/account.css">
 </head>
 <body>
@@ -23,7 +23,10 @@
           <li><a href="#">Новости</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="/edit"><span class="glyphicon glyphicon-cog"></span> Настройки</a></li>
           <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Выйти</a></li>
+
+
         </ul>
       </div>
     </nav>
@@ -45,7 +48,9 @@
 		  	<ul>
 		  	 <li><strong>ID:</strong> <%= user._id %></li>
 		  	 <li><strong>LOGIN:</strong> <%= user.local.login %></li>
-		  	</ul>
+		  	 <li><strong>Date Of Birth:</strong> <%= user.local.dob %></li>
+         <li><strong>Gender:</strong> <%= user.local.gender %></li>
+        </ul>
 	  	</div>	
 	</div>
 </div>
