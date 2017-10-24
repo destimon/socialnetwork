@@ -1,48 +1,21 @@
+<% layout('/layouts/layout') -%>
+ 
 <html>
 <head>
-    <title>Контакты</title>
-
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/style/style.css">
-    <link rel="stylesheet" href="/style/contacts.css">
+  <title>Contacts</title>
+  <link rel="stylesheet" href="/style/contacts.css">
 </head>
 <body>
 
 
-<!-- HEAD -->
-
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/me">Goveogram</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li><a href="/me"><%=mydata.local.login%></a></li>
-          <li class="active"><a href="/contacts">Контакты</a></li>
-          <li><a href="#">Новости</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Выйти</a></li>
-        </ul>
-      </div>
-    </nav>
-
-
-<!-- BODY -->
-
-<div class="container">
-
-  <div class="thumbnail" id="middle">
-  
-    <div class="row">
+  <div class="row">
 
     <div class="col-sm-4">
     
      <strong>Все:</strong>
      
      <% users.forEach(function(user){ %>
+      
        <div class="user" id="<%= user.local.login %>">
         
         <script>
@@ -59,22 +32,18 @@
        <div class="adduser" id="<%=user.local.name %>">
         <div class="row">
          
-         <div id="addbutt" class="col-sm-6">
+         <div class="col-sm-6">
           <form action="/contacts" method="post">
-            <center>
               <button class="btn" name="addusr" value="add"><span class="fa fa-plus-square-o">
                <strong> ADD USER</strong></span>
               </button>
-            </center>
           </form>
          </div>
 
-         <div id="sendmsg" class="col-sm-6">
-          <center>
+         <div class="col-sm-6">
             <button class="btn"><span class="fa fa-pencil-square-o">
              <strong> MESSAGE</strong></span>
             </button>
-          </center>
          </div>
 
         </div>
@@ -88,8 +57,6 @@
      <strong>Добавленные:</strong>
 
     </div>
-  </div>
-</div>
 
 </body>
 </html>

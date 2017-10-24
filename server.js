@@ -18,12 +18,12 @@ mongoose.connect(db.url);
 
 require('./config/passport')(passport);
 
-																																					
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs-locals'));																																					
 
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
