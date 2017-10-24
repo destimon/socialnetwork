@@ -71,12 +71,13 @@ module.exports = function(app, passport, db) {
 		User.find( { }, (err, docs) => {
 			res.render('contacts.ejs', {
 			  users : docs,
-			  mydata: req.user	
+			  mydata: req.user,
+			  message : req.flash('ContactMessage') 
 			});
 		});
 	});
 
-	app.post('/contacts', function(req) {
+	app.post('/contacts', function(req, res) {
 		
 		// Get user.id
 		var targetID = req.body.addusr;
@@ -87,8 +88,21 @@ module.exports = function(app, passport, db) {
 		
 		Contacts.findOne( {'contacts.secondID' : targetID }, (err, cont) => {
 			if (cont) {
+		
+				if( cont.contacts.firstStatus == true) {
 				cont.contacts.firstStatus = false;
-				cont.save();
+				req.flash('ContactMessage', 'Вы успешно отозвали заявку!');	
+				}
+				else {
+					cont.contacts.firstStatus = true;
+					req.flash('ContactMessage', 'Вы отправили заявку!');	
+				}
+
+				
+				cont.save(function(err){
+					if (err) throw err;
+				});
+
 			} else {
 
 				// Set FirstStatus ON
@@ -101,7 +115,9 @@ module.exports = function(app, passport, db) {
 				newContacts.save(function(err){
 					if (err) throw err;
 				});	
+				req.flash('ContactMessage', 'Вы отправили заявку!');
 			}
+				res.redirect('contacts/');
 		});
 	});
 

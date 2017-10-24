@@ -11,6 +11,10 @@
 
 <body>
 
+    <% if (message.length > 0) { %>
+        <div class="alert alert-info"><%= message %></div>
+    <% } %>
+
 
   <div class="row">
 
@@ -67,5 +71,6 @@
             $('.dropdown-toggle').dropdown();
         });
    </script>
+
 </body>
 </html>
