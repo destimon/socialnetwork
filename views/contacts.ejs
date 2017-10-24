@@ -3,8 +3,12 @@
 <html>
 <head>
   <title>Contacts</title>
+
+
   <link rel="stylesheet" href="/style/contacts.css">
+
 </head>
+
 <body>
 
 
@@ -34,7 +38,7 @@
          
          <div class="col-sm-6">
           <form action="/contacts" method="post">
-              <button class="btn" name="addusr" value="add"><span class="fa fa-plus-square-o">
+              <button class="btn" name="addusr" type="addusr" value="<%=user._id%>"><span class="fa fa-plus-square-o">
                <strong> ADD USER</strong></span>
               </button>
           </form>
@@ -58,5 +62,10 @@
 
     </div>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+   </script>
 </body>
 </html>

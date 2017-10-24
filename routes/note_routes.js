@@ -76,8 +76,33 @@ module.exports = function(app, passport, db) {
 		});
 	});
 
-	app.post('/contacts', (req, res) => {
+	app.post('/contacts', function(req) {
 		
+		// Get user.id
+		var targetID = req.body.addusr;
+		console.log(targetID);
+
+		// Get curr.user.id
+		
+		
+		Contacts.findOne( {'contacts.secondID' : targetID }, (err, cont) => {
+			if (cont) {
+				cont.contacts.firstStatus = false;
+				cont.save();
+			} else {
+
+				// Set FirstStatus ON
+				var newContacts = new Contacts();
+
+				newContacts.contacts.firstID = req.user.id;
+				newContacts.contacts.secondID = targetID;
+				newContacts.contacts.firstStatus = true;	
+			
+				newContacts.save(function(err){
+					if (err) throw err;
+				});	
+			}
+		});
 	});
 
 	app.get('/contacts/:login', isLoggedIn, (req, res) => {
