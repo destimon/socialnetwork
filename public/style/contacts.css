@@ -28,6 +28,8 @@
 	height: 50px;
 
 	display: none;
+
+	
 }
 
 #avatar {
@@ -41,6 +43,8 @@
 
 	height: 80px;
 	width: 80px;
+
+	position: relative;
 }
 
 #addbutt, #sendmsg {

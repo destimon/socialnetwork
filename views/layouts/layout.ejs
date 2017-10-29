@@ -6,19 +6,20 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/style/style.css">
+    <%-blocks.header%>
 
 </head>
-<!-- <header>
-    <%-blocks.header%>
-</header> -->
+ 
+
 <body>
 
-<%-partial('./partials/topNavigation')%>
-<div class="container">
-    <div class="thumbnail" id="middle">
-      <%-body -%>
-    </div>
-</div>
+	<%-partial('./partials/topNavigation')%>
+	<div class="container">
+	    <div class="thumbnail" id="middle">
+	      <%-body -%>
+	    </div>
+	</div>
+
 <footer>
     <%-blocks.footer%>
 </footer>

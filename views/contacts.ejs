@@ -2,18 +2,18 @@
  
 <html>
 <head>
+  <link rel="stylesheet" href="/style/contacts.css">
   <title>Contacts</title>
 
 
-  <link rel="stylesheet" href="/style/contacts.css">
 
 </head>
 
 <body>
 
-    <% if (message.length > 0) { %>
-        <div class="alert alert-info"><%= message %></div>
-    <% } %>
+  <% if (message.length > 0) { %>
+    <div class="alert alert-info"><%= message %></div>
+  <% } %>
 
   <!-- ALL -->
 
@@ -23,17 +23,18 @@
     
      <strong>Все:</strong>
      
-     <% users.forEach(function(user){ %>
       
+     <% users.forEach(function(user){ %>
        <div class="user" id="<%= user.local.login %>">
         
+
+        
+        <img src="/img/no_avatar.jpg" id="avatar" class="image img-circle"><strong><%= user.local.name %> <%=user.local.surname %></strong></img>
         <script>
             $("#<%= user.local.login %>").click(function(){
               $("#<%= user.local.name %>").slideToggle("fast");
             });
         </script>
-
-        <image src="/img/no_avatar.jpg" id="avatar" class="image img-circle"><strong><%= user.local.name %> <%=user.local.surname %></strong></image>
         <a href="/go=<%=user.local.login%>"> (<%= user.local.login %>)</a>
 
        </div>

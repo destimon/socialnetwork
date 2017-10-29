@@ -7,8 +7,18 @@ a {
   color: #00B7FF;
 }
 
-.thumbnail {
-	border-radius: 10px;
-
-	
+.navbar {
+	z-index: 2;
+	position: fixed;
+	top: 0;
+	width: 100%;
 }
+
+.container {
+	margin-top: 65px;
+}
+
+.thumbnail {
+	border-radius: 10px;	
+}
+
