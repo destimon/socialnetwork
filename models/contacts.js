@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var contactsSchema = mongoose.Schema({
 
 	contacts    			: {
-		firstID				: String,
-		secondID 			: String,
+		firstLogin			: String,
+		secondLogin 		: String,
 		firstStatus			: Boolean,
 		secondStatus		: Boolean
 	}  

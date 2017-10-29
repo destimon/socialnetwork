@@ -15,6 +15,7 @@
         <div class="alert alert-info"><%= message %></div>
     <% } %>
 
+  <!-- ALL -->
 
   <div class="row">
 
@@ -42,7 +43,7 @@
          
          <div class="col-sm-6">
           <form action="/contacts" method="post">
-              <button class="btn" name="addusr" type="addusr" value="<%=user._id%>"><span class="fa fa-plus-square-o">
+              <button class="btn" name="addusr" type="addusr" value="<%=user.local.login%>"><span class="fa fa-plus-square-o">
                <strong> ADD USER</strong></span>
               </button>
           </form>
@@ -61,16 +62,7 @@
     
     </div>
 
-    <div class="col-sm-4">
-     <strong>Добавленные:</strong>
 
-    </div>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.dropdown-toggle').dropdown();
-        });
-   </script>
 
 </body>
 </html>

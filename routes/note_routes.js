@@ -39,6 +39,7 @@ module.exports = function(app, passport, db) {
 	// USERS ================================
 
     app.get('/me', isLoggedIn, function(req, res) {
+
         res.render('account.ejs', {
             user : req.user, // get the user out of session and pass to template
         	mydata : req.user
@@ -57,7 +58,7 @@ module.exports = function(app, passport, db) {
 		});		
 	});
 
-	// LOGOUT =================================
+	// LOGOUT =====user.local.login============================
 
 	app.get('/logout', (req, res) => {
 		req.logout();
@@ -68,25 +69,49 @@ module.exports = function(app, passport, db) {
 	// CONTACTS ================================
 
 	app.get('/contacts', isLoggedIn, (req, res) => {
-		User.find( { }, (err, docs) => {
-			res.render('contacts.ejs', {
-			  users : docs,
-			  mydata: req.user,
-			  message : req.flash('ContactMessage') 
-			});
+
+		var AllUserBlock;
+		var AddedUserBlock;
+
+
+			User.find( { }, (err, docs) => {
+				AllUserBlock = docs;
+
+				console.log('ALLUSERBLOCK: ' + AllUserBlock); // check
+
+				var me = req.user.local.login;
+				console.log(me); // check
+
+	    		Contacts.find( { 'contacts.firstLogin' : me }, (err, addusrs) => {
+	    		
+	    		AddedUserBlock = addusrs;
+	    		console.log('ADDUSRS: ' + AddedUserBlock); // che
+				console.log(req.user.id);				   // ck
+
+
+
+				res.render('contacts.ejs', {
+				  mydata: req.user,
+				  users : AllUserBlock,
+				  added : AddedUserBlock,
+				  message : req.flash('ContactMessage') 
+	    		});
+	
+	    	});
+
 		});
 	});
 
 	app.post('/contacts', function(req, res) {
 		
 		// Get user.id
-		var targetID = req.body.addusr;
-		console.log(targetID);
+		var targetLogin = req.body.addusr;
+		console.log(targetLogin);
 
 		// Get curr.user.id
 		
 		
-		Contacts.findOne( {'contacts.secondID' : targetID }, (err, cont) => {
+		Contacts.findOne( {'contacts.secondLogin' : targetLogin }, (err, cont) => {
 			if (cont) {
 		
 				if( cont.contacts.firstStatus == true) {
@@ -108,8 +133,8 @@ module.exports = function(app, passport, db) {
 				// Set FirstStatus ON
 				var newContacts = new Contacts();
 
-				newContacts.contacts.firstID = req.user.id;
-				newContacts.contacts.secondID = targetID;
+				newContacts.contacts.firstLogin = req.user.local.login;
+				newContacts.contacts.secondLogin = targetLogin;
 				newContacts.contacts.firstStatus = true;	
 			
 				newContacts.save(function(err){
