@@ -25,18 +25,16 @@
      
       
      <% users.forEach(function(user){ %>
-       <div class="user" id="<%= user.local.login %>">
-        
-
-        
+       <div class="user" id="<%= user.local.login %>">        
         <img src="/img/no_avatar.jpg" id="avatar" class="image img-circle"><strong><%= user.local.name %> <%=user.local.surname %></strong></img>
+
         <script>
             $("#<%= user.local.login %>").click(function(){
               $("#<%= user.local.name %>").slideToggle("fast");
             });
         </script>
+        
         <a href="/go=<%=user.local.login%>"> (<%= user.local.login %>)</a>
-
        </div>
        
        <div class="adduser" id="<%=user.local.name %>">
@@ -58,10 +56,25 @@
 
         </div>
        </div>
-    
      <%})%>
     
     </div>
+    
+    <!-- ИСХОДЯЩИЕ -->
+
+    <div class="col-sm-4">
+      <strong>Исходящие</strong>
+      <% added.forEach(function(adds) { %> 
+          <% if (adds.contacts.firstStatus === true) { %>   
+        <div class="user">
+            <%= adds.contacts.secondLogin %>
+        </div>
+          <% } %>
+      <% }) %>
+
+    </div>
+
+  </div>
 
 
 
