@@ -1,6 +1,6 @@
-var mongoose	= require('mongoose');
-var bcrypt		= require('bcrypt-nodejs');
-
+var mongoose			= require('mongoose');
+var bcrypt				= require('bcrypt-nodejs');
+var mognoosePaginate	= require('mongoose-paginate');
 
 var userSchema = mongoose.Schema({
 
@@ -15,6 +15,8 @@ var userSchema = mongoose.Schema({
 });
 
 // Methods ==================================
+
+userSchema.plugin(mognoosePaginate);
 
 
 // hashing

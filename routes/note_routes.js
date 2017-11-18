@@ -4,6 +4,7 @@ var Contacts = require('../models/contacts');
 var User = require('../models/user');
 
 
+
 module.exports = function(app, passport, db) {
 
 	// HOME =================================
@@ -70,30 +71,22 @@ module.exports = function(app, passport, db) {
 
 	app.get('/contacts', isLoggedIn, (req, res) => {
 
-		var AllUserBlock;
-		var AddedUserBlock;
 
-
-			User.find( { }, (err, docs) => {
-				AllUserBlock = docs;
-
-				console.log('ALLUSERBLOCK: ' + AllUserBlock); // check
-
-				var me = req.user.local.login;
-				console.log(me); // check
-
-	    		Contacts.find( { 'contacts.firstLogin' : me }, (err, addusrs) => {
+			User.find( { }, (err, docs) => {	
+				
+			var me = req.user.local.login;
+			console.log(me);
 	    		
-	    		AddedUserBlock = addusrs;
-	    		console.log('ADDUSRS: ' + AddedUserBlock); // che
-				console.log(req.user.id);				   // ck
+	    		Contacts.find( { 'contacts.firstLogin' : me }, (err, addusrs) => {
 
+
+	    		console.log(addusrs);
 
 
 				res.render('contacts.ejs', {
 				  mydata: req.user,
-				  users : AllUserBlock,
-				  added : AddedUserBlock,
+				  users : docs,
+				  added : addusrs,
 				  message : req.flash('ContactMessage') 
 	    		});
 	

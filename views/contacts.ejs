@@ -4,78 +4,31 @@
 <head>
   <link rel="stylesheet" href="/style/contacts.css">
   <title>Contacts</title>
-
-
-
 </head>
+
 
 <body>
 
-  <% if (message.length > 0) { %>
-    <div class="alert alert-info"><%= message %></div>
-  <% } %>
 
-  <!-- ALL -->
-
-  <div class="row">
-
-    <div class="col-sm-4">
+  <div class="list-group">
+    <%users.forEach(function(user){%>
+      <li class="list-group-item">
+          <img src="/img/no_avatar.jpg" id="avatar" class="image img-circle">        
+          <strong><%=user.local.name%> <%=user.local.surname%></strong><br>    
+          <a href="/go=<%=user.local.login%>"> (<%=user.local.login%>)</a>
+      </li>
+    <%})%>
+  
+    <ul class="pagination">
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+    </ul> 
     
-     <strong>Все:</strong>
-     
-      
-     <% users.forEach(function(user){ %>
-       <div class="user" id="<%= user.local.login %>">        
-        <img src="/img/no_avatar.jpg" id="avatar" class="image img-circle"><strong><%= user.local.name %> <%=user.local.surname %></strong></img>
-
-        <script>
-            $("#<%= user.local.login %>").click(function(){
-              $("#<%= user.local.name %>").slideToggle("fast");
-            });
-        </script>
-        
-        <a href="/go=<%=user.local.login%>"> (<%= user.local.login %>)</a>
-       </div>
-       
-       <div class="adduser" id="<%=user.local.name %>">
-        <div class="row">
-         
-         <div class="col-sm-6">
-          <form action="/contacts" method="post">
-              <button class="btn" name="addusr" type="addusr" value="<%=user.local.login%>"><span class="fa fa-plus-square-o">
-               <strong> ADD USER</strong></span>
-              </button>
-          </form>
-         </div>
-
-         <div class="col-sm-6">
-            <button class="btn"><span class="fa fa-pencil-square-o">
-             <strong> MESSAGE</strong></span>
-            </button>
-         </div>
-
-        </div>
-       </div>
-     <%})%>
-    
-    </div>
-    
-    <!-- ИСХОДЯЩИЕ -->
-
-    <div class="col-sm-4">
-      <strong>Исходящие</strong>
-      <% added.forEach(function(adds) { %> 
-          <% if (adds.contacts.firstStatus === true) { %>   
-        <div class="user">
-            <%= adds.contacts.secondLogin %>
-        </div>
-          <% } %>
-      <% }) %>
-
-    </div>
-
   </div>
-
+    
 
 
 </body>
