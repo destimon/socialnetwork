@@ -69,31 +69,19 @@ module.exports = function(app, passport, db) {
 
 	// CONTACTS ================================
 
-	app.get('/contacts', isLoggedIn, (req, res) => {
+	app.get('/contacts/:page', isLoggedIn, (req, res) => {
 
+	  var pg = req.params.page;
 
-			User.find( { }, (err, docs) => {	
-				
-			var me = req.user.local.login;
-			console.log(me);
-	    		
-	    		Contacts.find( { 'contacts.firstLogin' : me }, (err, addusrs) => {
+	  User.paginate({ }, { page: pg, limit: 5}, (err, data) => {
 
-
-	    		console.log(addusrs);
-
-
-				res.render('contacts.ejs', {
-				  mydata: req.user,
-				  users : docs,
-				  added : addusrs,
-				  message : req.flash('ContactMessage') 
-	    		});
-	
-	    	});
-
-		});
+	  	res.render('contacts.ejs', {
+	  		users: data.docs,
+	  		mydata: req.user
+	  	});
+	  });
 	});
+
 
 	app.post('/contacts', function(req, res) {
 		
@@ -139,17 +127,19 @@ module.exports = function(app, passport, db) {
 		});
 	});
 
-	app.get('/contacts/:login', isLoggedIn, (req, res) => {
+	// app.get('/contacts/:login', isLoggedIn, (req, res) => {
 	
-	var login = req.params.login;
+	// var login = req.params.login;
 
-		User.findOne( {'local.login' : login }, (err, doc) => {
+	// 	User.findOne( {'local.login' : login }, (err, doc) => {
 			
-			res.render('contacts.ejs', {
-				user : doc
-			});			
-		});		
-	});
+	// 		res.render('contacts.ejs', {
+	// 			user : doc
+	// 		});			
+	// 	});		
+	// });
+
+
 
 
 

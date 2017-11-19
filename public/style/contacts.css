@@ -1,10 +1,19 @@
 
 .list-group {
-	
+	margin-top: 3%;
 }
 
 .list-group-item {
+	padding-left: auto;
+	padding-right: auto;
+	border-radius: 20px 20px 20px 20px;
+
+	margin-bottom: 0.5%;
 	width: 400px;
+}
+
+.pagination {
+	
 }
 
 #avatar {

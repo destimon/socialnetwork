@@ -5,16 +5,14 @@
   <link rel="stylesheet" href="/style/contacts.css">
   <title>Contacts</title>
 </head>
-
-
 <body>
-
 
   <div class="list-group">
     <%users.forEach(function(user){%>
       <li class="list-group-item">
-          <img src="/img/no_avatar.jpg" id="avatar" class="image img-circle">        
-          <strong><%=user.local.name%> <%=user.local.surname%></strong><br>    
+          <img src="/img/no_avatar.jpg" id="avatar" class="image img-circle">
+
+          <strong><%=user.local.name%> <%=user.local.surname%></strong>    
           <a href="/go=<%=user.local.login%>"> (<%=user.local.login%>)</a>
       </li>
     <%})%>
@@ -26,10 +24,8 @@
       <li><a href="#">4</a></li>
       <li><a href="#">5</a></li>
     </ul> 
-    
   </div>
     
-
 
 </body>
 </html>
