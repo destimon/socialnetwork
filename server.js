@@ -27,7 +27,11 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs-locals'));																																					
 
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ 
+	secret: 'yonigga',
+	resave: false
+})); 
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session

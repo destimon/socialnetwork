@@ -10,8 +10,8 @@ module.exports = function(app, passport, db) {
 
 	// HOME =================================
 
-	app.get('/', (req, res) => {
-		res.render('index.ejs');
+	app.get('/', isLoggedIn, (req, res) => {
+		res.redirect('me');
 	});
 
 	// LOGIN =================================
@@ -167,9 +167,7 @@ module.exports = function(app, passport, db) {
 		let name = req.body.name;
 		let surname = req.body.surname;
 		let dob		= req.body.dob;
-		let gender	= req.body.gender;		
-
-		let conditions = { 'login' : login }; 
+		let gender	= req.body.gender;		 
 
 		User.findById(id, function(err, data) {
 
@@ -198,7 +196,7 @@ module.exports = function(app, passport, db) {
 	        return next();
 
 	    // if they aren't redirect them to the home page
-	    res.redirect('/');
+	    res.redirect('/login');
 	}
 
 
