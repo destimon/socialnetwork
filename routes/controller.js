@@ -29,7 +29,22 @@ module.exports = function(app, passport, db) {
 	// SIGNUP =================================
 
 	app.get('/signup', (req,res) => {
-		res.render('signup.ejs', { message: req.flash('signupMessage') });
+		
+		let empty = new User();
+
+		// To avoid problem with undefined local
+		empty.local.login = '';
+		empty.local.password = '';
+		empty.local.name = '';
+		empty.local.surname = '';
+		empty.local.dob = '';
+		empty.local.gender = '';
+
+		res.render('signup.ejs', { 
+			message: req.flash('signupMessage'),
+			mydata:  empty
+		});
+	
 	});
 
 	app.post('/signup', passport.authenticate('local-signup', {
@@ -132,17 +147,45 @@ module.exports = function(app, passport, db) {
 
 	// EDIT
 
-	app.get('/edit', isLoggedIn, (req,res) => {
+	app.get('/edit', isLoggedIn, function(req,res) {
 
+		let id = req.user.id;
 
 		res.render('edit', { 
 			message: req.flash('signupMessage'),
-			mydata: req.user,
-			failureFlash	: true		
+			mydata: req.user,		
 		});
+		
 	});
 
-	app.post('/edit', (req, res) => {
+	app.post('/edit', function(req, res) {
+
+		let id = req.user.id;
+
+		let login = req.body.login;
+		let password = req.body.passw;
+		let name = req.body.name;
+		let surname = req.body.surname;
+		let dob		= req.body.dob;
+		let gender	= req.body.gender;		
+
+		let conditions = { 'login' : login }; 
+
+		User.findById(id, function(err, data) {
+
+			data.local.login = login;
+			data.local.passw = password;
+			data.local.name = name;
+			data.local.surname = surname;
+			data.local.dob = dob;
+			data.local.gender = gender;
+
+			data.save(function(err) {
+				if (err) throw err;
+			});
+		
+			res.redirect('edit');
+		});
 
 
 	});
