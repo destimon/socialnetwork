@@ -76,6 +76,7 @@ module.exports = function(app, passport, db) {
 
 	  	res.render('contacts.ejs', {
 	  		pgs: data.pages,
+	  		curr: data.page,
 	  		users: data.docs,
 	  		mydata: req.user
 	  	});
@@ -127,6 +128,17 @@ module.exports = function(app, passport, db) {
 		});
 	});
 
+	// EDIT
+
+	app.get('/edit', isLoggedIn, (req,res) => {
+
+
+		res.render('edit', { 
+			message: req.flash('signupMessage'),
+			mydata: req.user,
+			failureFlash	: true		
+		});
+	});
 
 	// isLoggedIn
 	function isLoggedIn(req, res, next) {

@@ -1,6 +1,8 @@
 
-<ul class="pagination">
-  <%for(var i = 1; i <= pgs; i++){ %>
-  	<li><a href="/contacts/<%=i%>"><%=i%></a></li>
-  <%}%>
-</ul> 
+<% if (pgs > 0) { %>
+  <ul class="pagination text-center">
+      <% for(var i = 1; i <= pgs; i++) { %>
+   	    <li><a href="/contacts/<%=i%>"><%=i%></a></li>
+      <% } %>
+  </ul> 
+<% } %>

@@ -1,6 +1,6 @@
 "use strict";
 
-var express 		= require('express');
+let express 		= require('express');
 const MongoClient 	= require('mongodb').MongoClient;
 const mongoose		= require('mongoose');
 const bodyParser 	= require('body-parser');
