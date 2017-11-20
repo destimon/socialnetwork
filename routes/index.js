@@ -1,6 +1,7 @@
+"use strict"
 
-var noteRoutes = require('./note_routes.js');
+let controller = require('./controller.js');
 
 module.exports = function(app, passport, db) {
-	noteRoutes(app, passport, db);
+	controller(app, passport, db);
 }

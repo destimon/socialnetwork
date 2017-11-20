@@ -1,8 +1,10 @@
-var mongoose			= require('mongoose');
-var bcrypt				= require('bcrypt-nodejs');
-var mognoosePaginate	= require('mongoose-paginate');
+"use strict"
 
-var userSchema = mongoose.Schema({
+let mongoose			= require('mongoose');
+let bcrypt				= require('bcrypt-nodejs');
+let mognoosePaginate	= require('mongoose-paginate');
+
+let userSchema = mongoose.Schema({
 
 	local			: {
 		login		: String,

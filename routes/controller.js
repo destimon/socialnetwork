@@ -1,3 +1,5 @@
+"use strict"
+
 var ObjectID = require('mongodb').ObjectID;
 var Contacts = require('../models/contacts');
 var User = require('../models/user');
@@ -41,7 +43,7 @@ module.exports = function(app, passport, db) {
     app.get('/me', isLoggedIn, function(req, res) {
 
         res.render('account.ejs', {
-            user : req.user, // get the user out of session and pass to template
+          user : req.user, // get the user out of session and pass to template
         	mydata : req.user
         });
     });
@@ -70,7 +72,7 @@ module.exports = function(app, passport, db) {
 
 	app.get('/contacts/:page', isLoggedIn, (req, res) => {
 
-	  var pg = req.params.page;
+	  let pg = req.params.page;
 
 	  User.paginate({ }, { page: pg, limit: 5}, (err, data) => {
 
@@ -87,7 +89,7 @@ module.exports = function(app, passport, db) {
 	app.post('/contacts', function(req, res) {
 		
 		// Get user.id
-		var targetLogin = req.body.addusr;
+		let targetLogin = req.body.addusr;
 		console.log(targetLogin);
 
 		// Get curr.user.id
@@ -138,6 +140,11 @@ module.exports = function(app, passport, db) {
 			mydata: req.user,
 			failureFlash	: true		
 		});
+	});
+
+	app.post('/edit', (req, res) => {
+
+
 	});
 
 	// isLoggedIn

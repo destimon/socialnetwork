@@ -1,5 +1,7 @@
-var LocalStrategy	= require('passport-local').Strategy;
-var User			= require('../models/user');
+"use strict"
+
+let LocalStrategy	= require('passport-local').Strategy;
+let User			= require('../models/user');
 
 
 module.exports = function(passport) {
@@ -24,11 +26,12 @@ module.exports = function(passport) {
 		// familyNameField:  'surname'
 	},
 	function(req, login, passw, done) {
-		var name = req.body.name;
-		var surname = req.body.surname;
-		var dob		= req.body.dob;
-		var gender	= req.body.gender;		
-
+		let name = req.body.name;
+		let surname = req.body.surname;
+		let dob		= req.body.dob;
+		let gender	= req.body.gender;		
+		
+		
 		process.nextTick( function() {
 			User.findOne({'local.login': login }, function(err, user){
 				if (err) {
@@ -39,7 +42,7 @@ module.exports = function(passport) {
 					return done(null, false, req.flash('signupMessage',
 					'Видимо, кто-то тебя опередил в выборе этого логина. Выбери другой!'));
 				} else {
-					var newUser	= new User();
+					let newUser	= new User();
 					
 					newUser.local.login = login;
 					newUser.local.passw = newUser.generateHash(passw);
