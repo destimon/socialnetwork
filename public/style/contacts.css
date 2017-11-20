@@ -1,6 +1,6 @@
 
 .list-group {
-	margin-top: 3%;
+
 }
 
 .list-group-item {
@@ -13,7 +13,10 @@
 }
 
 .pagination {
-	
+	margin-left: auto;
+	margin-right: auto;
+
+	width: 50%;
 }
 
 #avatar {

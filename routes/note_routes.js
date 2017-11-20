@@ -1,4 +1,3 @@
-
 var ObjectID = require('mongodb').ObjectID;
 var Contacts = require('../models/contacts');
 var User = require('../models/user');
@@ -76,6 +75,7 @@ module.exports = function(app, passport, db) {
 	  User.paginate({ }, { page: pg, limit: 5}, (err, data) => {
 
 	  	res.render('contacts.ejs', {
+	  		pgs: data.pages,
 	  		users: data.docs,
 	  		mydata: req.user
 	  	});
@@ -126,21 +126,6 @@ module.exports = function(app, passport, db) {
 				res.redirect('contacts/');
 		});
 	});
-
-	// app.get('/contacts/:login', isLoggedIn, (req, res) => {
-	
-	// var login = req.params.login;
-
-	// 	User.findOne( {'local.login' : login }, (err, doc) => {
-			
-	// 		res.render('contacts.ejs', {
-	// 			user : doc
-	// 		});			
-	// 	});		
-	// });
-
-
-
 
 
 	// isLoggedIn
