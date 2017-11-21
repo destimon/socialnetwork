@@ -5,10 +5,21 @@
     <title>Edit</title>
 </head>
 <body>
-	<div>
+
+	<div class="row">
 		<form action="/edit" method="post">
-			<%-partial('./layouts/partials/form')%>
+			<div class="col-sm-6">
+					<%-partial('./layouts/partials/form')%>
+			</div>
+		
+
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="about">О себе</label>
+					<textarea name="about" class="form-control" rows="4"><%=mydata.local.about%></textarea>
+				</div>
+			</div>
 		</form>
 	</div>
-	</body>
+</body>
 </html>

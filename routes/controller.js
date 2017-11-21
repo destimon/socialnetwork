@@ -168,6 +168,7 @@ module.exports = function(app, passport, db) {
 		let surname = req.body.surname;
 		let dob		= req.body.dob;
 		let gender	= req.body.gender;		 
+		let about = req.body.about;
 
 		User.findById(id, function(err, data) {
 
@@ -177,6 +178,7 @@ module.exports = function(app, passport, db) {
 			data.local.surname = surname;
 			data.local.dob = dob;
 			data.local.gender = gender;
+			data.local.about = about;
 
 			data.save(function(err) {
 				if (err) throw err;

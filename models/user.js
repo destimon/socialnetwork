@@ -12,7 +12,9 @@ let userSchema = mongoose.Schema({
 		name		: String,
 		surname		: String,
 		gender		: String,
-		dob			: String
+		dob			: String,
+		about		: String,
+		status		: String
 	}
 });
 
