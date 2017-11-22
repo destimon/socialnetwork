@@ -10,11 +10,16 @@ let userSchema = mongoose.Schema({
 		login		: String,
 		passw		: String,
 		name		: String,
-		surname		: String,
-		gender		: String,
+		surname	: String,
+		gender	: String,
 		dob			: String,
 		about		: String,
-		status		: String
+		status	: String,
+		avatar	: {
+		  data 				: Buffer,
+		 	contentType	: String,
+		  default			: Boolean
+		},
 	}
 });
 

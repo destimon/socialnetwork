@@ -22,8 +22,6 @@ module.exports = function(passport) {
 		usernameField: 'login',
 		passwordField: 'passw',
 		passReqToCallback: true,	
-		// givenNameField:     'name',
-		// familyNameField:  'surname'
 	},
 	function(req, login, passw, done) {
 		let name = req.body.name;

@@ -1,10 +1,11 @@
 "use strict"
 
-var ObjectID = require('mongodb').ObjectID;
-var Contacts = require('../models/contacts');
-var User = require('../models/user');
-
-
+let ObjectID = require('mongodb').ObjectID;
+let Contacts = require('../models/contacts');
+let User = require('../models/user');
+let multer  = require('multer')
+let upload = multer()
+let 	path = require('path');
 
 module.exports = function(app, passport, db) {
 
@@ -64,8 +65,8 @@ module.exports = function(app, passport, db) {
     });
 
     app.get('/go=:login', isLoggedIn, (req, res) => {
-    	var login = req.params.login;
-    	var current = req.user;
+    	let login = req.params.login;
+    	let current = req.user;
 		User.findOne( {'local.login' : login }, (err, getuser) => {
 			
 			res.render('account.ejs', {
@@ -75,6 +76,29 @@ module.exports = function(app, passport, db) {
 		});		
 	});
 
+
+  app.get('/go=:login/avatar', isLoggedIn, (req, res) => {
+
+	  try {
+	    User.findOne( {'local.login' : req.params.login }, function (err, user) {
+	      
+	      if (err) {
+	        res.send(err);
+	      } else if (user.avatar == undefined || user.avatar.default == true) {
+	        res.sendfile(path.join(__dirname, '../public/img/no_avatar.jpg'));
+	      } else {
+	        res.setHeader('Cache-Control', 'public, max-age=3000000');
+	        res.contentType(user.avatar.contentType);
+	        res.send(user.avatar.data);
+	      }
+	    });
+
+	  } catch (err) {
+	    res.send(err);
+	  }
+	});
+
+  
 	// LOGOUT =====user.local.login============================
 
 	app.get('/logout', (req, res) => {
@@ -145,6 +169,9 @@ module.exports = function(app, passport, db) {
 		});
 	});
 
+
+
+
 	// EDIT
 
 	app.get('/edit', isLoggedIn, function(req,res) {
@@ -153,7 +180,7 @@ module.exports = function(app, passport, db) {
 
 		res.render('edit', { 
 			message: req.flash('signupMessage'),
-			mydata: req.user,		
+			mydata: req.user,				
 		});
 		
 	});
@@ -169,8 +196,10 @@ module.exports = function(app, passport, db) {
 		let dob		= req.body.dob;
 		let gender	= req.body.gender;		 
 		let about = req.body.about;
+		let avatar = req.body.avatar;
 
-		User.findById(id, function(err, data) {
+		User.findById(id, function(err, user) {
+
 
 			data.local.login = login;
 			data.local.passw = password;
