@@ -8,22 +8,24 @@
         
             <div class="form-group">
                 <label>Логин</label>
-                <input type="text" class="form-control" name="login" value="<%=mydata.local.login%>">
+                <input type="text" class="form-control" name="login" value="<%=mydata.login%>">
             </div>
             <div class="form-group">
-                <label>Пароль</label>
-                <input type="password" class="form-control" name="passw" value="<%=mydata.local.password%>">
+                <% if ( mydata.password == "" ) { %> 
+                    <label>Пароль</label>
+                    <input type="password" class="form-control" name="passw">
+                <% } %>
             </div>
             <div class="form-group">
                 <label>Имя</label>
-                <input type="name" class="form-control" name="name" value="<%=mydata.local.name%>">
+                <input type="name" class="form-control" name="name" value="<%=mydata.name%>">
                 <label>Фамилия</label>
-                <input type="surname" class="form-control" name="surname" value="<%=mydata.local.surname%>">
+                <input type="surname" class="form-control" name="surname" value="<%=mydata.surname%>">
             </div>
             <div class="form-group">
                 <div class="form-group">
                   <label>Дата рождения</label>
-                  <input type="date" class="form-control" name="dob" placeholder="Date of Birth" value="<%=mydata.local.dob%>">
+                  <input type="date" class="form-control" name="dob" placeholder="Date of Birth" value="<%=mydata.dob%>">
                 </div>
             </div>
                 <div class="form-group">

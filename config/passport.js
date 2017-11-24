@@ -29,32 +29,51 @@ module.exports = function(passport) {
 		let dob		= req.body.dob;
 		let gender	= req.body.gender;		
 		
+
+		if (login.length < 3) {
+			console.log('LOGIN TOO LOW');
+			return done(null, false, req.flash('signupMessage',
+				'Слишком короткий логин! (Не меньше 3 символов)'));
+		}
+				
+		if (passw.length < 6) {
+			console.log('PASSWORD TOO LOW');
+      return done(null, false, req.flash('signupMessage',
+        'Слишком короткий пароль! (Не меньше 6 символов)'));
+		}
 		
 		process.nextTick( function() {
-			User.findOne({'local.login': login }, function(err, user){
+			User.findOne({'login': login }, function(err, user){
 				if (err) {
 					return done(err);
 				} 
 
 				if (user) {
 					return done(null, false, req.flash('signupMessage',
-					'Видимо, кто-то тебя опередил в выборе этого логина. Выбери другой!'));
-				} else {
+						'Видимо, кто-то тебя опередил в выборе этого логина. Выбери другой!'));
+				} 
+
+
 					let newUser	= new User();
 					
-					newUser.local.login = login;
-					newUser.local.passw = newUser.generateHash(passw);
-					newUser.local.name = name;
-					newUser.local.surname = surname;
-					newUser.local.dob = dob;
-					newUser.local.gender = gender;
+					newUser.login = login;
+					newUser.passw = newUser.generateHash(passw);
+					newUser.name = name;
+					newUser.surname = surname;
+					newUser.dob = dob;
+					newUser.gender = gender;
+          newUser.status = '';
+          newUser.avatar = {
+            contentType: '',
+            default: true
+          }
 
 					newUser.save(function(err){
 						if (err) 
 							throw err;
 						return done(null, newUser);
 					});
-				}
+				
 			});
 		});
 	}));
@@ -69,7 +88,7 @@ module.exports = function(passport) {
 	function(req, login, passw, done) {
 
 		process.nextTick( function() {
-			User.findOne( { 'local.login' : login }, function(err, user) {
+			User.findOne( { 'login' : login }, function(err, user) {
 				if (err) {
 					return done(err)
 				}	

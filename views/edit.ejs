@@ -7,27 +7,27 @@
 <body>
 
 	<div class="row">
-		<form action="/edit" method="post">
+		<form action="/edit" method="post" enctype="multipart/form-data">
 		
 			<div class="col-sm-6">
-					<%-partial('./layouts/partials/form')%>
+				<%-partial('./layouts/partials/form')%>
 			</div>
 		
 
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="about">О себе</label>
-					<textarea name="about" class="form-control" rows="4"><%if(mydata.local.about){%><%=mydata.local.about%><%}%></textarea>
+					<textarea name="about" class="form-control" rows="4"><%if(mydata.about){%><%=mydata.about%><%}%></textarea>
 				</div>
 
 				<div class="form-group">
 					<label>Аватар</label>
 					<br>
 						
-					<image src="/go=<%=mydata.local.login%>/avatar" class="image img-circle"></image>
+					 <image src="/usr/<%=mydata.login%>/avatar" class="image img-circle"></image>
 
 					<label class="btn btn-default">
-	    			Browse <input type="file" hidden name="avatar">
+	    			Browse <input id="avatar" name="avatar" accept="image/*" type="file">
 					</label>
 				</div>
 

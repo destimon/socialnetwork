@@ -12,10 +12,10 @@
   <div class="list-group">
     <%users.forEach(function(user){%>
       <li class="list-group-item">
-          <img src="/go=<%=user.local.login%>/avatar" id="avatar" class="image img-circle">
+          <img src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle">
 
-          <strong><%=user.local.name%> <%=user.local.surname%></strong>    
-          <a href="/go=<%=user.local.login%>"> (<%=user.local.login%>)</a>
+          <strong><%=user.name%> <%=user.surname%></strong>    
+          <a href="/<%=user.login%>"> (<%=user.login%>)</a>
       </li>
     <%})%>
   

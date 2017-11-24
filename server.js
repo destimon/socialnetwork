@@ -10,6 +10,7 @@ const cookieParser 	= require('cookie-parser');
 const db 			= require('./config/db');
 const morgan		= require('morgan');
 const session 		= require('express-session');
+const fileupload = require('express-fileupload');
 
 
 const app 			= express();
@@ -24,6 +25,7 @@ require('./config/passport')(passport);
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(fileupload());
 app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs-locals'));																																					

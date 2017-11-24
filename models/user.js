@@ -6,7 +6,6 @@ let mognoosePaginate	= require('mongoose-paginate');
 
 let userSchema = mongoose.Schema({
 
-	local			: {
 		login		: String,
 		passw		: String,
 		name		: String,
@@ -20,7 +19,7 @@ let userSchema = mongoose.Schema({
 		 	contentType	: String,
 		  default			: Boolean
 		},
-	}
+	
 });
 
 // Methods ==================================
@@ -35,7 +34,7 @@ userSchema.methods.generateHash = function(password) {
 
 // valid or not
 userSchema.methods.validPassword = function(password) {
-	return bcrypt.compareSync(password, this.local.password);
+	return bcrypt.compareSync(password, this.password);
 };
 
 // create model
