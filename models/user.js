@@ -6,15 +6,15 @@ let mognoosePaginate	= require('mongoose-paginate');
 
 let userSchema = mongoose.Schema({
 
-		login		: String,
-		passw		: String,
-		name		: String,
-		surname	: String,
-		gender	: String,
-		dob			: String,
-		about		: String,
-		status	: String,
-		avatar	: {
+		login		 : String,
+		password 	 : String,
+		name		 : String,
+		surname	 : String,
+		gender	 : String,
+		dob			 : String,
+		about		 : String,
+		status	 : String,
+		avatar	 : {
 		  data 				: Buffer,
 		 	contentType	: String,
 		  default			: Boolean
@@ -25,7 +25,6 @@ let userSchema = mongoose.Schema({
 // Methods ==================================
 
 userSchema.plugin(mognoosePaginate);
-
 
 // hashing
 userSchema.methods.generateHash = function(password) {

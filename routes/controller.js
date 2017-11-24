@@ -68,7 +68,7 @@ module.exports = function(app, passport, db) {
         });
     });
 
-    app.get('usr/:login', isLoggedIn, (req, res) => {
+    app.get('/usr/:login', isLoggedIn, (req, res) => {
     	console.log(req.user.login);
     	let login = req.params.login;
     	let current = req.user;

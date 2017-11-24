@@ -2,7 +2,7 @@
  
 <html>
 <head>
-  <title><%=mydata.login%></title>
+  <title><%=user.login%></title>
   <link rel="stylesheet" href="/style/account.css">
 </head>
 <body>
@@ -10,7 +10,7 @@
   <div class="row">
 
     <div class="col-sm-6">
-      <p class="h1"><%= mydata.name %> <%= mydata.surname %></p>
+      <p class="h1"><%= user.name %> <%= user.surname %></p>
       <image src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle"></image>
     </div>
 
@@ -27,10 +27,10 @@
     <ul class="list-group">
       
       <div class="col-sm-6">
-     	  <li class="list-group-item">ID: <%= mydata._id %></li>
-  	 	  <li class="list-group-item">LOGIN: <%= mydata.login %></li>
-    	  <li class="list-group-item">Date Of Birth: <%= mydata.dob %></li>
-        <li class="list-group-item">Gender: <%= mydata.gender %></li>
+     	  <li class="list-group-item">ID: <%= user._id %></li>
+  	 	  <li class="list-group-item">LOGIN: <%= user.login %></li>
+    	  <li class="list-group-item">Date Of Birth: <%= user.dob %></li>
+        <li class="list-group-item">Gender: <%= user.gender %></li>
       </div>
 
           
@@ -38,8 +38,8 @@
         <li class="list-group-item">
           <p>О себе:</p>
 
-          <% if (mydata.about) { %>
-            <p><%=mydata.about%></p>
+          <% if (user.about) { %>
+            <p><%=user.about%></p>
           <% } %>
         </li>
       </div>
