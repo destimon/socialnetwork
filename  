@@ -1,0 +1,52 @@
+[33mcommit 3c4da56d4d9b4bb284afd1b594708c289aa4f70c[m
+Author: destimon <destaom@gmail.com>
+Date:   Fri Nov 24 20:16:29 2017 +0200
+
+    pagination bar improved
+
+14	3	views/layouts/partials/pagination.ejs
+
+[33mcommit b62393ab3f65b540a1de89f71659238032c4ea4a[m
+Author: destimon <destaom@gmail.com>
+Date:   Fri Nov 24 19:05:37 2017 +0200
+
+    First and last position of pagination fixed
+
+1	1	config/passport.js
+4	1	routes/controller.js
+23	4	views/layouts/partials/pagination.ejs
+
+[33mcommit 02896ec348f5b4cae1cb9fd15a53bf365ab7e597[m
+Author: destimon <destaom@gmail.com>
+Date:   Fri Nov 24 05:05:39 2017 +0200
+
+    Info fixed. Password compare works
+
+12	10	config/passport.js
+9	10	models/user.js
+3	0	public/style/account.css
+1	1	routes/controller.js
+8	8	views/account.ejs
+1	1	views/contacts.ejs
+3	2	views/edit.ejs
+1	1	views/layouts/partials/form.ejs
+1	1	views/login.ejs
+
+[33mcommit 4e6c9b630d3e8c179c489da8cc358a057f82c9b8[m
+Author: destimon <destaom@gmail.com>
+Date:   Fri Nov 24 02:05:28 2017 +0200
+
+    Avatar NOW WORKS. Routes changed
+
+30	11	config/passport.js
+1	4	models/contacts.js
+2	3	models/user.js
+54	33	routes/controller.js
+2	0	server.js
+9	9	views/account.ejs
+3	3	views/contacts.ejs
+5	5	views/edit.ejs
+8	6	views/layouts/partials/form.ejs
+7	3	views/layouts/partials/pagination.ejs
+2	1	views/layouts/partials/topNavigation.ejs
+1	0	views/signup.ejs

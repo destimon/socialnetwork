@@ -4,16 +4,28 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="/me">Goveogram</a>
         </div>
-        <ul class="nav navbar-nav">
-          <li><image src="/usr/<%=mydata.login%>/avatar" style="width: 20px; margin-top: 70%;" class="image img-circle"></image></li>
-          <li><a href="/me"><%=mydata.login%></a></li>
-          <li><a href="/contacts/1">Контакты</a></li>
-          <li><a href="#">Новости</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/edit"><span class="glyphicon glyphicon-cog"></span> Настройки</a></li>
-          <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Выйти</a></li>
-        </ul>
+          
+        <% if(!mydata) { %> 
+          
+
+        <% } else { %>
+          <ul class="nav navbar-nav">
+            <li><image src="/usr/<%=mydata.login%>/avatar" style="width: 20px; margin-top: 70%;" class="image img-circle"></image></li>
+            <li><a href="/me"><%=mydata.login%></a></li>
+            <li><a href="/contacts/1">Контакты</a></li>
+            <li><a href="#">Новости</a></li>
+          </ul>
+              
+          <ul class="nav navbar-nav navbar-right">
+            <li>  
+              <a class="btn dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span> Меню</a>
+                <ul class="dropdown-menu">
+                  <li><a href="/edit"><span class="glyphicon glyphicon-cog"></span> Настройки</a></li>
+                  <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Выйти</a></li>  
+                </ul>
+            </li>
+          </ul>
+        <% } %>
       </div>
     </nav>
   </header>

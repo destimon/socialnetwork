@@ -44,7 +44,8 @@ module.exports = function(passport) {
 		
 		process.nextTick( function() {
 			User.findOne({'login': login }, function(err, user){
-				if (err) {
+				
+        if (err) {
 					return done(err);
 				} 
 
@@ -53,27 +54,27 @@ module.exports = function(passport) {
 						'Видимо, кто-то тебя опередил в выборе этого логина. Выбери другой!'));
 				} 
 
-
-					let newUser	= new User();
+				let newUser	= new User();
 					
-					newUser.login = login;
-					newUser.password = newUser.generateHash(password);
-					newUser.name = name;
-					newUser.surname = surname;
-					newUser.dob = dob;
-					newUser.gender = gender;
-          newUser.status = '';
+				newUser.login = login;
+				newUser.password = newUser.generateHash(password);
+				newUser.name = name;
+				newUser.surname = surname;
+				newUser.dob = dob;
+				newUser.gender = gender;
+        newUser.status = '';
           newUser.avatar = {
             contentType: '',
             default: true
           }
 
 					newUser.save(function(err){
-						if (err) 
+						
+            if (err) 
 							throw err;
-						return done(null, newUser);
+					
+          	return done(null, newUser);
 					});
-				
 			});
 		});
 	}));
@@ -86,14 +87,11 @@ module.exports = function(passport) {
 		passReqToCallback: true
 	},
 	function(req, login, password, done) {
-
-
 			User.findOne( { 'login' : login }, function(err, user) {
-				if (err) {
+				
+        if (err) {
 					return done(err)
 				}	
-
-
         
 				if (!user || !user.validPassword(password) ) {
           return done(null, false, req.flash('loginMessage',

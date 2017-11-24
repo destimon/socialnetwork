@@ -68,8 +68,9 @@ module.exports = function(app, passport, db) {
         });
     });
 
-    app.get('/usr/:login', isLoggedIn, (req, res) => {
-    	console.log(req.user.login);
+    app.get('/usr/:login', (req, res) => {
+    	// req.isAuthenticated();
+    	
     	let login = req.params.login;
     	let current = req.user;
 		User.findOne( {'login' : login }, (err, getuser) => {
@@ -82,7 +83,7 @@ module.exports = function(app, passport, db) {
 	});
 
 
-  app.get('/usr/:login/avatar', isLoggedIn, (req, res) => {
+  app.get('/usr/:login/avatar', (req, res) => {
 
 	  try {
 	    User.findOne( {'login' : req.params.login }, function (err, user) {
