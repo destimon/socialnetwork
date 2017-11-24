@@ -120,7 +120,10 @@ module.exports = function(app, passport, db) {
 
 	  let pg = req.params.page;
 
-	  User.paginate({ }, { page: pg, limit: 5}, (err, data) => {
+	  User.paginate({ }, { page: pg, limit: 3}, (err, data) => {
+
+	  	console.log('page: ' + data.page);
+	  	console.log('pages: ' + data.pages);
 
 	  	res.render('contacts.ejs', {
 	  		pgs: data.pages,

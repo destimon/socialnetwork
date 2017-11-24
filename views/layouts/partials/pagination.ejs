@@ -3,10 +3,29 @@
   <ul class="pagination text-center">
   	  <li><a href="/contacts/1">Начало</a></li>
 
-  	  <% if (pgs > 1) { %> 
-	      <% for(var i = 2; i <= pgs; i++) { %>
-	   	    <li><a href="/contacts/<%=i%>"><%=i%></a></li>
-	      <% } %>
+  	 	<% if (curr == 1) { %> 
+	  	  <% if (pgs > 1) { %> 
+		      <% for(var i = 2; i < 5; i++) { %>
+		   	   	<li><a href="/contacts/<%=i%>"><%=i%></a></li>
+		      <% } %>
+		      
+		      <li><a>...</a></li>
+	  		<% } %>
+	  	<% } else if (curr == pgs) { %>
+	  		<li><a>...</a></li>
+   			<% for(var i = (pgs-3); i < pgs; i++) { %> 
+ 	 				<li><a href="/contacts/<%=i%>"><%=i%></a></li>
+   			<% } %>
+ 			<% } else if (curr)%>
+
+  	  <% if (pgs > 5) { %> 
+  	  	<li><a href="/contacts/<%=pgs%>">Конец</a></li>
   	  <% } %> 
   </ul> 
+
+
+<% } else if (pgs < 0) { %>
+	<div class="alert alert-danger"> 
+		<strong>Danger!</strong> Insufficient amount of elements to share
+	</div>
 <% } %>

@@ -94,7 +94,7 @@ module.exports = function(passport) {
 				}	
 
 
-        console.log(user.password);
+        
 				if (!user || !user.validPassword(password) ) {
           return done(null, false, req.flash('loginMessage',
 					'Что-то тут не так. Либо логин не правильный, либо же пароль'));
