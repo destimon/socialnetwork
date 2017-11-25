@@ -7,19 +7,25 @@
 </head>
 <body>
 
- <%-partial('./layouts/partials/pagination')%>
-
-  <div class="list-group">
-    <%users.forEach(function(user){%>
-      <li class="list-group-item">
-          <img src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle">
-
-          <strong><%=user.name%> <%=user.surname%></strong>    
-          <a href="/usr/<%=user.login%>"> (<%=user.login%>)</a>
-      </li>
-    <%})%>
+ <div class="container">
+    <div class="col-xs-12 col-sm-offset-4 col-md-4">
+    
+      <%-partial('./layouts/partials/pagination')%>
   
-    <%-partial('./layouts/partials/pagination')%>
+      <div class="list-group">
+        <%users.forEach(function(user){%>
+                
+          <li class="list-group-item">
+               <img src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle">
+
+              <strong><%=user.name%> <%=user.surname%></strong>    
+              <a href="/usr/<%=user.login%>"> (<%=user.login%>)</a>
+          </li>
+        <%})%>
+      </div>
+      
+      <%-partial('./layouts/partials/pagination')%>
+    </div>
   </div>
     
 

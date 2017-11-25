@@ -2,7 +2,8 @@
     <nav class="navbar navbar-inverse">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/me">Goveogram</a>
+          <a href="/me"><image id="topicon" src="/img/beer.png"></image></a>
+
         </div>
           
         <% if(!mydata) { %> 
@@ -11,18 +12,20 @@
         <% } else { %>
           <ul class="nav navbar-nav">
             
-            <li><a href="/me"><%=mydata.login%></a></li>
+
             <li><a href="/contacts/1">Контакты</a></li>
             <li><a href="/feed">Новости</a></li>
           </ul>
               
           <ul class="nav navbar-nav navbar-right">
-              <li></li>
             <li>  
               <a class="btn dropdown-toggle" data-toggle="dropdown"><image src="/usr/<%=mydata.login%>/avatar" style="width: 20px;" class="image img-circle"> Меню <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/me">Профиль</a></li>
+                  <li><a href="/me"><span class="glyphicon glyphicon-home"></span> Профиль</a></li>
+                  <hr style="margin: 0 0 0 0;">
                   <li><a href="/edit"><span class="glyphicon glyphicon-cog"></span> Настройки</a></li>
+                  <li><a href="/help"><span class="glyphicon glyphicon-info-sign"></span> Справка</a></li>
+                  <hr style="margin: 0 0 0 0;">
                   <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Выйти</a></li>  
                 </ul>
             </li>

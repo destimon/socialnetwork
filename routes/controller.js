@@ -117,9 +117,9 @@ module.exports = function(app, passport, db) {
 
 	// CONTACTS ================================
 
-	app.get('/contacts/:page', isLoggedIn, (req, res) => {
+	app.get('/contacts/:p', isLoggedIn, (req, res) => {
 
-	  let pg = req.params.page;
+	  let pg = req.params.p;
 
 	  User.paginate({ }, { page: pg, limit: 3}, (err, data) => {
 
@@ -242,6 +242,14 @@ module.exports = function(app, passport, db) {
 		});
 
 
+	});
+
+	// HELP
+
+	app.get('/help', function(req, res) {
+		res.render('devinfo', {
+			mydata: req.user
+    });
 	});
 
 	// FEED

@@ -1,38 +1,41 @@
 
 <% if (pgs > 0) { %>
-  <ul class="pagination text-center">
-  	  <li><a href="/contacts/1">Начало</a></li>
 
-  	 	<% if (curr == 1 || curr == 2 || curr == 3) { %> 
-	  	  <% if (pgs > 1) { %> 
-		      <% for(var i = 2; i < 5; i++) { %>
-		   	   	<li><a href="/contacts/<%=i%>"><%=i%></a></li>
-		      <% } %>
-		      
-		      <li><a>...</a></li>
-	  		<% } %>
-	  	<% } else if (curr == pgs || curr == pgs-1 || curr == pgs-2) { %>
-	  		<li><a>...</a></li>
-   			
-   			<% for(var i = (pgs-3); i < pgs; i++) { %> 
- 	 				<li><a href="/contacts/<%=i%>"><%=i%></a></li>
-   			<% } %>
- 			<% } else if (curr > 2) { %>
- 				<li><a>...</a></li>
+	<div class="paginate-container">
+	  <ul class="pagination text-center">
+	  	  <li><a href="/contacts/1">1</a></li>
 
- 				<% var tmp1 = parseInt(curr)+2 %>
+	  	 	<% if (curr == 1 || curr == 2 || curr == 3) { %> 
+		  	  <% if (pgs > 1) { %> 
+			      <% for(var i = 2; i < 5; i++) { %>
+			   	   	<li><a href="/contacts/<%=i%>"><%=i%></a></li>
+			      <% } %>
+			      
+			      <li><a>...</a></li>
+		  		<% } %>
+		  	<% } else if (curr == pgs || curr == pgs-1 || curr == pgs-2) { %>
+		  		<li><a>...</a></li>
+	   			
+	   			<% for(var i = (pgs-3); i < pgs; i++) { %> 
+	 	 				<li><a href="/contacts/<%=i%>"><%=i%></a></li>
+	   			<% } %>
+	 			<% } else if (curr > 2) { %>
+	 				<li><a>...</a></li>
 
- 				<% for(var i = tmp1-3; i < tmp1; i++) { %>
- 					<li><a href="/contacts/<%=i%>"><%=i%></a></li>
- 				<% } %>
+	 				<% var tmp1 = parseInt(curr)+2 %>
 
- 				<li><a>...</a></li>
-  	  <% } %> 
+	 				<% for(var i = tmp1-3; i < tmp1; i++) { %>
+	 					<li><a href="/contacts/<%=i%>"><%=i%></a></li>
+	 				<% } %>
 
-  	  <% if (pgs > 5) { %> 
-  	  	<li><a href="/contacts/<%=pgs%>">Конец</a></li>
-  	  <% } %> 
-  </ul> 
+	 				<li><a>...</a></li>
+	  	  <% } %> 
+
+	  	  <% if (pgs > 5) { %> 
+	  	  	<li><a href="/contacts/<%=pgs%>"><%=pgs%></a></li>
+	  	  <% } %> 
+	  </ul> 
+	</div>
 
 
 <% } else if (pgs < 0) { %>
