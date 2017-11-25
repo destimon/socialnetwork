@@ -244,6 +244,14 @@ module.exports = function(app, passport, db) {
 
 	});
 
+	// FEED
+
+	app.get('/feed', isLoggedIn, function(req,res) {
+		res.render('feed', {
+			mydata: req.user
+		});
+	});
+
 	// isLoggedIn
 	function isLoggedIn(req, res, next) {
 

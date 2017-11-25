@@ -8,14 +8,15 @@ a {
 }
 
 .navbar {
+
 	z-index: 2;
 	position: fixed;
 	top: 0;
 	width: 100%;
-}
 
+}
 .container {
-	margin-top: 65px;
+	
 }
 
 .thumbnail {
@@ -24,5 +25,7 @@ a {
 	padding-left: 2%;
 	padding-right: 2%;
 	padding-bottom: 2%;
+
+	margin-top: 4%;
 }
 
