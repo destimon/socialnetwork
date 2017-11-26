@@ -244,7 +244,8 @@ module.exports = function(app, passport, db) {
 
 	});
 
-	// HELP
+	// HELP ============================================================================
+	// =================================================================================
 
 	app.get('/help', function(req, res) {
 		res.render('devinfo', {
@@ -252,15 +253,23 @@ module.exports = function(app, passport, db) {
     });
 	});
 
-	// FEED
-
+	// FEED ============================================================================
+	// =================================================================================
 	app.get('/feed', isLoggedIn, function(req,res) {
 		res.render('feed', {
 			mydata: req.user
 		});
 	});
 
-	// isLoggedIn
+	// ADD ============================================================================
+	// ================================================================================
+	app.post('/add?usr=:login', isLoggedIn, function(req, res) {
+    let login = req.params.login;
+    
+	});
+
+
+	// isLoggedIn  ============================================================================
 	function isLoggedIn(req, res, next) {
 
 	    // if user is authenticated in the session, carry on 

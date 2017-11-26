@@ -11,6 +11,10 @@ a {
   color: #00B7FF;
 }
 
+hr {
+	border-color: rgba(0, 0, 0, 0.3);
+}
+
 
 .navbar-inverse {
 	
@@ -30,6 +34,7 @@ a {
 	padding-top: 2%;
 
 	margin-top: 4%;
+	background-color: rgba(255, 255, 255, 0.25)
 }
 
 .pagination { 

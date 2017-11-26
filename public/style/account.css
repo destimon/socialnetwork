@@ -1,14 +1,7 @@
-.list-group {
-	font-weight: bold;
-}
 
-#middle {
-	padding-right: 2%;
-	padding-left: 2%
-}
 
 #avatar {
-	border: 2px solid grey;
+	border: 3px solid grey;
 
 	width: 250px;
 	height: 250px;
