@@ -107,7 +107,7 @@ module.exports = function(app, passport, db) {
   app.post('/add?usr=:login', isLoggedIn, function(req, res) {
     let login = req.params.login;
     
-    
+
   });
 
   // CONTACTS ============================================================================
@@ -115,7 +115,7 @@ module.exports = function(app, passport, db) {
   app.get('/contacts/:p', isLoggedIn, (req, res) => {
     let pg = req.params.p;
 
-    User.paginate({ }, { page: pg, limit: 3}, (err, data) => {
+    User.paginate({ }, { page: pg, limit: 4}, (err, data) => {
       console.log('page: ' + data.page);
       console.log('pages: ' + data.pages);
 

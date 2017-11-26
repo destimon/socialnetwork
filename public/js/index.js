@@ -1,8 +1,11 @@
+"use strict"
+
 // Create Request
 
 function CreateRequest() {
-	var Request = false;
+	let Request = false;
 
+  console.log('CreateRequest()');
 	if (window.XMLHttpRequest) {
 		// GECKO
 		Request = new XMLHttpRequest();
@@ -26,7 +29,7 @@ function CreateRequest() {
 // Send Request
 
 function SendRequest(r_method, r_path, r_args, r_handler) {
-  var Request = CreateRequest();
+  let Request = CreateRequest();
 
   if (!Request) return;
 
@@ -42,7 +45,7 @@ function SendRequest(r_method, r_path, r_args, r_handler) {
   // Init connect
   Request.open(r_method, r_path, true);
 
-  if (r.method.toLowerCase() == "post") {
+  if (r_method.toLowerCase() == "post") {
     // POST
     Request.setRequestHeader('ContentType', 'application/x-www-form-urlencoded; charset=utf8');
     Request.send(r_args);
@@ -50,4 +53,10 @@ function SendRequest(r_method, r_path, r_args, r_handler) {
     // GET
     Request.send(null);
   }
+}
+
+function addUser() {
+  let Request = CreateRequest();
+
+     
 }

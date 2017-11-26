@@ -80,7 +80,9 @@
     <% if (mydata !== user) { %> 
       <div class="row">
         <div class="col-sm-4 col-sm-offset-4">
-         <button type="button" class="btn">Добавить</button>
+          <form action="" method="post" onsubmit="addUser(); return fasle" data-remote="true">
+            <button type="submit" class="btn">Добавить</button>
+          </form>
          <button type="button" class="btn btn disabled">Написать</button>
         </div>
       </div>
@@ -91,6 +93,8 @@
   
 
   </div>	
+
+  <script src='/js/index.js'></script>
 
 </body>
 </html>
