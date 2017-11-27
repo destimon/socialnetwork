@@ -251,8 +251,9 @@ module.exports = function(app, passport, db) {
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
 
-    let datestring = hours + ':' + minutes; 
+    let datestring = hours + ':' + minutes + '.' + seconds; 
     console.log(datestring);
 
     newFeed.author = req.user.login;

@@ -12,85 +12,86 @@
 <body>
 
   <!-- Information -->
-  
-  <div class="row">
-    <div class="col-sm-4">
-      <p class="h3">Информация</p>
-        <p class="h4">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <p class="h3">Информация</p>
+          <p class="h4">
+            <div class="row">
+              <div class="col-sm-5">
+                <p>ID:</p> 
+                <p>Логин:</p> 
+                <p>Дата рождения:</p> 
+                <p>Пол:</p> 
+              </div>
+
+              <div class="col-sm-3">
+                <% if(user.id) { %> 
+                  <p><%= user._id %></p>
+                <% } else { %>
+                  <p>N/A</p>
+                <% } %>
+
+                <% if(user.login) { %>
+                <p><%= user.login %></p>
+                <% } else { %>
+                  <p>N/A</p>
+                <% } %>
+
+                <% if(user.dob) { %> 
+                <p><%= user.dob %></p>
+                <% } else { %>
+                  <p>N/A</p>
+                <% } %>
+
+                <% if(user.gender) { %>
+                <p><%= user.gender %></p>       
+                <% } else { %>
+                  <p>N/A</p>
+                <% } %>
+              </div>
+            </div>
+          </p>
+
+          <hr>
+
           <div class="row">
-            <div class="col-sm-5">
-              <p>ID:</p> 
-              <p>Логин:</p> 
-              <p>Дата рождения:</p> 
-              <p>Пол:</p> 
-            </div>
-
-            <div class="col-sm-3">
-              <% if(user.id) { %> 
-                <p><%= user._id %></p>
-              <% } else { %>
-                <p>N/A</p>
-              <% } %>
-
-              <% if(user.login) { %>
-              <p><%= user.login %></p>
-              <% } else { %>
-                <p>N/A</p>
-              <% } %>
-
-              <% if(user.dob) { %> 
-              <p><%= user.dob %></p>
-              <% } else { %>
-                <p>N/A</p>
-              <% } %>
-
-              <% if(user.gender) { %>
-              <p><%= user.gender %></p>       
-              <% } else { %>
-                <p>N/A</p>
+            <div class="col-sm-12">
+              <% if(user.about !== undefined) { %> 
+                <p class="h3">О себе</p>
+                <p class="h4">
+                    <%=user.about%>
+                </p>
               <% } %>
             </div>
           </div>
-        </p>
+        </div>  
+      
 
-        <hr>
+      <div class="col-sm-4">
+        <% if(user.name) { %> 
+          <% if(user.surname) { %> 
+            <p class="h1"><%= user.name %> <%= user.surname %></p>
+          <% } %>
+        <% } %>
+        <image src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle"></image>
+      </div>
 
-        <div class="row">
-          <div class="col-sm-12">
-            <% if(user.about !== undefined) { %> 
-              <p class="h3">О себе</p>
-              <p class="h4">
-                  <%=user.about%>
-              </p>
-            <% } %>
+      <% if (mydata) { %> 
+        <% if (mydata !== user) { %> 
+          <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+              <form method="getuser" onsubmit="addUser();" data-remote="true">
+                <button type="submit" class="btn">Добавить</button>
+                <button type="button" class="btn btn disabled">Написать</button>
+              </form>
+            </div>
           </div>
-        </div>
-      </div>  
-    
-
-    <div class="col-sm-4">
-      <% if(user.name) { %> 
-        <% if(user.surname) { %> 
-          <p class="h1"><%= user.name %> <%= user.surname %></p>
         <% } %>
       <% } %>
-      <image src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle"></image>
     </div>
-
-    <% if (mydata) { %> 
-      <% if (mydata !== user) { %> 
-        <div class="row">
-          <div class="col-sm-4 col-sm-offset-4">
-            <form method="getuser" onsubmit="addUser();" data-remote="true">
-              <button type="submit" class="btn">Добавить</button>
-              <button type="button" class="btn btn disabled">Написать</button>
-            </form>
-          </div>
-        </div>
-      <% } %>
-    <% } %>
   </div>
-    
+  
   <hr>
 
   <!-- Blog -->
@@ -109,7 +110,8 @@
             </form>
           </div>
         </div>
-    <% } %>
+      <% } %>
+    <% } %>  
 
         <div class="row">
           <div class="col-sm-offset-4">
@@ -123,7 +125,6 @@
               <% }) %>
             </div>
         </div>
-      <% } %>  
   </div>
 
   <script src='/js/index.js'></script>
