@@ -29,13 +29,13 @@ function CreateRequest() {
 // Send Request
 
 function SendRequest(r_method, r_path, r_args, r_handler) {
-  let Request = CreateRequest();
+  let ajax = CreateRequest();
 
-  if (!Request) return;
+  if (!ajax) return;
 
-  Request.onreadystatechange = function() {
-    if (Request.readyState == 4) 
-      r_handler(Request);
+  ajax.onreadystatechange = function() {
+    if (ajax.readyState == 4) 
+      r_handler(ajax);
   }
 
   // is there get?
@@ -43,20 +43,33 @@ function SendRequest(r_method, r_path, r_args, r_handler) {
     r_path += '?' + r_args;
 
   // Init connect
-  Request.open(r_method, r_path, true);
+  ajax.open(r_method, r_path, true);
 
   if (r_method.toLowerCase() == "post") {
     // POST
-    Request.setRequestHeader('ContentType', 'application/x-www-form-urlencoded; charset=utf8');
-    Request.send(r_args);
+    ajax.setRequestHeader('ContentType', 'application/x-www-form-urlencoded; charset=utf8');
+    ajax.send(r_args);
   } else {
     // GET
-    Request.send(null);
+    ajax.send(null);
   }
+
+  console.log(r_path);
 }
 
 function addUser() {
-  let Request = CreateRequest();
+  
+  ajax.onreadystatechange = function() {
+    console.log(ajax.readyState, ajax.response, ajax.status);
+    if (ajax.readyState === 4 && ajax.status === 200) { 
+      let goveoel = document.getElementById('goveo');
+      goveoel.innerHTML = "";
+    }
+  }
 
-     
+  ajax.open('get', '/usr/asdf');
+  ajax.send();   
+
+
+  
 }

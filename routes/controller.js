@@ -3,6 +3,7 @@
 let ObjectID = require('mongodb').ObjectID;
 let Contacts = require('../models/contacts');
 let User = require('../models/user');
+let Feed = require('../models/feed');
 let multer  = require('multer')
 let upload = multer()
 let path = require('path');
@@ -60,11 +61,15 @@ module.exports = function(app, passport, db) {
   // ==================================================================================
     app.get('/me', isLoggedIn, function(req, res) {
       console.log(req.user);
+      let login = req.user.login; 
 
+      Feed.find({'author' : login }, function(err, data) {
         res.render('account.ejs', {
           user : req.user, // get the user out of session and pass to template
-          mydata : req.user
+          mydata : req.user,
+          feed : data 
         });
+      });
     });
 
     app.get('/usr/:login', (req, res) => {
@@ -72,14 +77,17 @@ module.exports = function(app, passport, db) {
       
       let login = req.params.login;
       let current = req.user;
-    User.findOne( {'login' : login }, (err, getuser) => {
-      
-      res.render('account.ejs', {
-        user : getuser,
-        mydata : current
-      });     
-    });   
-  });
+
+      User.findOne( {'login' : login }, (err, getuser) => {
+        Feed.find({'author' : login }, (err, data) => { 
+          res.render('account.ejs', {
+            user : getuser,
+            mydata : current,
+            feed: data
+          });     
+        });
+      });   
+    });
 
 
   app.get('/usr/:login/avatar', (req, res) => {
@@ -100,14 +108,6 @@ module.exports = function(app, passport, db) {
     } catch (err) {
       res.send(err);
     }
-  });
-
-  // ADD ============================================================================
-  // ================================================================================
-  app.post('/add?usr=:login', isLoggedIn, function(req, res) {
-    let login = req.params.login;
-    
-
   });
 
   // CONTACTS ============================================================================
@@ -232,12 +232,43 @@ module.exports = function(app, passport, db) {
 
   // FEED ============================================================================
   // =================================================================================
-  app.get('/feed', isLoggedIn, function(req,res) {
-    res.render('feed', {
-      mydata: req.user
+  app.get('/feed/:p', isLoggedIn, function(req,res) {
+    let pg = req.params.p;
+
+    Feed.paginate({ }, { page: pg, limit: 5 }, function(err, data) {
+      res.render('feed', {
+        mydata: req.user,
+        feed: data.docs,
+        curr: data.page, 
+        pgs: data.pages        
+      });
     });
-  
   });
+  
+  app.post('/feed', function(req, res) {
+    
+    let newFeed = new Feed();
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+
+    let datestring = hours + ':' + minutes; 
+    console.log(datestring);
+
+    newFeed.author = req.user.login;
+    newFeed.date = datestring;
+    newFeed.info = req.body.info;
+
+    console.log(req.body.info);
+    
+    newFeed.save(function(err) {
+      if (err) 
+        throw err;
+    });
+    
+    res.redirect('me');
+  });
+
 	// LOGOUT ==============================================================================
   // =====================================================================================
 	app.get('/logout', (req, res) => {

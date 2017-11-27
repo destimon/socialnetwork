@@ -10,45 +10,49 @@
   <link rel="stylesheet" href="/style/account.css">
 </head>
 <body>
+
+  <!-- Information -->
+  
   <div class="row">
     <div class="col-sm-4">
       <p class="h3">Информация</p>
-      <p class="h4">
-        <div class="row">
-          <div class="col-sm-5">
-            <p>ID:</p> 
-            <p>Логин:</p> 
-            <p>Дата рождения:</p> 
-            <p>Пол:</p> 
+        <p class="h4">
+          <div class="row">
+            <div class="col-sm-5">
+              <p>ID:</p> 
+              <p>Логин:</p> 
+              <p>Дата рождения:</p> 
+              <p>Пол:</p> 
+            </div>
+
+            <div class="col-sm-3">
+              <% if(user.id) { %> 
+                <p><%= user._id %></p>
+              <% } else { %>
+                <p>N/A</p>
+              <% } %>
+
+              <% if(user.login) { %>
+              <p><%= user.login %></p>
+              <% } else { %>
+                <p>N/A</p>
+              <% } %>
+
+              <% if(user.dob) { %> 
+              <p><%= user.dob %></p>
+              <% } else { %>
+                <p>N/A</p>
+              <% } %>
+
+              <% if(user.gender) { %>
+              <p><%= user.gender %></p>       
+              <% } else { %>
+                <p>N/A</p>
+              <% } %>
+            </div>
           </div>
+        </p>
 
-          <div class="col-sm-3">
-            <% if(user.id) { %> 
-              <p><%= user._id %></p>
-            <% } else { %>
-              <p>N/A</p>
-            <% } %>
-
-            <% if(user.login) { %>
-            <p><%= user.login %></p>
-            <% } else { %>
-              <p>N/A</p>
-            <% } %>
-
-            <% if(user.dob) { %> 
-            <p><%= user.dob %></p>
-            <% } else { %>
-              <p>N/A</p>
-            <% } %>
-
-            <% if(user.gender) { %>
-            <p><%= user.gender %></p>       
-            <% } else { %>
-              <p>N/A</p>
-            <% } %>
-
-          </div>
-        </div>
         <hr>
 
         <div class="row">
@@ -61,10 +65,9 @@
             <% } %>
           </div>
         </div>
+      </div>  
+    
 
-    </div>
-
-  
     <div class="col-sm-4">
       <% if(user.name) { %> 
         <% if(user.surname) { %> 
@@ -73,28 +76,56 @@
       <% } %>
       <image src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle"></image>
     </div>
-  
-  </div>
-  
-  <% if (mydata) { %> 
-    <% if (mydata !== user) { %> 
-      <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-          <form action="" method="post" onsubmit="addUser(); return fasle" data-remote="true">
-            <button type="submit" class="btn">Добавить</button>
-          </form>
-         <button type="button" class="btn btn disabled">Написать</button>
+
+    <% if (mydata) { %> 
+      <% if (mydata !== user) { %> 
+        <div class="row">
+          <div class="col-sm-4 col-sm-offset-4">
+            <form method="getuser" onsubmit="addUser();" data-remote="true">
+              <button type="submit" class="btn">Добавить</button>
+              <button type="button" class="btn btn disabled">Написать</button>
+            </form>
+          </div>
         </div>
-      </div>
+      <% } %>
     <% } %>
-  <% } %>
+  </div>
+    
+  <hr>
 
-	<hr>
-  
+  <!-- Blog -->
 
-  </div>	
+  <div class="container">
+    <% if (mydata) { %>    
+      <% if (mydata == user) { %> 
+        <div clas="row">
+          <div class="col-sm-4">
+            <p class="h1">Что нового?</p>
+
+            <form action="/feed" method="post">
+              <input class="form-control" type="text" name="info">
+              <hr>
+              <button type="submit" class="btn">Отправить</button>
+            </form>
+          </div>
+        </div>
+    <% } %>
+
+        <div class="row">
+          <div class="col-sm-offset-4">
+            <h1>Опубликовано</h1>
+              <% feed.forEach(function(post) { %> 
+                <blockquote>
+                <image class="img img-circle" id="avatarsmall" src="/usr/<%=post.author%>/avatar"><h4>- <%=post.date%></h4>
+                  <p class="h2"><%=post.author%></p>
+                  <p class="h4"><%=post.info%></p>
+                </blockquote>
+              <% }) %>
+            </div>
+        </div>
+      <% } %>  
+  </div>
 
   <script src='/js/index.js'></script>
-
 </body>
 </html>

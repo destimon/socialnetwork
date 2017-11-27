@@ -1,8 +1,35 @@
 <% layout('/layouts/layout') -%>
 
 <head>
+	<title>Новости</title>
+	<link rel="stylesheet" href="/style/feed.css">
 </head>
 
 <body>
-	<center><h2>Эта страница пока в разработке =-(</h2></center>
+		
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-2">
+		</div>
+		
+		<div class="col-xs-12 col-sm-8">
+			
+			<p class="h1">Новости</p>
+				<% feed.forEach(function(post) { %>
+					<div class="row">
+						<div class="col-sm-10">	
+							<blockquote>
+								<div class="row">
+									<image class="img img-circle" id="avatar" src="/usr/<%=post.author%>/avatar"><h4>- <%=post.date%></h4>
+									<h2><a href="/usr/<%=post.author%>"><%=post.author%></a></h2>
+									<p class="h4"><%=post.info%></p>
+								</div>
+							</blockquote>
+						</div>
+					</div>
+				<% }) %>
+				<%-partial('./layouts/partials/pagination')%>
+		</div>
+	</div>
+
 </body>
