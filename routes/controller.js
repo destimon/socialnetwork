@@ -198,6 +198,7 @@ module.exports = function(app, passport, db) {
       user.about = about;
       
       console.log(req.files);
+
       if (!req.files.avatar) {
         user.avatar.default = true;
       } else {
@@ -244,9 +245,36 @@ module.exports = function(app, passport, db) {
       });
     });
   });
+
+  app.post('/newfeed', (req, res) => {
+    let post = {
+      author: 'first',
+      info: req.body.info,
+      date: 1337,
+      comments: ''
+    };
+
+    console.log('>>INFO' + req.body.info);
+
+    let newFeed = new Feed();
+    newFeed.author = post.author;
+    newFeed.info = post.info;
+
+    newFeed.save(function(err) {
+      if (err) throw err;
+    });
+
+    res.json(post);
+    console.log(post);
+  });
   
   app.post('/feed', function(req, res) {
     
+    console.log('QUERY:  ' + req.query.info);
+
+    let info = req.body.info
+    console.log('>>INFO: ' + info);
+    console.log('>>BODY: ' + req.body);
     let newFeed = new Feed();
     let date = new Date();
     let hours = date.getHours();
@@ -258,9 +286,7 @@ module.exports = function(app, passport, db) {
 
     newFeed.author = req.user.login;
     newFeed.date = datestring;
-    newFeed.info = req.body.info;
-
-    console.log(req.body.info);
+    newFeed.info = info;
     
     newFeed.save(function(err) {
       if (err) 
@@ -276,7 +302,6 @@ module.exports = function(app, passport, db) {
 		req.logout();
 		res.redirect('/');
 	});
-
 
   // isLoggedIn  ============================================================================
   function isLoggedIn(req, res, next) {

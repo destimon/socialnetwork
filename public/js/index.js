@@ -28,48 +28,76 @@ function CreateRequest() {
 
 // Send Request
 
-function SendRequest(r_method, r_path, r_args, r_handler) {
+function SendRequest(a_method, a_path, a_args, a_handler) {
   let ajax = CreateRequest();
 
   if (!ajax) return;
 
   ajax.onreadystatechange = function() {
-    if (ajax.readyState == 4) 
-      r_handler(ajax);
+    if (ajax.readyState == 4 && ajax.status == 200) 
+      a_handler(ajax);
   }
 
   // is there get?
-  if (r_method.toLowerCase() == 'get' && r_args.length > 0) 
-    r_path += '?' + r_args;
+  if (a_method.toLowerCase() == 'get' && a_args.length > 0) 
+    a_path += '?' + a_args;
 
   // Init connect
-  ajax.open(r_method, r_path, true);
+  ajax.open(a_method, a_path, true);
 
-  if (r_method.toLowerCase() == "post") {
+  if (a_method.toLowerCase() == "post") {
     // POST
     ajax.setRequestHeader('ContentType', 'application/x-www-form-urlencoded; charset=utf8');
-    ajax.send(r_args);
+    ajax.send(a_args);
   } else {
     // GET
     ajax.send(null);
   }
 
-  console.log(r_path);
+  console.log(a_path);
 }
 
-function addUser() {
-  
+
+
+let model = {
+  posts : [],
+  smth: ""
+};
+
+window.addEventListener('load', function() {
+  let createForm = document.getElementById('create_post_form');
+  createForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    console.log('Form submit', createForm.feedpost.value);
+
+    createFeedPost({
+      info: createForm.feedpost.value  
+    });
+    
+  });
+});
+
+function createFeedPost(postvalue) {
+  let ajax = new XMLHttpRequest();
+
   ajax.onreadystatechange = function() {
-    console.log(ajax.readyState, ajax.response, ajax.status);
-    if (ajax.readyState === 4 && ajax.status === 200) { 
-      let goveoel = document.getElementById('goveo');
-      goveoel.innerHTML = "";
+    if(ajax.readyState===4 && ajax.status===200) {
+      console.log(ajax.readyState, ajax.response, ajax.status);
+      let postvalueObj = JSON.parse(ajax.response);
+      model.posts.push(postvalueObj);
+      renderPosts();
+
+      console.log(postvalueObj);
     }
-  }
+  };
 
-  ajax.open('get', '/usr/asdf');
-  ajax.send();   
+  ajax.open('POST', '/newfeed');
+  ajax.setRequestHeader("Content-type", "application/json");
+  ajax.send(JSON.stringify(postvalue));
+}
 
-
-  
+function renderPosts() {
+  let postlist = document.createElement('ul');
+  postlist.className = "list-group";
+  postlist.setAttribute('id', 'posts');
 }

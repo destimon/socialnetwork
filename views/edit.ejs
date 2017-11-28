@@ -6,35 +6,36 @@
     <link rel="stylesheet" href="/style/account.css">
 </head>
 <body>
-
-	<div class="row">
-		<form action="/edit" method="post" enctype="multipart/form-data">
-		
-			<div class="col-sm-6">
-				<%-partial('./layouts/partials/form')%>
-			</div>
-		
-
-			<div class="col-sm-6">
-				<div class="form-group">
-					<label for="about">О себе</label>
-					<textarea name="about" class="form-control" rows="4"><%if(mydata.about){%><%=mydata.about%><%}%></textarea>
+	<div class="container">
+		<div class="row">
+			<form action="/edit" method="post" enctype="multipart/form-data">
+			
+				<div class="col-sm-6">
+					<%-partial('./layouts/partials/form')%>
 				</div>
+			
 
-				<div class="form-group">
-					<label>Аватар</label>
-					<br>
-						
-					 <image src="/usr/<%=mydata.login%>/avatar" class="image img-circle" id="avatar"></image>
+				<div class="col-sm-5">
+					<div class="form-group">
+						<label for="about">О себе</label>
+						<textarea name="about" class="form-control" rows="4"><%if(mydata.about){%><%=mydata.about%><%}%></textarea>
+					</div>
 
-					<label class="btn btn-default">
-	    			Browse <input name="avatar" accept="image/*" type="file">
-					</label>
+					<div class="form-group">
+						<label>Аватар</label>
+						<br>
+							
+						 <image src="/usr/<%=mydata.login%>/avatar" class="image img-circle" id="avatar"></image>
+
+						<label class="btn btn-default">
+		    			Browse <input name="avatar" accept="image/*" type="file">
+						</label>
+					</div>
+
 				</div>
-
-			</div>
-		
-		</form>
+			
+			</form>
+		</div>
 	</div>
 </body>
 </html>

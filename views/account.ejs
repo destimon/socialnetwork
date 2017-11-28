@@ -11,6 +11,10 @@
 </head>
 <body>
 
+  <div id="app1">
+    <p>{{ message }}</p>
+  </div>
+
   <!-- Information -->
   <div class="container">
     <div class="row">
@@ -103,11 +107,15 @@
           <div class="col-sm-4">
             <p class="h1">Что нового?</p>
 
-            <form action="/feed" method="post">
-              <input class="form-control" type="text" name="info">
+            <form id="create_post_form">
+              <div class="form-group">
+                <input class="form-control" name="feedpost" id="feedpost" type="text">
+              </div>
+              
               <hr>
-              <button type="submit" class="btn">Отправить</button>
+              <input type="submit" class="btn btn-success" value="Отправить"></input>
             </form>
+          
           </div>
         </div>
       <% } %>
@@ -116,17 +124,28 @@
         <div class="row">
           <div class="col-sm-offset-4">
             <h1>Опубликовано</h1>
-              <% feed.forEach(function(post) { %> 
-                <blockquote>
-                <image class="img img-circle" id="avatarsmall" src="/usr/<%=post.author%>/avatar"><h4>- <%=post.date%></h4>
-                  <p class="h2"><%=post.author%></p>
-                  <p class="h4"><%=post.info%></p>
-                </blockquote>
-              <% }) %>
+              <% if(feed == '') { %>
+                <blockquote><p class="h2">Здесь пока пусто</p></blockquote>
+              <% } else { %>
+             
+              <div id="postList">
+                
+              </div>
+
+                <% feed.forEach(function(post) { %> 
+                  <blockquote>
+                  <image class="img img-circle" id="avatarsmall" src="/usr/<%=post.author%>/avatar"><h4>- <%=post.date%></h4>
+                    <p class="h2"><%=post.author%></p>
+                    <p class="h4"><%=post.info%></p>
+                  </blockquote>
+                <% }) %>
+
+              <% } %>
             </div>
         </div>
   </div>
 
+  <script src='/js/vue.js'></script>
   <script src='/js/index.js'></script>
 </body>
 </html>
