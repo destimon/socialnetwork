@@ -7,7 +7,7 @@ var feedSchema = mongoose.Schema({
 
 	author		: String,
 	date 		: String,
-	info 		: String,
+	text 		: String,
 	comments 	: String
 
 });

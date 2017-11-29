@@ -11,10 +11,6 @@
 </head>
 <body>
 
-  <div id="app1">
-    <p>{{ message }}</p>
-  </div>
-
   <!-- Information -->
   <div class="container">
     <div class="row">
@@ -30,17 +26,8 @@
               </div>
 
               <div class="col-sm-3">
-                <% if(user.id) { %> 
-                  <p><%= user._id %></p>
-                <% } else { %>
-                  <p>N/A</p>
-                <% } %>
-
-                <% if(user.login) { %>
+                <p><%= user._id %></p>                
                 <p><%= user.login %></p>
-                <% } else { %>
-                  <p>N/A</p>
-                <% } %>
 
                 <% if(user.dob) { %> 
                 <p><%= user.dob %></p>
@@ -85,7 +72,7 @@
         <% if (mydata !== user) { %> 
           <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
-              <form method="getuser" onsubmit="addUser();" data-remote="true">
+              <form method="getuser" data-remote="true">
                 <button type="submit" class="btn">Добавить</button>
                 <button type="button" class="btn btn disabled">Написать</button>
               </form>
@@ -109,7 +96,7 @@
 
             <form id="create_post_form">
               <div class="form-group">
-                <input class="form-control" name="feedpost" id="feedpost" type="text">
+                <input class="form-control" name="text" id="text" type="text">
               </div>
               
               <hr>
@@ -124,24 +111,10 @@
         <div class="row">
           <div class="col-sm-offset-4">
             <h1>Опубликовано</h1>
-              <% if(feed == '') { %>
-                <blockquote><p class="h2">Здесь пока пусто</p></blockquote>
-              <% } else { %>
-             
-              <div id="postList">
-                
-              </div>
 
-                <% feed.forEach(function(post) { %> 
-                  <blockquote>
-                  <image class="img img-circle" id="avatarsmall" src="/usr/<%=post.author%>/avatar"><h4>- <%=post.date%></h4>
-                    <p class="h2"><%=post.author%></p>
-                    <p class="h4"><%=post.info%></p>
-                  </blockquote>
-                <% }) %>
-
-              <% } %>
+            <div id="blog">
             </div>
+          </div>
         </div>
   </div>
 

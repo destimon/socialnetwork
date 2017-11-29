@@ -246,19 +246,20 @@ module.exports = function(app, passport, db) {
     });
   });
 
-  app.post('/newfeed', (req, res) => {
+  app.post('/feednew', (req, res) => {
+    let date_now = new Date().toLocaleString();
+
     let post = {
-      author: 'first',
-      info: req.body.info,
-      date: 1337,
-      comments: ''
+      text: req.body.text,
     };
 
-    console.log('>>INFO' + req.body.info);
+
+    console.log('>>BODY' + req.body);
 
     let newFeed = new Feed();
     newFeed.author = post.author;
-    newFeed.info = post.info;
+    newFeed.text = post.text;
+    newFeed.date = post.date;
 
     newFeed.save(function(err) {
       if (err) throw err;
@@ -268,33 +269,39 @@ module.exports = function(app, passport, db) {
     console.log(post);
   });
   
-  app.post('/feed', function(req, res) {
-    
-    console.log('QUERY:  ' + req.query.info);
-
-    let info = req.body.info
-    console.log('>>INFO: ' + info);
-    console.log('>>BODY: ' + req.body);
-    let newFeed = new Feed();
-    let date = new Date();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let seconds = date.getSeconds();
-
-    let datestring = hours + ':' + minutes + '.' + seconds; 
-    console.log(datestring);
-
-    newFeed.author = req.user.login;
-    newFeed.date = datestring;
-    newFeed.info = info;
-    
-    newFeed.save(function(err) {
-      if (err) 
-        throw err;
+  app.get('/feeds', (req, res) => {
+    Feed.find({  }, function(err, doc) {
+      console.log(doc);
+      res.json(doc);
     });
-    
-    res.redirect('me');
   });
+  // app.post('/feed', function(req, res) {
+    
+  //   console.log('QUERY:  ' + req.query.info);
+
+  //   let info = req.body.info
+  //   console.log('>>INFO: ' + info);
+  //   console.log('>>BODY: ' + req.body);
+  //   let newFeed = new Feed();
+  //   let date = new Date();
+  //   let hours = date.getHours();
+  //   let minutes = date.getMinutes();
+  //   let seconds = date.getSeconds();
+
+  //   let datestring = hours + ':' + minutes + '.' + seconds; 
+  //   console.log(datestring);
+
+  //   newFeed.author = req.user.login;
+  //   newFeed.date = datestring;
+  //   newFeed.info = info;
+    
+  //   newFeed.save(function(err) {
+  //     if (err) 
+  //       throw err;
+  //   });
+    
+  //   res.redirect('me');
+  // });
 
 	// LOGOUT ==============================================================================
   // =====================================================================================
