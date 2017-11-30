@@ -7,29 +7,33 @@
 
 <body>
 		
-
+<div class="container">
 	<div class="row">
-		<div class="col-xs-12 col-sm-2">
-		</div>
+		<div class="col-xs-12 col-sm-4" id="postblock">
+			<p class="h1">Что нового?</p>
+			<hr>
+				<form id="create_post_form">
+		            <div class="form-group">
+		            	<input class="form-control" name="text" id="text" type="text">
+			            <hr>
+			            <input type="submit" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
+		            </div>
+		        </form>
+          	
+		</div>	
 		
-		<div class="col-xs-12 col-sm-8">
-			
+		<div class="col-xs-12 col-sm-6">
+
 			<p class="h1">Новости</p>
 			<hr>
-				<% feed.forEach(function(post) { %>
-					<div class="row">
-						<div class="col-sm-10">	
-							<blockquote>
-								<div class="row">
-									<image class="img img-circle" id="avatar" src="/usr/<%=post.author%>/avatar"><h4>- <%=post.date%></h4>
-									<h2><a href="/usr/<%=post.author%>"><%=post.author%></a></h2>
-									<p class="h4"><%=post.info%></p>
-								</div>
-							</blockquote>
-						</div>
-					</div>
-				<% }) %>
+
+			<div id="blog" class="row">
+				<input v-on:click="getFeed" class="btn btn-success" value="Отправить"></input>
+			</div>
 		</div>
 	</div>
-
+</div>
+	<script src='/js/jquerytest.js'></script>
+	<script src='/js/vue.js'></script>
+	<script src='/js/index.js'></script>
 </body>

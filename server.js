@@ -48,6 +48,6 @@ MongoClient.connect(db.url, (err, database) => {
 	require('./routes')(app, passport, db);
 
 	app.listen(port, () => {
-	  console.log('We are live on ' + port);
+	  console.log('Up on ' + port);
 	});
 })

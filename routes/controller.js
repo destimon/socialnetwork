@@ -233,16 +233,9 @@ module.exports = function(app, passport, db) {
 
   // FEED ============================================================================
   // =================================================================================
-  app.get('/feed/:p', isLoggedIn, function(req,res) {
-    let pg = req.params.p;
-
-    Feed.paginate({ }, { page: pg, limit: 5 }, function(err, data) {
-      res.render('feed', {
-        mydata: req.user,
-        feed: data.docs,
-        curr: data.page, 
-        pgs: data.pages        
-      });
+  app.get('/feed', isLoggedIn, function(req,res) {
+    res.render('feed', {
+      mydata: req.user      
     });
   });
 
@@ -250,11 +243,10 @@ module.exports = function(app, passport, db) {
     let date_now = new Date().toLocaleString();
 
     let post = {
+      author: req.user.login,
       text: req.body.text,
+      date: date_now
     };
-
-
-    console.log('>>BODY' + req.body);
 
     let newFeed = new Feed();
     newFeed.author = post.author;
@@ -269,39 +261,12 @@ module.exports = function(app, passport, db) {
     console.log(post);
   });
   
-  app.get('/feeds', (req, res) => {
+  app.get('/feedcontent', (req, res) => {
     Feed.find({  }, function(err, doc) {
       console.log(doc);
       res.json(doc);
     });
   });
-  // app.post('/feed', function(req, res) {
-    
-  //   console.log('QUERY:  ' + req.query.info);
-
-  //   let info = req.body.info
-  //   console.log('>>INFO: ' + info);
-  //   console.log('>>BODY: ' + req.body);
-  //   let newFeed = new Feed();
-  //   let date = new Date();
-  //   let hours = date.getHours();
-  //   let minutes = date.getMinutes();
-  //   let seconds = date.getSeconds();
-
-  //   let datestring = hours + ':' + minutes + '.' + seconds; 
-  //   console.log(datestring);
-
-  //   newFeed.author = req.user.login;
-  //   newFeed.date = datestring;
-  //   newFeed.info = info;
-    
-  //   newFeed.save(function(err) {
-  //     if (err) 
-  //       throw err;
-  //   });
-    
-  //   res.redirect('me');
-  // });
 
 	// LOGOUT ==============================================================================
   // =====================================================================================
@@ -309,6 +274,19 @@ module.exports = function(app, passport, db) {
 		req.logout();
 		res.redirect('/');
 	});
+
+  app.get('/test', (req, res) => {
+    let test = {
+      one: 'hi',
+      two: 'girls'
+    };
+
+    res.json(test); 
+  });
+
+  app.post('/test', (req, res) => {
+    console.log(req.body.text);
+  });
 
   // isLoggedIn  ============================================================================
   function isLoggedIn(req, res, next) {
