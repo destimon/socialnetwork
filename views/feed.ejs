@@ -16,8 +16,10 @@
 		            <div class="form-group">
 		            	<input class="form-control" name="text" id="text" type="text">
 			            <hr>
-			            <input type="submit" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
+			            <input type="button" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
 		            </div>
+
+		            <p>{{message}}</p>
 		        </form>
           	
 		</div>	
@@ -27,9 +29,28 @@
 			<p class="h1">Новости</p>
 			<hr>
 
-			<div id="blog" class="row">
-				<input v-on:click="getFeed" class="btn btn-success" value="Отправить"></input>
+			<div id="blog">
+				<post-list v-bind:posts="posts"></post-list>
 			</div>
+
+      <script type="text/x-template" id="postList_template">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>author</th>
+       	      </tr>
+            </thead>
+            <tbody>
+              <tr v-for="p in posts">                       
+                <td>{{ p.text }}</td>
+              </tr>
+            </tbody>
+          </table>
+			</script>
+
+
+
+
 		</div>
 	</div>
 </div>

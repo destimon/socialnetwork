@@ -93,16 +93,15 @@
         <div clas="row">
           <div class="col-sm-4">
             <p class="h1">Что нового?</p>
+              <form id="create_post_form">
+                <div class="form-group">
+                  <input class="form-control" name="text" id="text" type="text">
+                  <hr>
+                  <input type="button" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
+                </div>
 
-            <form id="create_post_form">
-              <div class="form-group">
-                <input class="form-control" name="text" id="text" type="text">
-              </div>
-              
-              <hr>
-              <input type="submit" class="btn btn-success" value="Отправить"></input>
-            </form>
-          
+                <p>{{message}}</p>
+              </form>  
           </div>
         </div>
       <% } %>
@@ -110,13 +109,34 @@
 
         <div class="row">
           <div class="col-sm-offset-4">
-            <h1>Опубликовано</h1>
-
-            <div id="blog" class="row">
-            </div>
+            <h1>Опубликовано</h1>      
+              <div id="blog">
+                <div class="container">
+                  <div class="col-sm-4">
+                    <post-list v-bind:posts="posts"></post-list>
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
   </div>
+
+  <!-- LIST OF POSTS -->
+
+  <script type="text/x-template" id="postList_template">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>author</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="p in posts">                       
+            <td>{{ p.text }}</td>
+          </tr>
+        </tbody>
+      </table>
+  </script>
 
   <script src='/js/vue.js'></script>
   <script src='/js/index.js'></script>

@@ -10,14 +10,12 @@ let path = require('path');
 
 module.exports = function(app, passport, db) {
 
-	// HOME ============================================================================
-  // =================================================================================
+	// HOME 
 	app.get('/', isLoggedIn, (req, res) => {
 		res.redirect('me');
 	});
 
-	// LOGIN ============================================================================
-  // ==================================================================================
+	// LOGIN 
 	app.get('/login', (req, res) => {
 		if (req.isAuthenticated())
 	      res.redirect('/me');
@@ -31,8 +29,7 @@ module.exports = function(app, passport, db) {
     failureFlash: true
   }));
 
-  // SIGNUP ============================================================================
-  // ===================================================================================
+  // SIGNUP
   app.get('/signup', (req,res) => {   
     let empty = new User();
 
@@ -57,8 +54,7 @@ module.exports = function(app, passport, db) {
     failureFlash  : true
   }));
 
-  // USERS ============================================================================
-  // ==================================================================================
+  // USERS 
     app.get('/me', isLoggedIn, function(req, res) {
       console.log(req.user);
       let login = req.user.login; 
@@ -110,8 +106,7 @@ module.exports = function(app, passport, db) {
     }
   });
 
-  // CONTACTS ============================================================================
-  // =====================================================================================
+  // CONTACTS 
   app.get('/contacts/:p', isLoggedIn, (req, res) => {
     let pg = req.params.p;
 
@@ -169,8 +164,7 @@ module.exports = function(app, passport, db) {
     });
   });
 
-  // EDIT ============================================================================
-  // =================================================================================
+  // EDIT 
   app.get('/edit', isLoggedIn, function(req,res) {
     let id = req.user.id;
 
@@ -219,20 +213,16 @@ module.exports = function(app, passport, db) {
       });
       res.redirect('edit');
     });
-
-
   });
 
-  // HELP ============================================================================
-  // =================================================================================
+  // HELP 
   app.get('/help', function(req, res) {
     res.render('devinfo', {
       mydata: req.user
     });
   });
 
-  // FEED ============================================================================
-  // =================================================================================
+  // FEED 
   app.get('/feed', isLoggedIn, function(req,res) {
     res.render('feed', {
       mydata: req.user      
@@ -268,8 +258,7 @@ module.exports = function(app, passport, db) {
     });
   });
 
-	// LOGOUT ==============================================================================
-  // =====================================================================================
+	// LOGOUT 
 	app.get('/logout', (req, res) => {
 		req.logout();
 		res.redirect('/');
@@ -288,7 +277,7 @@ module.exports = function(app, passport, db) {
     console.log(req.body.text);
   });
 
-  // isLoggedIn  ============================================================================
+  // isLoggedIn 
   function isLoggedIn(req, res, next) {
 
       // if user is authenticated in the session, carry on 
