@@ -10,7 +10,8 @@ Vue.component('post-list', {
 let blog = new Vue({
 	el: '#blog',
 	data: {
-		posts: 'Define data...'
+		posts: 'Если вы видите это сообщение, то что-то пошло не так...',
+		loading: true
 	},
 	methods: {
 		getFeed: function() {
@@ -19,13 +20,16 @@ let blog = new Vue({
 			  url: '/feedcontent',
 			  success: function(data) {
 			  	// Set blog data
- 			  	console.log('GETED: ', data);  		
-			  	blog.posts = data; 
+ 			  	console.log('GETED: ', data);
+			  	blog.posts = data.reverse(); 
+			  	blog.loading = false;
 			  }
 			}); 
+
 		}
 	},
 	created: function() {
+		this.loading = true;
 		this.getFeed()
 	}
 });
@@ -34,6 +38,7 @@ let blog = new Vue({
 let create_post_form = new Vue({
 	el: '#create_post_form',
 	data: {
+		loading: false,
 		message: ''
 	},
 	methods: {
@@ -51,17 +56,18 @@ let create_post_form = new Vue({
 				data: JSON.stringify(model),
 				contentType: "application/json",
 				success: function() {
+					create_post_form.loading = false;
 					create_post_form.message = 'Опубликовано!';
 				},
 				error: function() {
 					create_post_form.message = 'Ошибка. Нет соединения!';
 				}
-			
-			})
+			});
+
 			this.message = 'Отправление...';
-			
+			this.loading = true; 
 			blog.getFeed();
-		},
+		}
 	}
 });
 

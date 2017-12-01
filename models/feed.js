@@ -8,8 +8,8 @@ var feedSchema = mongoose.Schema({
 	author		: String,
 	date 		: String,
 	text 		: String,
+	avalink		: String,
 	comments 	: String
-
 });
 
 feedSchema.plugin(mognoosePaginate);

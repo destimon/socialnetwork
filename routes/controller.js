@@ -44,8 +44,7 @@ module.exports = function(app, passport, db) {
     res.render('signup.ejs', { 
       message: req.flash('signupMessage'),
       mydata:  empty
-    });
-  
+    });  
   });
 
   app.post('/signup', passport.authenticate('local-signup', {
@@ -231,18 +230,21 @@ module.exports = function(app, passport, db) {
 
   app.post('/feednew', (req, res) => {
     let date_now = new Date().toLocaleString();
+    let avatarlink = '/usr/' + req.user.login + '/avatar';
 
     let post = {
       author: req.user.login,
       text: req.body.text,
-      date: date_now
+      date: date_now,
+      avalink: avatarlink
     };
 
     let newFeed = new Feed();
     newFeed.author = post.author;
     newFeed.text = post.text;
     newFeed.date = post.date;
-
+    newFeed.avalink = post.avalink;
+    
     newFeed.save(function(err) {
       if (err) throw err;
     });
