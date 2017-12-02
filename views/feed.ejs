@@ -36,8 +36,7 @@
 
 
 			<div id="blog">
-				<div v-if="loading == true" class="loader">
-				</div>
+				<div v-if="loading == true" class="loader"></div>
 
 				<div v-if="loading == false">
 				<post-list v-bind:posts="posts"></post-list>
@@ -53,7 +52,7 @@
 			              <h6>{{ p.date }}</h6>
 			              <p>{{ p.text }}</p>
 		            </blockquote>
-		          </p>
+		          </div>
 		      </table>
 		  </script>
 		</div>

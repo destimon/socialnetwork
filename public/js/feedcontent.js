@@ -15,17 +15,13 @@ let blog = new Vue({
 	},
 	methods: {
 		getFeed: function() {
-			$.ajax({
-			  type: "GET",
-			  url: '/feedcontent',
-			  success: function(data) {
-			  	// Set blog data
- 			  	console.log('GETED: ', data);
-			  	blog.posts = data.reverse(); 
-			  	blog.loading = false;
-			  }
-			}); 
-
+			axios.get('/feedcontent')
+				.then(function (res) {
+					console.log(res);
+					let data = res.data;
+					blog.posts = data.reverse();
+					blog.loading = false;
+				});
 		}
 	},
 	created: function() {
@@ -46,22 +42,17 @@ let create_post_form = new Vue({
 		postFeed: function() {
 			let textcap = $("#text").val();
 
-			let model = { 
+			axios.post('/feednew', {
 				text: textcap
-			};
-
-			$.ajax({
-				type: "POST",
-				url: '/feednew',
-				data: JSON.stringify(model),
-				contentType: "application/json",
-				success: function() {
-					create_post_form.loading = false;
-					create_post_form.message = 'Опубликовано!';
-				},
-				error: function() {
-					create_post_form.message = 'Ошибка. Нет соединения!';
-				}
+			})
+			.then(function(res) {
+				console.log('res.data' + res.data);
+				create_post_form.loading = false;
+				create_post_form.message = 'Опубликовано!';
+			})
+			.catch(function(err) {
+				create_post_form.message = 'Ошибка. Нет соединения!';
+				console.log(err);
 			});
 
 			this.message = 'Отправление...';

@@ -244,7 +244,7 @@ module.exports = function(app, passport, db) {
     newFeed.text = post.text;
     newFeed.date = post.date;
     newFeed.avalink = post.avalink;
-    
+
     newFeed.save(function(err) {
       if (err) throw err;
     });
