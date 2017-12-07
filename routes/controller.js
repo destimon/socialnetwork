@@ -71,6 +71,12 @@ module.exports = function(app, passport, db) {
       
       let login = req.params.login;
       let current = req.user;
+     
+      if (req.isAuthenticated()) {
+        if (req.user.login == login) {
+          res.redirect('/me');
+        }
+      }
 
       User.findOne( {'login' : login }, (err, getuser) => {
         Feed.find({'author' : login }, (err, data) => { 
