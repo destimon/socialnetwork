@@ -8,55 +8,64 @@
 
 <body>
 		
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12 col-sm-4" id="postblock">
-			<p class="h1">Что нового?</p>
-			<hr>
-				<form id="create_post_form">
-		            <div class="form-group">
-		            	<input class="form-control" name="text" id="text" type="text">
-			            <hr>
-			            <input type="button" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
-		            </div>
-		            
-		            <div v-if="loading == true">
-			            <p>{{message}}</p>
-		        			<div class="loader"></div>
-	        			</div>
-		        </form>
-          	
-		</div>	
-		
-		<div class="col-xs-12 col-sm-6">
-
-			<p class="h1">Новости</p>
-			<hr>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4" id="postblock">
+				<p class="h1">Что нового?</p>
+				<hr>
+					<form id="create_post_form">
+	          <div class="form-group">
+	          	<input class="form-control" name="text" id="text" type="text">
+	            <hr>
+	            <input type="button" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
+	          </div>
+	          
+	          <div v-if="loading == true">
+	            <p>{{message}}</p>
+	      			<div class="loader"></div>
+	    			</div>
+	        </form>
+	          	
+			</div>	
 			
+			<div class="col-xs-12 col-sm-6">
+
+				<p class="h1">Новости</p>
+				<hr>
+				
 
 
-			<div id="blog">
-				<div v-if="loading == true" class="loader"></div>
+				<div id="blog">
+					<div v-if="loading == true" class="loader"></div>
 
-				<div v-if="loading == false">
-				<post-list v-bind:posts="posts"></post-list>
+					<div v-if="loading == false">
+						
+							<post-list v-bind:posts="posts"></post-list>
+						
+					</div>
 				</div>
-			</div>
 
-		  <script type="text/x-template" id="postList_template">
-		      <table class="table">
-		          <div class="list-group" v-for="p in posts">                       
-		            <blockquote>
-		              <img class="img img-circle" id="avatarsmall" v-bind:src="p.avalink">
-			              <h2><a :href="'/usr/' + p.author">{{ p.author }}</a></h2>
-			              <h6>{{ p.date }}</h6>
-			              <p>{{ p.text }}</p>
-		            </blockquote>
-		          </div>
-		      </table>
-		  </script>
+			  <script type="text/x-template" id="postList_template">
+			      <div class="table">
+			          <div class="list-group" v-for="p in posts">                       
+			            
+			              <img class="img img-circle" id="avatarsmall" v-bind:src="p.avalink">
+				              <h2><a :href="'/usr/' + p.author">{{ p.author }}</a></h2>
+				              <h6>{{ p.date }}</h6>
+			            <blockquote>
+				              <p>{{ p.text }}</p>
+			            </blockquote>
+
+			          </div>
+			      </table>
+			  </script>
+			</div>
 		</div>
 	</div>
-</div>
+	
 	<script src='/js/feedcontent.js'></script>
+
+	<!-- TEMPLATES -->
+  <script src='/js/postlist.js'></script>
+
 </body>

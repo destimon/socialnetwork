@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<title>Vue</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  	
  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
  	<link rel="shortcut icon" type="image/ico" href="/img/favicon.ico">
-    <link rel="stylesheet" href="/style/style.css">
  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
  	<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
  	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
  	<script src="https://unpkg.com/vue"></script>
- 	
-    <%-blocks.header%>
 </head>
- 
-
 <body>
 
-	<%-partial('./partials/topNavigation')%>
 	<div class="container">
-	    <div class="thumbnail">
-	      <%-body -%>
-	    </div>
+		<div class="jumbotron">
+			<div id="app">
+				<label>Here we go!</label>
+				<input v-model="input">
+				<h3>Result: {{ output }}</h3>
+				<h4>Length: {{ length }}</h4>
+			</div>
+		</div>
 	</div>
-	<%-partial('./partials/footer')%>
 
+	<script src='../public/js/test.js'></script>
 </body>
 </html>

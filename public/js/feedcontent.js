@@ -1,12 +1,6 @@
 "use strict";
 
-// Component
-Vue.component('post-list', {
-	template: '#postList_template',
-	props: ['posts']
-});
-
-// Block with posts(blog)
+// Get all posts
 let blog = new Vue({
 	el: '#blog',
 	data: {
@@ -34,6 +28,7 @@ let blog = new Vue({
 let create_post_form = new Vue({
 	el: '#create_post_form',
 	data: {
+		pagename: '',
 		loading: false,
 		message: ''
 	},
@@ -41,9 +36,11 @@ let create_post_form = new Vue({
 
 		postFeed: function() {
 			let textcap = $("#text").val();
+			let routecap = document.location.href.match(/[^\/]+$/)[0];
 
 			axios.post('/feednew', {
-				text: textcap
+				text: textcap,
+				route: routecap
 			})
 			.then(function(res) {
 				console.log('res.data' + res.data);
@@ -61,4 +58,3 @@ let create_post_form = new Vue({
 		}
 	}
 });
-

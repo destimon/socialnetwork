@@ -1,33 +1,44 @@
 <html>
 <head>
     <title>SignUp</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="shortcut icon" type="image/ico" href="/img/favicon.ico">
 
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+
+    
     <style>
         body        { padding-top:80px; }
     </style>
 </head>
 <body>
-<div class="container">
+    <div class="container">
 
-<div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-4 col-sm-offset-4">
 
 
-    <h1><span class="fa fa-sign-in"></span> Создать</h1>
+        <h1><span class="fa fa-sign-in"></span> Создать</h1>
 
-    
-    <form action="/signup" method="post">
-        <%-partial('./layouts/partials/form')%> 
-    </form>
+        
+        <form action="/signup" method="post">
+            <%-partial('./layouts/partials/form')%> 
+        </form>
 
-    <hr>
+        <hr>
 
-    <p>Уже есть аккаунт? <a href="/login">Войти</a></p>
+        <p>Уже есть аккаунт? <a href="/login">Войти</a></p>
 
-</div>
+    </div>
 
-</div>
+    </div>
+
+    <script src="/js/signup.js"></script>
+
 </body>
 </html>

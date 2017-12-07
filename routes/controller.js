@@ -55,7 +55,6 @@ module.exports = function(app, passport, db) {
 
   // USERS 
     app.get('/me', isLoggedIn, function(req, res) {
-      console.log(req.user);
       let login = req.user.login; 
 
       Feed.find({'author' : login }, function(err, data) {
@@ -96,8 +95,6 @@ module.exports = function(app, passport, db) {
           res.setHeader('Cache-Control', 'public, max-age=3000000');
           // res.contentType(user.avatar.contentType);
           res.send(user.avatar.data);
-          console.log('AVATAR:' + user.avatar);
-          console.log('DEFAULT: ' + user.avatar.default);
         }
       });
     } catch (err) {
@@ -110,8 +107,6 @@ module.exports = function(app, passport, db) {
     let pg = req.params.p;
 
     User.paginate({ }, { page: pg, limit: 4}, (err, data) => {
-      console.log('page: ' + data.page);
-      console.log('pages: ' + data.pages);
 
       res.render('contacts.ejs', {
         pgs: data.pages,
@@ -125,7 +120,7 @@ module.exports = function(app, passport, db) {
   app.post('/contacts', function(req, res) {    
     // Get user.id
     let targetLogin = req.body.addusr;
-    console.log(targetLogin);
+
 
     // Get curr.user.id
     Contacts.findOne( {'secondLogin' : targetLogin }, (err, cont) => {
@@ -190,7 +185,6 @@ module.exports = function(app, passport, db) {
       user.gender = gender;
       user.about = about;
       
-      console.log(req.files);
 
       if (!req.files.avatar) {
         user.avatar.default = true;
@@ -201,11 +195,6 @@ module.exports = function(app, passport, db) {
           default: false
         }
       }
-
-      console.log('user :');
-      console.log(user);
-      console.log('req.files.avatar :');
-      console.log(req.files.avatar);
 
       user.save(function(err) {
         if (err) throw err;
@@ -250,12 +239,10 @@ module.exports = function(app, passport, db) {
     });
 
     res.json(post);
-    console.log(post);
   });
   
   app.get('/feedcontent', (req, res) => {
     Feed.find({  }, function(err, doc) {
-      console.log(doc);
       res.json(doc);
     });
   });
@@ -266,17 +253,14 @@ module.exports = function(app, passport, db) {
 		res.redirect('/');
 	});
 
+  // TESTING
   app.get('/test', (req, res) => {
-    let test = {
-      one: 'hi',
-      two: 'girls'
-    };
-
-    res.json(test); 
+    res.render('test.html');
   });
 
   app.post('/test', (req, res) => {
-    console.log(req.body.text);
+
+
   });
 
   // isLoggedIn 
