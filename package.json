@@ -27,6 +27,7 @@
     "clean-css": "^4.1.9",
     "commander": "^2.12.2",
     "concat-stream": "^1.6.0",
+    "connect-flash": "^0.1.1",
     "constantinople": "^3.1.0",
     "content-disposition": "^0.5.2",
     "content-type": "^1.0.4",
