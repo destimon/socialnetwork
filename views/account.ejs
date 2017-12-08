@@ -116,6 +116,7 @@
             <div v-else-if="loading == false" class="row">
               <div class="col-sm-10">
                 <post-list v-bind:posts="posts"></post-list>
+                <button v-on:click="showMore" v-if="buttonStatus == true">Show more</button>
               </div>
             </div>
           </div>

@@ -33,7 +33,31 @@ let blog = new Vue({
 			});
 		},
 		// Get User Feed ------
-		getMyFeed: function() {
+		getMyFeed: function(offs, lim) {
+			let pagename = document.location.href.match(/[^\/]+$/)[0];
+
+			axios.get('/feedcontent', {
+				params: {
+					login: pagename,
+					offset: offs,
+					limit: lim
+				}
+			})
+			.then(function(res) {
+				// if page just started
+				if(blog.offset == -1){
+					blog.offset = res.data.offset;
+					blog.limit = res.data.limit;
+				}
+				
+				// Employ data
+				let docs = res.data.docs;
+				blog.posts = docs.reverse();
+				blog.loading = false;
+			});
+		},
+		// Get More Posts ------
+		showMore: function() {
 			let pagename = document.location.href.match(/[^\/]+$/)[0];
 			console.log(pagename);
 
@@ -42,17 +66,6 @@ let blog = new Vue({
 					login: pagename
 				}
 			})
-			.then(function(res) {
-				
-				// Employ data
-				let data = res.data;
-				blog.posts = data.reverse();
-				blog.loading = false;
-			});
-		},
-		// Get More Posts ------
-		showMore: function() {
-			axios.get('/feedcontent')
 			.then(function(res) {
 				if((blog.offset - 4) < 0) {
 					blog.offset = 0;
@@ -66,7 +79,11 @@ let blog = new Vue({
 				}
 
 				// upload
-				blog.getFeed(blog.offset, blog.limit);
+				if (pagename == 'feed') {
+					blog.getFeed(blog.offset, blog.limit);
+				} else {
+					blog.getMyFeed(blog.offset, blog.limit);
+				}
 			});
 		},
 	},
@@ -74,25 +91,34 @@ let blog = new Vue({
 		let pagename = document.location.href.match(/[^\/]+$/)[0];
 		this.loading = true;
 
-		// get total pages from mongoose
-		axios.get('/feedcontent')
-		.then(function(res){
 		// recognize which func to do
-			if ( pagename == 'feed' ) {
-				// Get newest content
-				axios.get('/feedcontent')
-				.then(function(res) {
-					let newcontent = (res.data.total - 4);
-					let newlimit = 4;
-					blog.getFeed(newcontent, newlimit);
-				});
-			} else {
-				blog.getMyFeed();
-			}
-		});
+		if ( pagename == 'feed' ) {
+			// IF GLOBAL FEED
+			axios.get('/feedcontent')
+			.then(function(res) {
+				let newcontent = (res.data.total - 4);
+				let newlimit = 4;
+				
+				// Get newest content	
+				blog.getFeed(newcontent, newlimit);
+			});
+		} else {
+			// IF USER FEED
+			axios.get('/feedcontent', {
+				params: {
+					login: pagename
+				}
+			})
+			.then(function(res) {
+				let newcontent = (res.data.total - 4);
+				let newlimit = 4;
+				
+				blog.getMyFeed(newcontent, newlimit);
+			});
+		}
 	}
 });
-
+	
 // Send new post --------------------------------------------------------------------
 let create_post_form = new Vue({
 	el: '#create_post_form',
@@ -112,10 +138,14 @@ let create_post_form = new Vue({
 			.then(function(res) {
 				console.log('res.data' + res.data);
 				
+
+				blog.offset = Number(blog.offset) + 1;
+				blog.limit = Number(blog.limit) + 1;
+
 				if (pagename == 'feed') {
-					blog.getFeed(blog.pgtop);
+					blog.getFeed(blog.offset, blog.limit);
 				} else {
-					blog.getMyFeed();
+					blog.getMyFeed(blog.offset, blog.limit);
 				}
 				
 				create_post_form.loading = false;
@@ -131,3 +161,5 @@ let create_post_form = new Vue({
 		}
 	}
 });
+
+// ====================================================================================================

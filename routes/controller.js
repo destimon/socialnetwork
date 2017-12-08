@@ -258,13 +258,13 @@ module.exports = function(app, passport, db) {
     // for self page
     if (login == 'me') {
       let me_athor = req.user.login;
-      Feed.find({ author: me_athor }, function(err, doc) {
-        res.json(doc);
+      Feed.paginate({ author: me_athor }, { offset: amount, limit: lim }, function(err, data) {
+        res.json(data);
       });
     // for every other page
-    } else if (login != undefined && login != 'me') {
-      Feed.find({ author: login }, function(err, doc) {
-        res.json(doc);
+    } else if (login != undefined && login != 'me' && login != 'feed') {
+      Feed.paginate({ author: login }, { offset: amount, limit: lim }, function(err, data) {
+        res.json(data);
       });
     // for feed
     } else {
