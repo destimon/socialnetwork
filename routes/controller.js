@@ -252,15 +252,18 @@ module.exports = function(app, passport, db) {
     let login = req.query.login;
     console.log(login);
 
+    // for self page
     if (login == 'me') {
       let me_athor = req.user.login;
       Feed.find({ author: me_athor }, function(err, doc) {
         res.json(doc);
       });
+    // for every other page
     } else if (login != undefined && login != 'me') {
       Feed.find({ author: login }, function(err, doc) {
         res.json(doc);
       });
+    // for feed
     } else {
       Feed.find({  }, function(err, doc) {
         res.json(doc);

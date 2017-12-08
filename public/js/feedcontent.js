@@ -57,16 +57,22 @@ let create_post_form = new Vue({
 		message: ''
 	},
 	methods: {
-
 		postFeed: function() {
 			let textcap = $("#text").val();
+			let pagename = document.location.href.match(/[^\/]+$/)[0];
 
 			axios.post('/feednew', {
 				text: textcap
 			})
 			.then(function(res) {
 				console.log('res.data' + res.data);
-				blog.getFeed();
+				
+				if (pagename == 'feed') {
+					blog.getFeed();
+				} else {
+					blog.getMyFeed();
+				}
+				
 				create_post_form.loading = false;
 				create_post_form.message = 'Опубликовано!';
 			})
