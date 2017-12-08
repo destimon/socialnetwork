@@ -8,7 +8,7 @@
 
 <body>
 		
-	<div class="container">
+	<div class="container" id="content">
 		<div class="row">
 			<div class="col-xs-12 col-sm-4" id="postblock">
 				<p class="h1">Что нового?</p>
@@ -39,7 +39,7 @@
 					<div v-if="loading == false">
 						
 							<post-list v-bind:posts="posts"></post-list>
-						
+							<button v-on:click="showMore" v-if="buttonStatus == true">Show more</button>
 					</div>
 				</div>
 

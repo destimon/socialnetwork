@@ -249,7 +249,11 @@ module.exports = function(app, passport, db) {
   
   app.get('/feedcontent', (req, res) => {
     let login = req.query.login;
-    console.log(login);
+    let amount = Number(req.query.offset);
+    let lim = Number(req.query.limit);
+    console.log('login: ', login);
+    console.log('amount: ', amount);
+    console.log('limit: ', lim);
 
     // for self page
     if (login == 'me') {
@@ -264,8 +268,8 @@ module.exports = function(app, passport, db) {
       });
     // for feed
     } else {
-      Feed.find({  }, function(err, doc) {
-        res.json(doc);
+      Feed.paginate({  }, { offset: amount, limit: lim }, function(err, data) {
+        res.json(data);
       });      
     }
   });
@@ -286,11 +290,10 @@ module.exports = function(app, passport, db) {
 
   // TESTING -----------------------------------------------------------------------------
   app.get('/test', (req, res) => {
-    res.render('test.html');
+    res.sendfile('views/test.html');
   });
 
   app.post('/test', (req, res) => {
-
 
   });
 
@@ -304,4 +307,4 @@ module.exports = function(app, passport, db) {
       // if they aren't redirect them to the home page
       res.redirect('/login');
   }
-};
+}
