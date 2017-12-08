@@ -6,10 +6,6 @@
 
         </div>
           
-        <% if(!mydata) { %> 
-          
-
-        <% } else { %>
           <ul class="nav navbar-nav">
             
 
@@ -18,6 +14,9 @@
           </ul>
               
           <ul class="nav navbar-nav navbar-right">
+        <% if(!mydata) { %> 
+          <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>  
+        <% } else { %>
             <li>  
               <a class="btn dropdown-toggle" data-toggle="dropdown"><image src="/usr/<%=mydata.login%>/avatar" style="width: 20px;" class="image img-circle"> Меню <span class="caret"></span></a>
                 <ul class="dropdown-menu">
