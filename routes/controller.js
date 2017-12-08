@@ -227,6 +227,7 @@ module.exports = function(app, passport, db) {
     let date_now = new Date().toLocaleString();
     let avatarlink = '/usr/' + req.user.login + '/avatar';
 
+
     let post = {
       author: req.user.login,
       text: req.body.text,
@@ -248,16 +249,30 @@ module.exports = function(app, passport, db) {
   });
   
   app.get('/feedcontent', (req, res) => {
-    Feed.find({  }, function(err, doc) {
-      res.json(doc);
-    });
+    let login = req.query.login;
+    console.log(login);
+
+    if (login == 'me') {
+      let me_athor = req.user.login;
+      Feed.find({ author: me_athor }, function(err, doc) {
+        res.json(doc);
+      });
+    } else if (login != undefined && login != 'me') {
+      Feed.find({ author: login }, function(err, doc) {
+        res.json(doc);
+      });
+    } else {
+      Feed.find({  }, function(err, doc) {
+        res.json(doc);
+      });      
+    }
   });
 
-	// LOGOUT 
-	app.get('/logout', (req, res) => {
-		req.logout();
-		res.redirect('/');
-	});
+  // LOGOUT 
+  app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
 
   // TESTING
   app.get('/test', (req, res) => {

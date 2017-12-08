@@ -9,6 +9,7 @@ let blog = new Vue({
 	},
 	methods: {
 		getFeed: function() {
+
 			axios.get('/feedcontent')
 				.then(function (res) {
 					console.log(res);
@@ -16,11 +17,34 @@ let blog = new Vue({
 					blog.posts = data.reverse();
 					blog.loading = false;
 				});
+		},
+		getMyFeed: function() {
+			let pagename = document.location.href.match(/[^\/]+$/)[0];
+			console.log(pagename);
+
+			axios.get('/feedcontent', {
+				params: {
+					login: pagename
+				}
+			})
+			.then(function(res) {
+				console.log(res);
+				let data = res.data;
+				blog.posts = data.reverse();
+				blog.loading = false;
+			});
 		}
 	},
 	created: function() {
+		let pagename = document.location.href.match(/[^\/]+$/)[0];
+
 		this.loading = true;
-		this.getFeed()
+
+		if ( pagename == 'feed' ) {
+			this.getFeed();
+		} else {
+			this.getMyFeed();
+		}
 	}
 });
 
@@ -36,14 +60,13 @@ let create_post_form = new Vue({
 
 		postFeed: function() {
 			let textcap = $("#text").val();
-			let routecap = document.location.href.match(/[^\/]+$/)[0];
 
 			axios.post('/feednew', {
-				text: textcap,
-				route: routecap
+				text: textcap
 			})
 			.then(function(res) {
 				console.log('res.data' + res.data);
+				blog.getFeed();
 				create_post_form.loading = false;
 				create_post_form.message = 'Опубликовано!';
 			})
@@ -54,7 +77,6 @@ let create_post_form = new Vue({
 
 			this.message = 'Отправление...';
 			this.loading = true; 
-			blog.getFeed();
 		}
 	}
 });
