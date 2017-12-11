@@ -51,7 +51,7 @@ let app = new Vue({
 				user: getuser,
 				text: getmessage,
 				date: date_now,
-				color: 
+				color: ' '
 			};
 
 			pushMessage(prevModelObj);
