@@ -138,7 +138,6 @@ let create_post_form = new Vue({
 			.then(function(res) {
 				console.log('res.data' + res.data);
 				
-
 				blog.offset = Number(blog.offset) + 1;
 				blog.limit = Number(blog.limit) + 1;
 

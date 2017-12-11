@@ -121,6 +121,7 @@
     "serve-static": "^1.13.1",
     "setprototypeof": "^1.1.0",
     "sliced": "^1.0.1",
+    "socket.io": "^2.0.4",
     "source-map": "^0.6.1",
     "static-favicon": "^2.0.0-alpha",
     "statuses": "^1.4.0",

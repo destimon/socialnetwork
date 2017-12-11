@@ -10,10 +10,12 @@ const cookieParser 	= require('cookie-parser');
 const db 			= require('./config/db');
 const morgan		= require('morgan');
 const session 		= require('express-session');
-const fileupload = require('express-fileupload');
-
-
+const fileupload 	= require('express-fileupload');
 const app 			= express();
+
+let server = require('http').createServer(app);  
+let io = require('socket.io')(server);
+
 const port = process.env.PORT || 8080;
 
 // Configuration 	================================================
@@ -46,8 +48,9 @@ MongoClient.connect(db.url, (err, database) => {
 	if (err) return console.log(err);
 
 	require('./routes')(app, passport, db);
+	require('./config/socket.js')(io);	
 
-	app.listen(port, () => {
+	server.listen(port, () => {
 	  console.log('Up on ' + port);
 	});
 })

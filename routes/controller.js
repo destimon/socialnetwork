@@ -12,7 +12,7 @@ module.exports = function(app, passport, db) {
 
 	// HOME ------------------------------------------------------------------------------------
 	app.get('/', isLoggedIn, (req, res) => {
-		res.redirect('me');
+  	res.redirect('me');
 	});
 
 	// LOGIN ------------------------------------------------------------------------------------
@@ -277,6 +277,7 @@ module.exports = function(app, passport, db) {
   // MESSAGES -----------------------------------------------------------------------------
 
   app.get('/messages', isLoggedIn, function(req, res) {
+
     res.render('messages.ejs', {
       mydata: req.user
     });
@@ -299,12 +300,11 @@ module.exports = function(app, passport, db) {
 
   // isLoggedIn -----------------------------------------------------------------------------
   function isLoggedIn(req, res, next) {
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
 
-      // if user is authenticated in the session, carry on 
-      if (req.isAuthenticated())
-          return next();
-
-      // if they aren't redirect them to the home page
-      res.redirect('/login');
+    // if they aren't redirect them to the home page
+    res.redirect('/login');
   }
 }
