@@ -46,12 +46,15 @@ let blog = new Vue({
 			.then(function(res) {
 				// if page just started
 				if(blog.offset == -1){
-					blog.offset = res.data.offset;
-					blog.limit = res.data.limit;
-				}
-				
+					if (res.data) {
+						blog.offset = res.data.offset;
+						blog.limit = res.data.limit;
+					}
+				};
+
 				// Employ data
 				let docs = res.data.docs;
+				console.log(res);
 				blog.posts = docs.reverse();
 				blog.loading = false;
 			});
@@ -69,6 +72,7 @@ let blog = new Vue({
 			.then(function(res) {
 				if((blog.offset - 4) < 0) {
 					blog.offset = 0;
+
 					blog.limit = res.data.total;
 					blog.buttonStatus = false;
 				}	else {
@@ -110,10 +114,16 @@ let blog = new Vue({
 				}
 			})
 			.then(function(res) {
-				let newcontent = (res.data.total - 4);
-				let newlimit = 4;
-				
-				blog.getMyFeed(newcontent, newlimit);
+				let newcontent ;
+
+				if (res.data.local>4){
+					newcontent = (res.data.total - 4);
+					
+				} else {
+					newcontent = (res.data.total);
+				}
+					let newlimit = 4;
+					blog.getMyFeed(newcontent, newlimit);
 			});
 		}
 	}

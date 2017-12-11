@@ -14,17 +14,19 @@
 			    
 		    <form>
 		      <div class="form-group">
-			      <input id="m" class="form-control" autocomplete="off"/>
+			      <input id="m" type=text class="form-control" autocomplete="off"
+			      placeholder="Введите сообщение" />
 		      </div>
 			    <hr>
-			    <input type="button" v-on:click="sendMessage" value="Отправить" class="btn btn-success"/>
+			    <input type="button" v-on:click="sendMessage" value="Отправить" 
+			    class="btn btn-success"/>
 		    </form>
 			</div>
 	  </div>
 
   <script type="text/x-template" id="message_box">
   	<div class="row">
-	    	<ul v-for="msg in msglist">
+	    	<div v-for="msg in msglist">
   				<div class="col-sm-10">
   					<blockquote>
 	    				<b><a :href="'/usr/' + msg.user">{{ msg.user }}</a></b> {{ msg.text }}
@@ -33,7 +35,7 @@
     			<div class="col-sm-2">
     				<small>{{ msg.date }}</small>
     			</div>
-	    	</ul>
+	    	</div>
   	</div>
   </script>
   
