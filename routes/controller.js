@@ -109,59 +109,18 @@ module.exports = function(app, passport, db) {
   });
 
   // CONTACTS ------------------------------------------------------------------------------------
-  app.get('/contacts/:p', isLoggedIn, (req, res) => {
-    let pg = req.params.p;
-
-    User.paginate({ }, { page: pg, limit: 4}, (err, data) => {
-
-      res.render('contacts.ejs', {
-        pgs: data.pages,
-        curr: data.page,
-        users: data.docs,
-        mydata: req.user
-      });
+  app.get('/contacts', isLoggedIn, (req, res) => {
+    res.render('contacts.ejs', {
+      mydata: req.user
     });
   });
 
-  app.post('/contacts', function(req, res) {    
-    // Get user.id
-    let targetLogin = req.body.addusr;
+  app.get('/api/users', function(req, res) {    
+    let p = req.query.p;
 
-
-    // Get curr.user.id
-    Contacts.findOne( {'secondLogin' : targetLogin }, (err, cont) => {
-      if (cont) {
-    
-        if( cont.firstStatus == true) {
-        cont.firstStatus = false;
-        req.flash('ContactMessage', 'Вы успешно отозвали заявку!'); 
-        }
-        else {
-          cont.firstStatus = true;
-          req.flash('ContactMessage', 'Вы отправили заявку!');  
-        }
-
-        
-        cont.save(function(err){
-          if (err) throw err;
-        });
-
-      } else {
-
-        // Set FirstStatus ON
-        var newContacts = new Contacts();
-
-        newContacts.firstLogin = req.user.local.login;
-        newContacts.secondLogin = targetLogin;
-        newContacts.firstStatus = true; 
-      
-        newContacts.save(function(err){
-          if (err) throw err;
-        }); 
-        req.flash('ContactMessage', 'Вы отправили заявку!');
-      }
-        res.redirect('contacts/');
-    });
+    User.paginate({ }, { page: p, limit: 4 }, (err, data) => {
+      res.json(data);
+    });    
   });
 
   // EDIT ------------------------------------------------------------------------------------
@@ -170,7 +129,7 @@ module.exports = function(app, passport, db) {
 
     res.render('edit', { 
       mydata: req.user,       
-      message: req.flash('signupMessage', 'я даун')
+      message: req.flash('signupMessage', '')
     });   
   });
 

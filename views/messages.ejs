@@ -4,26 +4,32 @@
   <link rel="stylesheet" href="/style/messages.css">
 </head>
 <body>
-		<div class="row">
-			<div class="col-sm-offset-2 col-sm-8" id="app">
-			<h2>Сообщения</h2>
-			<input id="username" value="<%=mydata.login%>" hidden></input>
-				<div class="panel panel-default" id="messagepanel">
-		    	<msg-item v-bind:msglist="msglist"></msg-item>
-				</div>
-			    
-		    <form>
-		      <div class="form-group">
-			      <input id="m" type=text class="form-control" autocomplete="off"
-			      placeholder="Введите сообщение" />
-		      </div>
-			    <hr>
-			    <input type="button" v-on:click="sendMessage" value="Отправить" 
-			    class="btn btn-success"/>
-		    </form>
-			</div>
-	  </div>
+	<div class="row" id="app">
+		
+		<div class="col-sm-3">		
+			<h2>Диалоги</h2>
+		</div>
 
+		<div class="col-sm-8">
+		<h2>Сообщения</h2>
+		<input id="username" value="<%=mydata.login%>" hidden></input>
+			<div class="panel panel-default" id="messagepanel">
+	    	<msg-item v-bind:msglist="msglist"></msg-item>
+			</div>
+		    
+	    <form>
+	      <div class="form-group">
+		      <input id="m" type=text class="form-control" autocomplete="off"
+		      placeholder="Введите сообщение" />
+	      </div>
+		    <hr>
+		    <input type="button" v-on:click="sendMessage" value="Отправить" 
+		    class="btn btn-success"/>
+	    </form>
+		</div>
+  </div>
+  
+  <!-- MESSAGE BOX TEMPLATE -->
   <script type="text/x-template" id="message_box">
   	<div class="row">
 	    	<div v-for="msg in msglist">

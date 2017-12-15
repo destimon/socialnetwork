@@ -1,41 +1,21 @@
 "use strict";
 
-// $(function () {
-// 	let socket = io();
-	
-// 	$('form').submit(function(){
-// 	  socket.emit('chat message', $('#m').val());
-// 	  $('#m').val('');
-// 	  return false;
-// 	});
-
-// 	socket.on('connected', function(msg) {
-// 		$('#messages').append($('<li>').text(msg));
-// 	});
-
-// 	socket.on('disconnected', function(msg) {
-// 		$('#messages').append($('<li>').text(msg));
-// 	});
-
-//   socket.on('chat message', function(msg){
-//   	$('#messages').append($('<li>').text(msg));
-// 	});
-
-// });
-
 let socket = io();
 
+let messages = [];
+
+// MSG LIST --------------------
 Vue.component('msg-item', {
 	props: ['msglist'],
 	template: '#message_box'
 });
 
-let model = [];
 
+// APP -------------------- -------------------- -------------------- -------------------- //
 let app = new Vue({
 	el: '#app',
 	data: {
-		msglist: model,
+		msglist: messages,
 		username: ' ' 
 	},
 	methods: {
@@ -47,29 +27,25 @@ let app = new Vue({
 	    date_now = date_now.getHours() + ':' + date_now.getMinutes() + '.' + date_now.getSeconds();
 	    // let avatarlink = '/usr/' + req.user.login + '/avatar';
 
-			let prevModelObj = {
+			let prevMessagesObj = {
 				user: getuser,
 				text: getmessage,
 				date: date_now,
 				color: ' '
 			};
 
-			pushMessage(prevModelObj);
+			pushMessage(prevMessagesObj);
 		}
 	},
 	created: function() {
 		let getuser = $("#username").val();
-		this.username = getuser;	
+		
+	  socket.emit('connect message', getuser);
 		
 		// send nickname who connects		
-	  socket.emit('connect message', getuser);
-
-	  $(function () {
-			socket.on('chat message', function(msg) {
-				let getuser = $("#username").val();
-				model.push(msg);
-				console.log(msg.text);
-			});
+		socket.on('chat message', function(msg) {
+			let getuser = $("#username").val();
+			messages.push(msg);
 		});
 
 	  // get this nickname+'connected'
@@ -79,11 +55,13 @@ let app = new Vue({
 				text: ' connected'
 			};
 
-		 	model.push(modelObj);
+			messages.push(modelObj);
 		});
 	}
 });
 	
+// -------------------- -------------------- -------------------- -------------------- //
+
 function pushMessage(prevObj) {
 	socket.emit('chat message', prevObj);
 	$('#m').val('');

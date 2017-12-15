@@ -2,143 +2,149 @@
  
 <html>
 <head>
-  <% if(user.login !== undefined) { %> 
-    <title><%=user.login%></title>
-  <% } else { %>
-    <title>Pivnushka!</title>
-  <% } %>
-  <link rel="stylesheet" href="/style/account.css">
-  <link rel="stylesheet" href="/style/loader.css">
+	<% if(user.login !== undefined) { %> 
+		<title><%=user.login%></title>
+	<% } else { %>
+		<title>Pivnushka!</title>
+	<% } %>
+	<link rel="stylesheet" href="/style/account.css">
+	<link rel="stylesheet" href="/style/loader.css">
 </head>
 <body>
-  <!-- Information -->
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4">
-        <p class="h3">Информация</p>
-          <p class="h4">
-            <div class="row">
-              <div class="col-sm-5"> 
-                <p>Логин:</p> 
-                <p>Дата рождения:</p> 
-                <p>Пол:</p> 
-              </div>
+	<!-- Information -->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<p class="h3">Информация</p>
+					<p class="h4">
+						<div class="row">
+							<div class="col-sm-5"> 
+								<p>Логин:</p> 
+								<p>Дата рождения:</p> 
+								<p>Пол:</p> 
+							</div>
 
-              <div class="col-sm-3">                
-                <p><%= user.login %></p>
+							<div class="col-sm-3">                
+								<p><%= user.login %></p>
 
-                <% if(user.dob) { %> 
-                <p><%= user.dob %></p>
-                <% } else { %>
-                  <p>N/A</p>
-                <% } %>
+								<% if(user.dob) { %> 
+								<p><%= user.dob %></p>
+								<% } else { %>
+									<p>N/A</p>
+								<% } %>
 
-                <% if(user.gender) { %>
-                <p><%= user.gender %></p>       
-                <% } else { %>
-                  <p>N/A</p>
-                <% } %>
-              </div>
-            </div>
-          </p>
+								<% if(user.gender) { %>
+								<p><%= user.gender %></p>       
+								<% } else { %>
+									<p>N/A</p>
+								<% } %>
+							</div>
+						</div>
+					</p>
 
-          <hr>
+					<hr>
 
-          <div class="row">
-            <div class="col-sm-12">
-              <% if(user.about !== undefined) { %> 
-                <p class="h3">О себе</p>
-                <p class="h4">
-                    <%=user.about%>
-                </p>
-              <% } %>
-            </div>
-          </div>
-        </div>  
-      
+					<div class="row">
+						<div class="col-sm-12">
+							<% if(user.about !== undefined) { %> 
+								<p class="h3">О себе</p>
+								<p class="h4">
+										<%=user.about%>
+								</p>
+							<% } %>
+						</div>
+					</div>
+				</div>  
+			
 
-      <div class="col-sm-6">
-        <% if(user.name) { %> 
-          <% if(user.surname) { %> 
-            <p class="h1"><%= user.name %> <%= user.surname %></p>
-          <% } %>
-        <% } %>
-        <image src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle"></image>
-      </div>
+			<div class="col-sm-6">
+				<% if(user.name) { %> 
+					<% if(user.surname) { %> 
+						<p class="h1"><%= user.name %> <%= user.surname %></p>
+					<% } %>
+				<% } %>
+				<image src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle"></image>
+			</div>
 
-      <% if (mydata) { %> 
-        <% if (mydata !== user) { %> 
-          <div class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-              <form method="getuser" data-remote="true">
-                <button type="submit" class="btn">Добавить</button>
-                <button type="button" class="btn btn disabled">Написать</button>
-              </form>
-            </div>
-          </div>
-        <% } %>
-      <% } %>
-    </div>
-  </div>
-  
-  <hr>
+			<div class="col-sm-2">
+				<div id="onlineBar">
+					{{ onlineStatus }}
+				</div>
+			</div>
 
-  <!-- Blog -->
+			<% if (mydata) { %> 
+				<% if (mydata !== user) { %> 
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-4">
+							<form method="getuser" data-remote="true">
+								<button type="submit" class="btn">Добавить</button>
+								<button type="button" class="btn btn disabled">Написать</button>
+							</form>
+						</div>
+					</div>
+				<% } %>
+			<% } %>
+		</div>
+	</div>
+	
+	<hr>
 
-  
-    <% if (mydata) { %>    
-      <% if (mydata == user) { %> 
-          <div class="col-sm-4" id="postblock">
-            <p class="h1">Что нового?</p>
-              <form id="create_post_form">
-                <div class="form-group">
-                  <input class="form-control" name="text" id="text" type="text">
-                  <hr>
-                  <input type="button" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
-                </div>
-                
-                <div v-if="loading == true">
-                  <p>{{message}}</p>
-                  <div class="loader"></div>
-                </div>
+	<!-- Blog -->
 
-              </form>  
-          </div>
-      <% } %>
-    <% } %>  
+	
+		<% if (mydata) { %>    
+			<% if (mydata == user) { %> 
+					<div class="col-sm-4" id="postblock">
+						<p class="h1">Что нового?</p>
+							<form id="create_post_form">
+								<div class="form-group">
+									<input class="form-control" name="text" id="text" type="text">
+									<hr>
+									<input type="button" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
+								</div>
+								
+								<div v-if="loading == true">
+									<p>{{message}}</p>
+									<div class="loader"></div>
+								</div>
 
-      <div class="col-sm-offset-4">
-        <h1>Опубликовано</h1>      
-          <div id="blog">   
-            <div v-if="loading == true" class="loader">
-            </div>
+							</form>  
+					</div>
+			<% } %>
+		<% } %>  
 
-            <div v-else-if="loading == false" class="row">
-              <div class="col-sm-10">
-                <post-list v-bind:posts="posts"></post-list>
-                <button v-on:click="showMore" v-if="buttonStatus == true">Show more</button>
-              </div>
-            </div>
-          </div>
-      </div>
+			<div class="col-sm-offset-4">
+				<h1>Опубликовано</h1>      
+					<div id="blog">   
+						<div v-if="loading == true" class="loader">
+						</div>
 
-  <!-- LIST OF POSTS -->
-  <script type="text/x-template" id="postList_template">
-      <table class="table">
-          <div class="list-group" v-for="p in posts">                       
-              <img class="img img-circle" v-bind:src="' ' + p.avalink" id="avatarsmall">
-              <h2><a :href="'/usr/' + p.author">{{ p.author }}</a></h2>
-              <h6>{{ p.date }}</h6>
-            <blockquote>
-              <p>{{ p.text }}</p>
-            </blockquote>
-          </div>
-      </table>
-  </script>
+						<div v-else-if="loading == false" class="row">
+							<div class="col-sm-10">
+								<post-list v-bind:posts="posts"></post-list>
+								<button v-on:click="showMore" v-if="buttonStatus == true">Show more</button>
+							</div>
+						</div>
+					</div>
+			</div>
 
-  <script src='/js/feedcontent.js'></script>
+	<!-- LIST OF POSTS -->
+	<script type="text/x-template" id="postList_template">
+			<table class="table">
+					<div class="list-group" v-for="p in posts">                       
+							<img class="img img-circle" v-bind:src="' ' + p.avalink" id="avatarsmall">
+							<h2><a :href="'/usr/' + p.author">{{ p.author }}</a></h2>
+							<h6>{{ p.date }}</h6>
+						<blockquote>
+							<p>{{ p.text }}</p>
+						</blockquote>
+					</div>
+			</table>
+	</script>
 
-  <!-- TEMPLATES -->
-  <script src='/js/postlist.js'></script>
+	<script src='/js/feedcontent.js'></script>
+
+	<!-- TEMPLATES -->
+	<script src='/js/postlist.js'></script>
 </body>
 </html>
