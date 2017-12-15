@@ -118,7 +118,8 @@ module.exports = function(app, passport, db) {
   app.get('/api/users', function(req, res) {    
     let p = req.query.p;
 
-    User.paginate({ }, { page: p, limit: 4 }, (err, data) => {
+    
+    User.paginate({ }, { page: p, limit: 8 }, (err, data) => {
       res.json(data);
     });    
   });
