@@ -7,6 +7,7 @@ let app = new Vue({
   el: "#users",
   data: {
     currPage: 1,
+    totalPages: 1,
     pages: [],
     users: [],
     search: '',
@@ -15,9 +16,14 @@ let app = new Vue({
   },
   watch: {
     search: function(string) {
+      if (string.length < 1) {
+        this.showUsers(1);
+      } else {
+        this.showUsers(0);
+      }
+
       this.status = 'Searching...';
       this.loading = true;
-      this.showUsers(this.currPage);
     }
   },
   methods: {
@@ -28,21 +34,26 @@ let app = new Vue({
           params: {
             p: page
           }
-        })  
+        })
         .then(function(res) {
           let pageArray = [];
+
+          // sort users
           let filter = _.filter(res.data.docs, function(i) {
             let match = i.login.match(app.search);
             return match;
           });
           app.users = filter;
           app.status = '';
-          
+
+          // turn pages to pages[]
           for (let i = 1; i <= (res.data.pages); i++) {
             pageArray.push(i);
           }
           app.pages = pageArray;
-          app.loading = false;  
+
+          app.totalPages = res.data.pages; // get count
+          app.loading = false;  // stop loading
         })
         .catch(function(error) {
           app.status = 'Failed with error ' + error;

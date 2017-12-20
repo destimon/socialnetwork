@@ -9,22 +9,22 @@
 	<div class="container">
 		<div class="row">
 			<form action="/edit" method="post" enctype="multipart/form-data">
-			
+
 				<div class="col-sm-6">
 					<%-partial('./layouts/partials/form')%>
 				</div>
-			
+
 
 				<div class="col-sm-5">
 					<div class="form-group">
-						<label for="about">О себе</label>
+						<label for="about">About: </label>
 						<textarea name="about" class="form-control" rows="4"><%if(mydata.about){%><%=mydata.about%><%}%></textarea>
 					</div>
 
 					<div class="form-group">
-						<label>Аватар</label>
+						<label>Avatar</label>
 						<br>
-							
+
 						 <image src="/usr/<%=mydata.login%>/avatar" class="image img-circle" id="avatar"></image>
 
 						<label class="btn btn-default">
@@ -33,7 +33,7 @@
 					</div>
 
 				</div>
-			
+
 			</form>
 		</div>
 	</div>

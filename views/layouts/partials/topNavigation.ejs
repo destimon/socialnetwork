@@ -1,32 +1,28 @@
-  <header> 
+  <header>
     <nav class="navbar navbar-inverse">
       <div class="container">
-        <div class="navbar-header">
-          <a href="/me"><image id="topicon" src="/img/beer.png"></image></a>
-
-        </div>
-          
           <ul class="nav navbar-nav">
-            
-
-            <li><a href="/contacts">Контакты</a></li>
-            <li><a href="/feed">Новости</a></li>
-            <li><a href="/messages">Сообщения</a></li>
+            <li><a href="/me"><strong>MixBox!</strong></a></li>
+            <li><a href="/contacts">Users</a></li>
+            <li><a href="/feed">Feed</a></li>
+            <li><a href="/messages">Messages</a></li>
           </ul>
-              
+
           <ul class="nav navbar-nav navbar-right">
-        <% if(!mydata) { %> 
-          <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>  
+        <% if(!mydata) { %>
+          <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
         <% } else { %>
-            <li>  
-              <a class="btn dropdown-toggle" data-toggle="dropdown"><image src="/usr/<%=mydata.login%>/avatar" style="width: 20px;" class="image img-circle"> Меню <span class="caret"></span></a>
+            <li>
+              <a class="btn dropdown-toggle" data-toggle="dropdown">
+                <image src="/usr/<%=mydata.login%>/avatar" style="width: 20px;" class="image img-circle">
+                <%=mydata.login%> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/me"><span class="glyphicon glyphicon-home"></span> Профиль</a></li>
+                  <li><a href="/me"><span class="glyphicon glyphicon-home"></span> Profile</a></li>
                   <hr style="margin: 0 0 0 0;">
-                  <li><a href="/edit"><span class="glyphicon glyphicon-cog"></span> Настройки</a></li>
-                  <li><a href="/help"><span class="glyphicon glyphicon-info-sign"></span> Справка</a></li>
+                  <li><a href="/edit"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                  <li><a href="/help"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a></li>
                   <hr style="margin: 0 0 0 0;">
-                  <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Выйти</a></li>  
+                  <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Sign out</a></li>
                 </ul>
             </li>
           </ul>

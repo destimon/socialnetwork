@@ -5,30 +5,30 @@
 </head>
 <body>
 	<div class="row" id="app">
-		
-		<div class="col-sm-3">		
-			<h2>Диалоги</h2>
+
+		<div class="col-sm-3">
+			<h2>Conversations</h2>
 		</div>
 
 		<div class="col-sm-8">
-		<h2>Сообщения</h2>
+		<h2>Messages</h2>
 		<input id="username" value="<%=mydata.login%>" hidden></input>
 			<div class="panel panel-default" id="messagepanel">
 	    	<msg-item v-bind:msglist="msglist"></msg-item>
 			</div>
-		    
+
 	    <form>
 	      <div class="form-group">
 		      <input id="m" type=text class="form-control" autocomplete="off"
-		      placeholder="Введите сообщение" />
+		      placeholder="Write message" />
 	      </div>
 		    <hr>
-		    <input type="button" v-on:click="sendMessage" value="Отправить" 
+		    <input type="button" v-on:click="sendMessage" value="Send"
 		    class="btn btn-success"/>
 	    </form>
 		</div>
   </div>
-  
+
   <!-- MESSAGE BOX TEMPLATE -->
   <script type="text/x-template" id="message_box">
   	<div class="row">
@@ -44,7 +44,7 @@
 	    	</div>
   	</div>
   </script>
-  
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/messages.js"></script>
 </body

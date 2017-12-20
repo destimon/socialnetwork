@@ -4,7 +4,7 @@
 let blog = new Vue({
 	el: '#blog',
 	data: {
-		posts: 'Если вы видите это сообщение, то что-то пошло не так...',
+		posts: '',
 		loading: true,
 		offset: -1,
 		limit: -1,
@@ -102,8 +102,8 @@ let blog = new Vue({
 			.then(function(res) {
 				let newcontent = (res.data.total - 4);
 				let newlimit = 4;
-				
-				// Get newest content	
+
+				// Get newest content
 				blog.getFeed(newcontent, newlimit);
 			});
 		} else {
@@ -118,7 +118,6 @@ let blog = new Vue({
 
 				if (res.data.local>4){
 					newcontent = (res.data.total - 4);
-					
 				} else {
 					newcontent = (res.data.total);
 				}
@@ -128,7 +127,7 @@ let blog = new Vue({
 		}
 	}
 });
-	
+
 // Send new post --------------------------------------------------------------------
 let create_post_form = new Vue({
 	el: '#create_post_form',
@@ -147,7 +146,7 @@ let create_post_form = new Vue({
 			})
 			.then(function(res) {
 				console.log('res.data' + res.data);
-				
+
 				blog.offset = Number(blog.offset) + 1;
 				blog.limit = Number(blog.limit) + 1;
 
@@ -156,7 +155,7 @@ let create_post_form = new Vue({
 				} else {
 					blog.getMyFeed(blog.offset, blog.limit);
 				}
-				
+
 				create_post_form.loading = false;
 				create_post_form.message = 'Опубликовано!';
 			})
@@ -166,7 +165,7 @@ let create_post_form = new Vue({
 			});
 
 			this.message = 'Отправление...';
-			this.loading = true; 
+			this.loading = true;
 		}
 	}
 });

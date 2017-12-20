@@ -1,11 +1,11 @@
 <% layout('/layouts/layout') -%>
- 
+
 <html>
 <head>
-	<% if(user.login !== undefined) { %> 
+	<% if(user.login !== undefined) { %>
 		<title><%=user.login%></title>
 	<% } else { %>
-		<title>Pivnushka!</title>
+		<title>MixBox!</title>
 	<% } %>
 	<link rel="stylesheet" href="/style/account.css">
 	<link rel="stylesheet" href="/style/loader.css">
@@ -15,26 +15,26 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-4">
-				<p class="h3">Информация</p>
+				<p class="h3">Information</p>
 					<p class="h4">
 						<div class="row">
-							<div class="col-sm-5"> 
-								<p>Логин:</p> 
-								<p>Дата рождения:</p> 
-								<p>Пол:</p> 
+							<div class="col-sm-5">
+								<p>Login:</p>
+								<p>Date of birth:</p>
+								<p>Gender:</p>
 							</div>
 
-							<div class="col-sm-3">                
+							<div class="col-sm-3">
 								<p><%= user.login %></p>
 
-								<% if(user.dob) { %> 
+								<% if(user.dob) { %>
 								<p><%= user.dob %></p>
 								<% } else { %>
 									<p>N/A</p>
 								<% } %>
 
 								<% if(user.gender) { %>
-								<p><%= user.gender %></p>       
+								<p><%= user.gender %></p>
 								<% } else { %>
 									<p>N/A</p>
 								<% } %>
@@ -46,20 +46,20 @@
 
 					<div class="row">
 						<div class="col-sm-12">
-							<% if(user.about !== undefined) { %> 
-								<p class="h3">О себе</p>
+							<% if(user.about !== undefined) { %>
+								<p class="h3">About:</p>
 								<p class="h4">
 										<%=user.about%>
 								</p>
 							<% } %>
 						</div>
 					</div>
-				</div>  
-			
+				</div>
+
 
 			<div class="col-sm-6">
-				<% if(user.name) { %> 
-					<% if(user.surname) { %> 
+				<% if(user.name) { %>
+					<% if(user.surname) { %>
 						<p class="h1"><%= user.name %> <%= user.surname %></p>
 					<% } %>
 				<% } %>
@@ -72,13 +72,13 @@
 				</div>
 			</div>
 
-			<% if (mydata) { %> 
-				<% if (mydata !== user) { %> 
+			<% if (mydata) { %>
+				<% if (mydata !== user) { %>
 					<div class="row">
 						<div class="col-sm-4 col-sm-offset-4">
 							<form method="getuser" data-remote="true">
-								<button type="submit" class="btn">Добавить</button>
-								<button type="button" class="btn btn disabled">Написать</button>
+								<button type="submit" class="btn">Follow</button>
+								<button type="button" class="btn btn disabled">Write</button>
 							</form>
 						</div>
 					</div>
@@ -86,36 +86,36 @@
 			<% } %>
 		</div>
 	</div>
-	
+
 	<hr>
 
 	<!-- Blog -->
 
-	
-		<% if (mydata) { %>    
-			<% if (mydata == user) { %> 
+
+		<% if (mydata) { %>
+			<% if (mydata == user) { %>
 					<div class="col-sm-4" id="postblock">
-						<p class="h1">Что нового?</p>
+						<p class="h1">What's up?</p>
 							<form id="create_post_form">
 								<div class="form-group">
 									<input class="form-control" name="text" id="text" type="text">
 									<hr>
-									<input type="button" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
+									<input type="button" v-on:click="postFeed" class="btn btn-success" value="Confirm"></input>
 								</div>
-								
+
 								<div v-if="loading == true">
 									<p>{{message}}</p>
 									<div class="loader"></div>
 								</div>
 
-							</form>  
+							</form>
 					</div>
 			<% } %>
-		<% } %>  
+		<% } %>
 
 			<div class="col-sm-offset-4">
-				<h1>Опубликовано</h1>      
-					<div id="blog">   
+				<h1>Published</h1>
+					<div id="blog">
 						<div v-if="loading == true" class="loader">
 						</div>
 
@@ -131,7 +131,7 @@
 	<!-- LIST OF POSTS -->
 	<script type="text/x-template" id="postList_template">
 			<table class="table">
-					<div class="list-group" v-for="p in posts">                       
+					<div class="list-group" v-for="p in posts">
 							<img class="img img-circle" v-bind:src="' ' + p.avalink" id="avatarsmall">
 							<h2><a :href="'/usr/' + p.author">{{ p.author }}</a></h2>
 							<h6>{{ p.date }}</h6>

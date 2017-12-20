@@ -30,7 +30,7 @@ module.exports = function(app, passport, db) {
   }));
 
   // SIGNUP ------------------------------------------------------------------------------------
-  app.get('/signup', (req,res) => {   
+  app.get('/signup', (req,res) => {
     let empty = new User();
 
     // To avoid problem with undefined local
@@ -41,10 +41,10 @@ module.exports = function(app, passport, db) {
     empty.dob = '';
     empty.gender = '';
 
-    res.render('signup.ejs', { 
+    res.render('signup.ejs', {
       message: req.flash('signupMessage'),
       mydata:  empty
-    });  
+    });
   });
 
   app.post('/signup', passport.authenticate('local-signup', {
@@ -55,23 +55,23 @@ module.exports = function(app, passport, db) {
 
   // USERS ------------------------------------------------------------------------------------
     app.get('/me', isLoggedIn, function(req, res) {
-      let login = req.user.login; 
+      let login = req.user.login;
 
       Feed.find({'author' : login }, function(err, data) {
         res.render('account.ejs', {
           user : req.user, // get the user out of session and pass to template
           mydata : req.user,
-          feed : data 
+          feed : data
         });
       });
     });
 
     app.get('/usr/:login', (req, res) => {
       // req.isAuthenticated();
-      
+
       let login = req.params.login;
       let current = req.user;
-     
+
       if (req.isAuthenticated()) {
         if (req.user.login == login) {
           res.redirect('/me');
@@ -79,14 +79,14 @@ module.exports = function(app, passport, db) {
       }
 
       User.findOne( {'login' : login }, (err, getuser) => {
-        Feed.find({'author' : login }, (err, data) => { 
+        Feed.find({'author' : login }, (err, data) => {
           res.render('account.ejs', {
             user : getuser,
             mydata : current,
             feed: data
-          });     
+          });
         });
-      });   
+      });
     });
 
 
@@ -115,23 +115,28 @@ module.exports = function(app, passport, db) {
     });
   });
 
-  app.get('/api/users', function(req, res) {    
+  app.get('/api/users', function(req, res) {
     let p = req.query.p;
 
-    
-    User.paginate({ }, { page: p, limit: 8 }, (err, data) => {
+    let options = {
+      page: p,
+      limit: 6
+    }
+
+    User.paginate({ }, options, (err, data) => {
+      console.log(data);
       res.json(data);
-    });    
+    });
   });
 
   // EDIT ------------------------------------------------------------------------------------
   app.get('/edit', isLoggedIn, function(req,res) {
     let id = req.user.id;
 
-    res.render('edit', { 
-      mydata: req.user,       
+    res.render('edit', {
+      mydata: req.user,
       message: req.flash('signupMessage', '')
-    });   
+    });
   });
 
   app.post('/edit', function(req, res) {
@@ -140,9 +145,9 @@ module.exports = function(app, passport, db) {
     let name = req.body.name;
     let surname = req.body.surname;
     let dob   = req.body.dob;
-    let gender  = req.body.gender;     
+    let gender  = req.body.gender;
     let about = req.body.about;
-    
+
     User.findById(id, function(err, user) {
       user.login = login;
       user.name = name;
@@ -150,7 +155,7 @@ module.exports = function(app, passport, db) {
       user.dob = dob;
       user.gender = gender;
       user.about = about;
-      
+
 
       if (!req.files.avatar) {
         user.avatar.default = true;
@@ -179,7 +184,7 @@ module.exports = function(app, passport, db) {
   // FEED -----------------------------------------------------------------------------
   app.get('/feed', isLoggedIn, function(req,res) {
     res.render('feed', {
-      mydata: req.user      
+      mydata: req.user
     });
   });
 
@@ -206,7 +211,7 @@ module.exports = function(app, passport, db) {
 
     res.json(post);
   });
-  
+
   app.get('/feedcontent', (req, res) => {
     let login = req.query.login;
     let amount = Number(req.query.offset);
@@ -217,7 +222,7 @@ module.exports = function(app, passport, db) {
 
     // for self page
     if (login == 'me') {
-      let me_athor = req.user.login;
+			let me_athor = req.user.login;
       Feed.paginate({ author: me_athor }, { offset: amount, limit: lim }, function(err, data) {
         res.json(data);
       });
@@ -230,7 +235,7 @@ module.exports = function(app, passport, db) {
     } else {
       Feed.paginate({  }, { offset: amount, limit: lim }, function(err, data) {
         res.json(data);
-      });      
+      });
     }
   });
 
@@ -260,7 +265,7 @@ module.exports = function(app, passport, db) {
 
   // isLoggedIn -----------------------------------------------------------------------------
   function isLoggedIn(req, res, next) {
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 

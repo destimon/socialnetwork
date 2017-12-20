@@ -1,10 +1,10 @@
 <% layout('/layouts/layout') -%>
- 
+
 <html>
 <head>
   <link rel="stylesheet" href="/style/contacts.css">
   <link rel="stylesheet" href="/style/loader.css">
-  <title>Contacts</title>
+  <title>Users</title>
 </head>
 <body>
   <div id="users">
@@ -15,9 +15,9 @@
           </div>
 
           <div v-else>
-            <pagination v-bind:pages="pages" v-bind:currPage="currPage"></pagination>
-            <user-list v-bind:users="users"></user-list>
-            <pagination v-bind:pages="pages" v-bind:currPage="currPage"></pagination>
+            <pagination :pages="pages"></pagination>
+            <user-list :users="users"></user-list>
+            <pagination :pages="pages"></pagination>
           </div>
       </div>
 
@@ -31,13 +31,13 @@
                 </button>
               </div>
             </div>
-        </form> 
+        </form>
         <h4>{{ status }}</h4>
 
       </div>
     </div>
   </div>
-  
+
   <!-- USER LIST TEMPLATE -->
   <script type="text/x-template" id="userEl">
     <div class="row">
@@ -49,7 +49,7 @@
                 <img :src="'/usr/' + user.login + '/avatar'" id="avatar" class="image img-circle">
               </div>
               <div class="col-md-8">
-                <b> {{ user.name }} {{ user.surname }} </b>    
+                <b> {{ user.name }} {{ user.surname }} </b>
                 <p><a :href="'/usr/' + user.login"> {{ user.login }} </a></p>
               </div>
             </div>
@@ -62,8 +62,10 @@
   <!-- PAGINATION -->
   <script type="text/x-template" id="paginationEl">
     <div class="row">
-      <ul class="pagination" v-for="page in pages">
-        <li><a @click="changePage(page)">{{ page }}</a></li>
+      <ul class="pagination">
+        <li><a @click="prevPage()">Prev</a></li>
+        <li><a @click="changePage(page)" v-for="page in pages">{{ page }}</a></li>
+        <li><a @click="nextPage()">Next</a></li>
       </ul>
     </div>
   </script>

@@ -1,17 +1,17 @@
 <% layout('/layouts/layout') -%>
 
 <head>
-	<title>Новости</title>
+	<title>Feed</title>
 	<link rel="stylesheet" href="/style/feed.css">
 	<link rel="stylesheet" href="/style/loader.css">
 </head>
 
 <body>
-		
+
 	<div class="container" id="content">
 		<div class="row">
 			<div class="col-xs-12 col-sm-4" id="postblock">
-				<p class="h1">Что нового?</p>
+				<p class="h1">What's up?</p>
 				<hr>
 					<form id="create_post_form">
 	          <div class="form-group">
@@ -19,25 +19,25 @@
 	            <hr>
 	            <input type="button" v-on:click="postFeed" class="btn btn-success" value="Отправить"></input>
 	          </div>
-	          
+
 	          <div v-if="loading == true">
 	            <p>{{message}}</p>
 	      			<div class="loader"></div>
 	    			</div>
 	        </form>
-	          	
-			</div>	
-			
+
+			</div>
+
 			<div class="col-xs-12 col-sm-6">
 
-				<p class="h1">Новости</p>
+				<p class="h1">Recent publications</p>
 				<hr>
-				
+
 				<div id="blog">
 					<div v-if="loading == true" class="loader"></div>
 
 					<div v-if="loading == false">
-						
+
 							<post-list v-bind:posts="posts"></post-list>
 							<button v-on:click="showMore" v-if="buttonStatus == true">Show more</button>
 					</div>
@@ -45,7 +45,7 @@
 
 			  <script type="text/x-template" id="postList_template">
 			      <div class="table">
-			          <div class="list-group" v-for="p in posts">                       
+			          <div class="list-group" v-for="p in posts">
 			              <img class="img img-circle" id="avatarsmall" v-bind:src="p.avalink">
 				              <h2><a :href="'/usr/' + p.author">{{ p.author }}</a></h2>
 				              <h6>{{ p.date }}</h6>
@@ -59,7 +59,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script src='/js/feedcontent.js'></script>
 
 	<!-- TEMPLATES -->
