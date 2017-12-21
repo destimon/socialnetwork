@@ -74,10 +74,11 @@
 
 			<% if (mydata) { %>
 				<% if (mydata !== user) { %>
-					<div class="row">
+					<div class="row" id="toolPanel">
 						<div class="col-sm-4 col-sm-offset-4">
 							<form method="getuser" data-remote="true">
-								<button type="submit" class="btn">Follow</button>
+								<button type="button" :class="isDisabled" @click="followUser()">
+								{{ buttonName }}</button>
 								<button type="button" class="btn btn disabled">Write</button>
 							</form>
 						</div>
@@ -146,6 +147,7 @@
 	</script>
 
 	<script src='/js/feedcontent.js'></script>
+	<script src='/js/follow.js'></script>
 
 	<!-- TEMPLATES -->
 	<script src='/js/postlist.js'></script>

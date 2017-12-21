@@ -1,7 +1,7 @@
 "use strict"
 
 let ObjectID = require('mongodb').ObjectID;
-let Contacts = require('../models/contacts');
+let Follower = require('../models/follower');
 let User = require('../models/user');
 let Feed = require('../models/feed');
 let multer  = require('multer')
@@ -108,6 +108,47 @@ module.exports = function(app, passport, db) {
     }
   });
 
+	app.get('/api/follows', (req, res) => {
+		let user = req.user.login;
+		let target = req.query.target;
+
+		Follower.findOne({ follower: user, target: target }, function(err, data) {
+			if (err) throw err;
+
+			res.json(data);
+		});
+	});
+
+	app.post('/api/follows', (req, res) => {
+		let user = req.user.login;
+		let target = req.body.target;
+
+		Follower.findOne({ follower: user , target: target }, function(err, data) {
+
+			if (data !== null) {
+				if (data.target == target) {
+
+					data.statusF = (data.statusF == true)?false: true
+
+					data.save(function(err, upd) {
+						if (err) throw err;
+						res.send(upd);
+					});
+				}
+			} else {
+				let newFollow = new Follower();
+
+				newFollow.follower = user;
+				newFollow.target = target;
+				newFollow.statusF = true;
+
+				newFollow.save(function(err) {
+					if (err) throw err;
+				});
+			}
+		});
+	});
+
   // CONTACTS ------------------------------------------------------------------------------------
   app.get('/contacts', isLoggedIn, (req, res) => {
     res.render('contacts.ejs', {
@@ -124,7 +165,6 @@ module.exports = function(app, passport, db) {
     }
 
     User.paginate({ }, options, (err, data) => {
-      console.log(data);
       res.json(data);
     });
   });
@@ -212,13 +252,10 @@ module.exports = function(app, passport, db) {
     res.json(post);
   });
 
-  app.get('/feedcontent', (req, res) => {
+  app.get('/api/feed', (req, res) => {
     let login = req.query.login;
     let amount = Number(req.query.offset);
     let lim = Number(req.query.limit);
-    console.log('login: ', login);
-    console.log('amount: ', amount);
-    console.log('limit: ', lim);
 
     // for self page
     if (login == 'me') {

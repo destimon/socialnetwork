@@ -13,7 +13,7 @@ let blog = new Vue({
 	methods: {
 		// Get Global Feed ------
 		getFeed: function(offs, lim) {
-			axios.get('/feedcontent', {
+			axios.get('/api/feed', {
 				params: {
 					offset: offs,
 					limit: lim
@@ -36,7 +36,7 @@ let blog = new Vue({
 		getMyFeed: function(offs, lim) {
 			let pagename = document.location.href.match(/[^\/]+$/)[0];
 
-			axios.get('/feedcontent', {
+			axios.get('/api/feed', {
 				params: {
 					login: pagename,
 					offset: offs,
@@ -65,7 +65,7 @@ let blog = new Vue({
 			let pagename = document.location.href.match(/[^\/]+$/)[0];
 			console.log(pagename);
 
-			axios.get('/feedcontent', {
+			axios.get('/api/feed', {
 				params: {
 					login: pagename
 				}
@@ -99,7 +99,7 @@ let blog = new Vue({
 		// recognize which func to do
 		if ( pagename == 'feed' ) {
 			// IF GLOBAL FEED
-			axios.get('/feedcontent')
+			axios.get('/api/feed')
 			.then(function(res) {
 				let newcontent = (res.data.total - 4);
 				let newlimit = 4;
@@ -109,7 +109,7 @@ let blog = new Vue({
 			});
 		} else {
 			// IF USER FEED
-			axios.get('/feedcontent', {
+			axios.get('/api/feed', {
 				params: {
 					login: pagename
 				}
