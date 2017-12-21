@@ -50,10 +50,11 @@ let blog = new Vue({
 						blog.offset = res.data.offset;
 						blog.limit = res.data.limit;
 					}
-				};
+				}
 
 				// Employ data
 				let docs = res.data.docs;
+				console.log(res.data);
 				console.log(res);
 				blog.posts = docs.reverse();
 				blog.loading = false;
@@ -114,9 +115,9 @@ let blog = new Vue({
 				}
 			})
 			.then(function(res) {
-				let newcontent ;
+				let newcontent;
 
-				if (res.data.local>4){
+				if (res.data.total > 4){
 					newcontent = (res.data.total - 4);
 				} else {
 					newcontent = (res.data.total);
@@ -157,10 +158,10 @@ let create_post_form = new Vue({
 				}
 
 				create_post_form.loading = false;
-				create_post_form.message = 'Опубликовано!';
+				create_post_form.message = 'Published!';
 			})
 			.catch(function(err) {
-				create_post_form.message = 'Ошибка. Нет соединения!';
+				create_post_form.message = 'Error. Connection problems!';
 				console.log(err);
 			});
 

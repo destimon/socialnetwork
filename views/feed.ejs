@@ -39,7 +39,10 @@
 					<div v-if="loading == false">
 
 							<post-list v-bind:posts="posts"></post-list>
-							<button v-on:click="showMore" v-if="buttonStatus == true">Show more</button>
+							<div class="col-md-4">
+								<a class="list-group-item" v-on:click="showMore" v-if="buttonStatus == true">
+								<i class="glyphicon glyphicon-chevron-down"></i> Show more</a>
+							</div>
 					</div>
 				</div>
 
