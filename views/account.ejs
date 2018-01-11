@@ -14,50 +14,51 @@
 	<!-- Information -->
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-md-4">
 				<p class="h3">Information</p>
 					<p class="h4">
-						<div class="row">
-							<div class="col-sm-5">
-								<p>Login:</p>
-								<p>Date of birth:</p>
-								<p>Gender:</p>
-							</div>
-
-							<div class="col-sm-3">
-								<p><%= user.login %></p>
-
-								<% if(user.dob) { %>
-								<p><%= user.dob %></p>
-								<% } else { %>
-									<p>N/A</p>
-								<% } %>
-
-								<% if(user.gender) { %>
-								<p><%= user.gender %></p>
-								<% } else { %>
-									<p>N/A</p>
-								<% } %>
-							</div>
-						</div>
-					</p>
-
-					<hr>
-
 					<div class="row">
-						<div class="col-sm-12">
-							<% if(user.about !== undefined) { %>
-								<p class="h3">About:</p>
-								<p class="h4">
-										<%=user.about%>
-								</p>
+						<div class="col-sm-5">
+							<p>Login:</p>
+							<p>Date of birth:</p>
+							<p>Gender:</p>
+						</div>
+
+						<div class="col-md-3">
+							<p id="login"><%= user.login %></p>
+
+							<% if(user.dob) { %>
+							<p><%= user.dob %></p>
+							<% } else { %>
+								<p>N/A</p>
+							<% } %>
+
+							<% if(user.gender) { %>
+							<p><%= user.gender %></p>
+							<% } else { %>
+								<p>N/A</p>
 							<% } %>
 						</div>
 					</div>
+				</p>
+
+				<hr>
+
+				<div class="row">
+					<div class="col-md-12">
+						<% if(user.about !== undefined) { %>
+							<p class="h3">About:</p>
+							<p class="h4">
+									<%=user.about%>
+							</p>
+						<% } %>
+					</div>
 				</div>
+			</div>
 
 
-			<div class="col-sm-6">
+
+			<div class="col-md-3">
 				<% if(user.name) { %>
 					<% if(user.surname) { %>
 						<p class="h1"><%= user.name %> <%= user.surname %></p>
@@ -66,9 +67,24 @@
 				<image src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle"></image>
 			</div>
 
-			<div class="col-sm-2">
-				<div id="onlineBar">
+			<div class="col-md-3">
+				<div id="followApp">
+					<h3>Followers <span class="badge badge-secondary">{{ followersLength }}</span></h3>
+					<hr>
+					
+					<followers-list :followers="followers"></followers-list>
+					<center>
+						<i class="glyphicon glyphicon-arrow-left" v-on:click="prevFollowers()" v-if="followersOffset>0"></i>
+						<i class="glyphicon glyphicon-arrow-right" v-on:click="prevFollowers()" v-if="followersOffset>followersLength"></i>
+					</center>					
 
+					<h3>Follows <span class="badge badge-secondary">{{ followsLength }}</span></h3>
+					<hr>
+					<follows-list :follows="follows"></follows-list>
+					<center>
+						<i class="glyphicon glyphicon-arrow-left" v-on:click="prevFollows()" v-if="followsOffset>0"></i>
+						<i class="glyphicon glyphicon-arrow-right" v-on:click="nextFollows()" v-if="followsOffset<followsLength"></i>
+					</center>
 				</div>
 			</div>
 
@@ -146,9 +162,38 @@
 			</table>
 	</script>
 
-	<script src='/js/feedcontent.js'></script>
-	<script src='/js/follow.js'></script>
+	<!-- LIST OF FOLLOWERS -->
+	<script type="text/x-template" id="followersList_template">
+		<div class="row">
+			<div v-for="f in followers">
+				<a :href="'/usr/' + f.follower">
+					<div class="col-md-3">
+						<img class="img img-circle" v-bind:src="'/usr/' + f.follower + '/avatar'" id="avatarsmall">			
+						<small><center>{{ f.follower }}</center></small>
+					</div>
+				</a>
+			</div>
+		</div>	
+	</script>
 
+	<!-- LIST OF FOLLOWS -->
+	<script type="text/x-template" id="followsList_template">
+		<div class="row">
+			<div v-for="f in follows">
+				<a :href="'/usr/' + f.target" class="active">
+					<div class="col-md-3">
+						<img class="img img-circle" v-bind:src="'/usr/' + f.target + '/avatar'" id="avatarsmall">			
+						<small><center>{{ f.target }}</center></small>
+					</div>
+				</a>
+			</div>
+		</div>
+	</script>
+	
+
+	<script src='/js/account/feedcontent.js'></script>
+	<script src='/js/account/follow.js'></script>
+	<script src='/js/account/followApp.js'></script>	
 	<!-- TEMPLATES -->
 	<script src='/js/postlist.js'></script>
 </body>

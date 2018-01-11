@@ -109,14 +109,24 @@ module.exports = function(app, passport, db) {
   });
 
 	app.get('/api/follows', (req, res) => {
-		let user = req.user.login;
+		let list = req.query.list;
+    let user = req.user.login;
 		let target = req.query.target;
 
+    if (list == undefined || list !== 'all')
 		Follower.findOne({ follower: user, target: target }, function(err, data) {
 			if (err) throw err;
 
 			res.json(data);
 		});
+
+    if (list == 'all') {
+      Follower.find({ }, function(err, data) {
+        if (err) throw err;
+
+        res.json(data);
+      })
+    }
 	});
 
 	app.post('/api/follows', (req, res) => {
