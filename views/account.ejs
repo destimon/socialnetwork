@@ -75,7 +75,7 @@
 					<followers-list :followers="followers"></followers-list>
 					<center>
 						<i class="glyphicon glyphicon-arrow-left" v-on:click="prevFollowers()" v-if="followersOffset>0"></i>
-						<i class="glyphicon glyphicon-arrow-right" v-on:click="prevFollowers()" v-if="followersOffset<followersLength"></i>
+						<i class="glyphicon glyphicon-arrow-right" v-on:click="nextFollowers()" v-if="followersOffset<followersLength"></i>
 					</center>					
 
 					<h3>Follows <span class="badge badge-secondary">{{ followsLength }}</span></h3>
