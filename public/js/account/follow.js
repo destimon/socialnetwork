@@ -4,7 +4,7 @@ let tp = new Vue({
     user: '',
     target: '',
     isFollow: false,
-    isDisabled: 'btn'
+    isDisabled: 'btn btn-primary'
   },
   methods: {
     checkFollow: function(target) {
@@ -21,7 +21,7 @@ let tp = new Vue({
       });
     },
     followUser: function() {
-      this.isDisabled = 'btn disabled';
+      this.isDisabled = 'btn btn-primary disabled';
 
       // post status to db
       axios.post('/api/follows', {
@@ -29,7 +29,7 @@ let tp = new Vue({
       })
       .then(function(res) {
         tp.checkFollow(tp.target);
-        tp.isDisabled = 'btn';
+        tp.isDisabled = 'btn btn-primary';
         followApp.getFollowList(); // UPDATE FOLLOWERS LIST
       })
       .catch(function(err) {

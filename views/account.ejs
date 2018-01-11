@@ -18,7 +18,7 @@
 				<p class="h3">Information</p>
 					<p class="h4">
 					<div class="row">
-						<div class="col-sm-5">
+						<div class="col-md-5">
 							<p>Login:</p>
 							<p>Date of birth:</p>
 							<p>Gender:</p>
@@ -48,54 +48,53 @@
 					<div class="col-md-12">
 						<% if(user.about !== undefined) { %>
 							<p class="h3">About:</p>
-							<p class="h4">
-									<%=user.about%>
-							</p>
+							<p class="h4"><%=user.about%></p>
 						<% } %>
 					</div>
 				</div>
 			</div>
-
-
-
-			<div class="col-md-3">
-				<% if(user.name) { %>
-					<% if(user.surname) { %>
-						<p class="h1"><%= user.name %> <%= user.surname %></p>
+	
+			<div class="container">
+				<div class="col-md-4 text-center">
+					<% if(user.name) { %>
+						<% if(user.surname) { %>
+							<p class="h1"><%= user.name %> <%= user.surname %></p>
+						<% } %>
 					<% } %>
-				<% } %>
-				<image src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle"></image>
-			</div>
+					<image src="/usr/<%=user.login%>/avatar" id="avatar" class="image img-circle float-center"></image>
+				</div>
 
-			<div class="col-md-3">
-				<div id="followApp">
-					<h3>Followers <span class="badge badge-secondary">{{ followersLength }}</span></h3>
-					<hr>
-					
-					<followers-list :followers="followers"></followers-list>
-					<center>
-						<i class="glyphicon glyphicon-arrow-left" v-on:click="prevFollowers()" v-if="followersOffset>0"></i>
-						<i class="glyphicon glyphicon-arrow-right" v-on:click="nextFollowers()" v-if="followersOffset<followersLength"></i>
-					</center>					
+				<div class="col-md-3">
+					<div id="followApp">
+						<h3>Followers <span class="badge badge-secondary">{{ followersLength }}</span></h3>
+						<hr>
+						
+						<followers-list :followers="followers"></followers-list>
+						<center>
+							<i class="glyphicon glyphicon-arrow-left" v-on:click="prevFollowers()" v-if="followersOffset>0"></i>
+							<i class="glyphicon glyphicon-arrow-right" v-on:click="nextFollowers()" v-if="followersOffset<followersLength"></i>
+						</center>					
 
-					<h3>Follows <span class="badge badge-secondary">{{ followsLength }}</span></h3>
-					<hr>
-					<follows-list :follows="follows"></follows-list>
-					<center>
-						<i class="glyphicon glyphicon-arrow-left" v-on:click="prevFollows()" v-if="followsOffset>0"></i>
-						<i class="glyphicon glyphicon-arrow-right" v-on:click="nextFollows()" v-if="followsOffset<followsLength"></i>
-					</center>
+						<h3>Follows <span class="badge badge-secondary">{{ followsLength }}</span></h3>
+						<hr>
+						<follows-list :follows="follows"></follows-list>
+						<center>
+							<i class="glyphicon glyphicon-arrow-left" v-on:click="prevFollows()" v-if="followsOffset>0"></i>
+							<i class="glyphicon glyphicon-arrow-right" v-on:click="nextFollows()" v-if="followsOffset<followsLength"></i>
+						</center>
+					</div>
 				</div>
 			</div>
 
 			<% if (mydata) { %>
 				<% if (mydata !== user) { %>
 					<div class="row" id="toolPanel">
-						<div class="col-sm-4 col-sm-offset-4">
+						<div class="col-md-4 col-md-offset-4">
 							<form method="getuser" data-remote="true">
-								<button type="button" :class="isDisabled" @click="followUser()">
-								{{ buttonName }}</button>
-								<button type="button" class="btn btn disabled">Write</button>
+								<button type="button" :class="isDisabled" @click="followUser()">{{ buttonName }}</button>
+								<button type="button" class="btn btn-primary disabled">Write</button>
+								<button type="button" class="btn btn-primary disabled">Block</button>
+								<button type="button" class="btn btn-primary disabled">Report</button>
 							</form>
 						</div>
 					</div>
@@ -107,60 +106,59 @@
 	<hr>
 
 	<!-- Blog -->
-
-
-		<% if (mydata) { %>
-			<% if (mydata == user) { %>
-					<div class="col-sm-4" id="postblock">
-						<p class="h1">What's up?</p>
-							<form id="create_post_form">
-								<div class="form-group">
-									<input class="form-control" name="text" id="text" type="text">
-									<hr>
-									<input type="button" v-on:click="postFeed" class="btn btn-success" value="Confirm"></input>
-								</div>
-
-								<div v-if="loading == true">
-									<p>{{message}}</p>
-									<div class="loader"></div>
-								</div>
-
-							</form>
-					</div>
-			<% } %>
-		<% } %>
-
-			<div class="col-sm-offset-4">
-				<h1>Published</h1>
-					<div id="blog">
-						<div v-if="loading == true" class="loader">
-						</div>
-
-						<div v-else-if="loading == false" class="row">
-							<div class="col-sm-10">
-								<post-list v-bind:posts="posts"></post-list>
-								<div class="col-md-3">
-									<a class="list-group-item" v-on:click="showMore" v-if="buttonStatus == true">
-									<i class="glyphicon glyphicon-chevron-down"></i> Show more</a>
-								</div>
+	<% if (mydata) { %>
+		<% if (mydata == user) { %>
+				<div class="col-md-4" id="postblock">
+					<p class="h1">What's up?</p>
+						<form id="create_post_form">
+							<!-- <input class="form-control" name="text" id="text" type="text"> -->
+							<textarea class="form-control" rows="2" placeholder="Write something interesting..." id="text" type="text"></textarea>
+							<hr>
+							<input type="button" v-on:click="postFeed" class="btn btn-primary" value="Confirm"></input>
+							<span class="glyphicon glyphicon-camera"></span>
+							<div v-if="loading == true">
+								<p>{{message}}</p>
+								<div class="loader"></div>
 							</div>
+						</form>
+				</div>
+		<% } %>
+	<% } %>
+
+	<div class="col-md-offset-4">
+		<h1>Published</h1>
+			<div id="blog">
+				<div v-if="loading == true" class="loader">
+				</div>
+
+				<div v-else-if="loading == false" class="row">
+					<div class="col-sm-10">
+						<post-list v-bind:posts="posts"></post-list>
+						<div class="col-md-offset-1">
+							<button class="btn btn-primary" v-if="buttonStatus == true" v-on:click="showMore">Show more<i class="glyphicon glyphicon-chevron-down"></i></button>
 						</div>
 					</div>
+				</div>
 			</div>
+	</div>
 
 	<!-- LIST OF POSTS -->
 	<script type="text/x-template" id="postList_template">
-			<table class="table">
-					<div class="list-group" v-for="p in posts">
-							<img class="img img-circle" v-bind:src="' ' + p.avalink" id="avatarsmall">
-							<h2><a :href="'/usr/' + p.author">{{ p.author }}</a></h2>
-							<h6>{{ p.date }}</h6>
-						<blockquote>
-							<p>{{ p.text }}</p>
-						</blockquote>
-					</div>
-			</table>
+		<div>
+			<div class="media" v-for="p in posts">
+			  <div class="media-left">
+			  	<a :href="'/usr/' + p.author">
+				    <img v-bind:src="' ' + p.avalink" class="media-object img img-circle" style="width:60px">
+			  	</a>
+			  </div>
+			  <div class="media-body">
+			    <h4 class="media-heading">{{ p.author }} <small><i>{{ p.date }}</i></h4>
+			    <p>{{ p.text }}</p>
+			  </div>
+			</div>
+		</div>
 	</script>
+
 
 	<!-- LIST OF FOLLOWERS -->
 	<script type="text/x-template" id="followersList_template">
