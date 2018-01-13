@@ -15,9 +15,8 @@ hr {
 	border-color: rgba(0, 0, 0, 0.3);
 }
 
-.form-control {
-	resize: vertical;
-	background: rgba(0, 0, 35, 0.1) !important;
+blockquote {
+	border-left: 5px solid rgba(0, 0, 255, 0.3);
 }
 
 nav.navbar {
@@ -25,6 +24,19 @@ nav.navbar {
 	border-bottom: #6BCBFF 1px solid;
 	box-shadow: 0px 3px 5px rgba(8, 8, 8, 0.4); 
 	max-height: 50px !important;
+}
+
+.form-control {
+	resize: vertical;
+	background: rgba(255, 255, 255, 0.4) !important;
+}
+
+.list-group-item-action {
+	background: rgba(255, 255, 255, 0.4) !important;
+}
+
+.list-group-item-action:hover {
+	background: rgba(255, 255, 255, 0.6) !important;
 }
 
 .navbar-inverse {

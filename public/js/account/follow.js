@@ -21,10 +21,11 @@ let tp = new Vue({
       });
     },
     followUser: function() {
+      let url = '/api/follows';
       this.isDisabled = 'btn btn-primary disabled';
 
       // post status to db
-      axios.post('/api/follows', {
+      axios.post(url, {
         target: tp.target
       })
       .then(function(res) {
@@ -35,7 +36,17 @@ let tp = new Vue({
       .catch(function(err) {
         console.log(err);
       });
-
+    },
+    sendMessage: function() {
+      let url = '/api/messages';
+      
+      // post new dialogue
+      axios.post(url, {
+        to: tp.target
+      })
+      .then(function(res) {
+        window.location.href = "/messages";  
+      })
     }
   },
   created: function() {

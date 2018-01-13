@@ -2,6 +2,7 @@
 
 <head>
   <link rel="stylesheet" href="/style/messages.css">
+  <link rel="stylesheet" href="/style/loader.css">
 </head>
 <body>
 	<div class="container">
@@ -10,21 +11,74 @@
 				<div class="col-md-3">
 					<h3>Dialogues</h3>
 					<hr>
+					<dialogues-list :dialogues="dialogues"></dialogues-list>
+					<div class="loader" v-if="loader == true"></div>
 
-					 <div class="list-group">
-					  <a href="#" class="list-group-item list-group-item-action">First item</a>
-					  <a href="#" class="list-group-item list-group-item-action">Second item</a>
-					  <a href="#" class="list-group-item list-group-item-action">Third item</a>
-					</div> 
+			 
 				</div>
 
 				<div class="col-md-6">
 					<h3>Messages</h3>
 					<hr>
-
+					<div class="row">
+						<messages-list :messages="messages"></messages-list>
+					</div>
+					
+					<div class="row">
+						<form>
+							<div class="input-group">
+								<input class="form-control" type="text" placeholder="Write message...">
+								<div class="input-group-btn">
+									<button class="btn btn-primary" type="button" name="send">
+										Send
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
+
+	<input id="user" hidden value="<%=mydata.login%>">
+
 	</div>
 
+	<!-- DIALOGUE LIST -->
+	<script type="text/x-template" id="dialoguesList_template">	
+		<div class="list-group">
+			<div class="list-group-item list-group-item-action" v-for="d in dialogues" @click="clickDialogue(d.userTwo)">
+				<div class="media">
+					<div class="media-left">
+						<img :src="'/usr/' + d.userTwo + '/avatar'" class="img img-circle" style="width: 30px; height: 30px">
+						</div>
+
+						<div class="media-body">
+							<div class="media-heading">
+								<h4 class="media-heading"><strong>{{ d.userTwo }}</strong></h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>			
+	</script>
+
+	<!-- MESSAGES LIST -->
+	<script type="text/x-template" id="messageList_template">
+		<blockquote id="messagepanel">
+			<div class="media" v-for="m in messages">
+			  <div class="media-left">
+			  	<a :href="'/usr/' + m.sender">
+					<img :src="'/usr/' + m.sender + '/avatar'" class="media-object img img-circle" style="width:60px">
+			  	</a>
+			  </div>
+			  <div class="media-body">
+			    <h4 class="media-heading" v-if="defineAuthor(m.sender) == true"><strong class="text-primary">{{ m.sender }}</strong></h4>
+			    <h4 class="media-heading" v-else><strong class="text-danger">{{ m.sender }}</strong></h4>
+			    <p>{{ m.body }}</p>
+			  </div>
+			</div>		
+		</blockquote>
+	</script>
 </body

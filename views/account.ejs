@@ -90,9 +90,9 @@
 				<% if (mydata !== user) { %>
 					<div class="row" id="toolPanel">
 						<div class="col-md-4 col-md-offset-4">
-							<form method="getuser" data-remote="true">
+							<form method="getuser" data-remote="true" class="text-center">
 								<button type="button" :class="isDisabled" @click="followUser()">{{ buttonName }}</button>
-								<button type="button" class="btn btn-primary disabled">Write</button>
+								<button type="button" :class="isDisabled" @click="sendMessage()">Write</button>
 								<button type="button" class="btn btn-primary disabled">Block</button>
 								<button type="button" class="btn btn-primary disabled">Report</button>
 							</form>
@@ -152,7 +152,7 @@
 			  	</a>
 			  </div>
 			  <div class="media-body">
-			    <h4 class="media-heading">{{ p.author }} <small><i>{{ p.date }}</i></h4>
+			    <h4 class="media-heading">{{ p.author }} <small><i>{{ p.date }}</i></small></h4>
 			    <p>{{ p.text }}</p>
 			  </div>
 			</div>

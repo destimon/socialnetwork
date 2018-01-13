@@ -1,9 +1,10 @@
 "use strict"
 
 let ObjectID = require('mongodb').ObjectID;
-let Follower = require('../models/follower');
-let User = require('../models/user');
-let Feed = require('../models/feed');
+let User = require('../models/user'); // db
+let Feed = require('../models/feed'); // db
+let Follower = require('../models/follower'); // db
+let Dialogue = require('../models/dialogue'); // db
 let multer  = require('multer')
 let upload = multer()
 let path = require('path');
@@ -129,7 +130,7 @@ module.exports = function(app, passport, db) {
     }
 	});
 
-	app.post('/api/follows', (req, res) => {
+	app.post('/api/fs', (req, res) => {
 		let user = req.user.login;
 		let target = req.body.target;
 
@@ -293,6 +294,37 @@ module.exports = function(app, passport, db) {
     res.render('messages.ejs', {
       mydata: req.user
     });
+  });
+
+  app.get('/api/messages', isLoggedIn, function(req, res) {
+    let from = req.user.login;
+
+    Dialogue.find({ userOne : from }, function(err, data) {
+      res.json(data);
+    })
+  });
+
+  app.post('/api/messages', isLoggedIn, function(req, res) {
+    let from = req.user.login;
+    let to = req.body.to;
+
+    Dialogue.findOne({ userOne : from , userTwo : to }, function(err, data) {
+      if (err) throw err;
+      console.log('dialogues: ' + data);
+
+      if (data == null || data == undefined) {
+        let newDialogue = new Dialogue();
+
+        newDialogue.userOne = from;
+        newDialogue.userTwo = to;
+
+        newDialogue.save(function(err) {
+          if (err) throw err;
+        });
+      }
+
+      res.send('Data Recieved');
+    }) 
   });
 
   // LOGOUT -----------------------------------------------------------------------------

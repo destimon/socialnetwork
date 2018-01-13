@@ -9,14 +9,14 @@ let userSchema = mongoose.Schema({
 		login		 : String,
 		password 	 : String,
 		name		 : String,
-		surname	 : String,
-		gender	 : String,
+		surname	 	 : String,
+		gender	 	 : String,
 		dob			 : String,
 		about		 : String,
-		status	 : String,
-		avatar	 : {
+		status	 	 : String,
+		avatar	 	 : {
 		  data 				: Buffer,
-		 	contentType	: String,
+		  contentType		: String,
 		  default			: Boolean
 		},
 	
